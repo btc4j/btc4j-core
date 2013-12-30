@@ -1,4 +1,6 @@
-package org.btc4j.api;
+package org.btc4j.btc.api;
+
+import org.btc4j.btc.BitcoinException;
 
 /*
  Copyright (c) 2013 btc4j.org
@@ -22,43 +24,25 @@ package org.btc4j.api;
  SOFTWARE.
  */
 
-public interface BitcoinBlockService {
-	// getbestblockhash
+public interface BitcoinNodeService {
+	// addnode
+	// <node> <add/remove/onetry>
+	// version 0.8 Attempts add or remove <node> from the addnode list or try a
+	// connection to <node> once.
+	// N
+	// public void addNode() throws BitcoinException;
+
+	// getaddednodeinfo
+	// <dns> [node]
+	// version 0.8 Returns information about the given added node, or all added
+	// nodes (note that onetry addnodes are not listed here) If dns is false,
+	// only a list of added nodes will be provided, otherwise connected
+	// information will also be available.
 	//
-	// recent git checkouts only Returns the hash of the best (tip) block in the
-	// longest block chain.
-	// N
-	// public void getBestBlockHash() throws BitcoinException;
+	// public void getAddedNodeInfo() throws BitcoinException;
 
-	// getblock
-	// <hash>
-	// Returns information about the block with the given hash.
-	// N
-	// public void getBlock() throws BitcoinException;
+	// getpeerinfo version 0.7 Returns data about each connected node. N
 
-	// getblockcount
-	//
-	// Returns the number of blocks in the longest block chain.
-	// N
-	// public void getBlockCount() throws BitcoinException;
-
-	// getblockhash
-	// <index>
-	// Returns hash of block in best-block-chain at <index>; index 0 is the
-	// genesis block
-	// N
-	// public void getBlockHash() throws BitcoinException;
-
-	// getblocknumber
-	//
-	// Deprecated. Removed in version 0.7. Use getblockcount.
-	// N
-	// public void getBlockNumber() throws BitcoinException;
-
-	// getblocktemplate
-	// [params]
-	// Returns data needed to construct a block to work on. See BIP_0022 for
-	// more info on params.
-	// N
-	// public void getblocktemplate() throws BitcoinException;
+	// getconnectioncount Returns the number of connections to other nodes. N
+	public int getConnectionCount() throws BitcoinException;
 }

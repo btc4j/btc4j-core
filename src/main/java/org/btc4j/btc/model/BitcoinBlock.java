@@ -1,4 +1,4 @@
-package org.btc4j.api;
+package org.btc4j.btc.model;
 
 /*
  Copyright (c) 2013 btc4j.org
@@ -22,34 +22,8 @@ package org.btc4j.api;
  SOFTWARE.
  */
 
-import org.btc4j.BitcoinException;
+import java.io.Serializable;
 
-public interface BitcoinStatusService {
-
-	// getdifficulty Returns the proof-of-work difficulty as a multiple of the
-	// minimum difficulty. N
-
-	// getgenerate Returns true or false whether bitcoind is currently
-	// generating hashes N
-
-	// gethashespersec Returns a recent hashes per second performance
-	// measurement while generating. N
-
-	// getinfo Returns an object containing various state info. N
-
-	// getmemorypool [data] Replaced in v0.7.0 with getblocktemplate,
-	// submitblock, getrawmempool``` N
-
-	// getrawmempool version 0.7 Returns all transaction ids in memory pool N
-
-	/**
-	 * <code>help</code> List commands, or get help for a command.
-	 * 
-	 * @param command
-	 *            the command
-	 * @return the help text
-	 */
-	public String help(String command) throws BitcoinException;
-
-	// stop Stop bitcoin server. N
+public class BitcoinBlock implements Serializable {
+	private static final long serialVersionUID = -5115242454053420689L;
 }

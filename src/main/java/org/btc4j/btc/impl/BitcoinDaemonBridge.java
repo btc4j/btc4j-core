@@ -1,4 +1,4 @@
-package org.btc4j.impl;
+package org.btc4j.btc.impl;
 
 /*
  Copyright (c) 2013 btc4j.org
@@ -31,7 +31,9 @@ import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonString;
+import javax.json.JsonValue;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpState;
@@ -40,13 +42,13 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.btc4j.BitcoinException;
-import org.btc4j.api.BitcoinAccountService;
-import org.btc4j.api.BitcoinBlockService;
-import org.btc4j.api.BitcoinMiscService;
-import org.btc4j.api.BitcoinNodeService;
-import org.btc4j.api.BitcoinStatusService;
-import org.btc4j.api.BitcoinWalletService;
+import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.api.BitcoinAccountService;
+import org.btc4j.btc.api.BitcoinBlockService;
+import org.btc4j.btc.api.BitcoinMiscService;
+import org.btc4j.btc.api.BitcoinNodeService;
+import org.btc4j.btc.api.BitcoinStatusService;
+import org.btc4j.btc.api.BitcoinWalletService;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
 		BitcoinBlockService, BitcoinMiscService, BitcoinNodeService,
@@ -71,28 +73,49 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	private static final String RPC_ERROR_MESSAGE = "Server error";
 	private static final String RPC_ERROR_DATA_NULL_URL = "Server URL is null";
 	private static final String RPC_ERROR_DATA_NULL_RESPONSE = "Response is empty";
-	private static final String BTCAPI_HELP = "help";
+	private static final String BTCAPI_BLOCK_COUNT = "getblockcount";
+	private static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
+	private static final String BTCAPI_STATUS_HELP = "help";
 	private URL url;
 	private HttpState state;
 
-	public BitcoinDaemonBridge(URL url, String username, String password) {
+	public BitcoinDaemonBridge(URL url) {
 		this.url = url;
 		state = new HttpState();
+	}
+			
+	public BitcoinDaemonBridge(URL url, String username, String password) {
+		this(url);
 		state.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
 				username, password));
 	}
 
+	@Override
+	public int getBlockCount() throws BitcoinException {
+		JsonObject result = invoke(BTCAPI_BLOCK_COUNT, null);
+		LOGGER.info("result: " + result);
+		return Integer.valueOf(result.toString());
+	}
+	
+	@Override
+	public int getConnectionCount() throws BitcoinException {
+		JsonObject result = invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
+		LOGGER.info("result: " + result);
+		return Integer.valueOf(result.toString());
+	}
+	
+	@Override
 	public String help(String command) throws BitcoinException {
 		JsonArray parameters = null;
 		if ((command != null) && (command.length() > 0)) {
 			parameters = Json.createArrayBuilder().add(command).build();
 		}
-		JsonObject result = invoke(BTCAPI_HELP, parameters);
+		JsonObject result = invoke(BTCAPI_STATUS_HELP, parameters);
 		LOGGER.info("result: " + result);
 		return "" + result;
 	}
 
-	private JsonObject invoke(String method, JsonArray parameters)
+	private JsonObject invoke(String method, JsonValue parameters)
 			throws BitcoinException {
 		if (url == null) {
 			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
@@ -102,9 +125,15 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		try {
 			post.setRequestHeader(RPC_HTTP_HEADER, RPC_CONTENT_TYPE);
 			String guid = UUID.randomUUID().toString();
-			JsonObject request = Json.createObjectBuilder()
-					.add(RPC_JSONRPC, RPC_VERSION).add(RPC_METHOD, method)
-					.add(RPC_PARAMS, parameters).add(RPC_ID, guid).build();
+			JsonObjectBuilder builder = Json.createObjectBuilder();
+			builder.add(RPC_JSONRPC, RPC_VERSION).add(RPC_METHOD, method);
+			if (parameters != null) {
+				builder.add(RPC_PARAMS, parameters);
+			} else {
+				builder.addNull(RPC_PARAMS);
+			}
+			builder.add(RPC_ID, guid);
+			JsonObject request = builder.build();
 			LOGGER.info("request: " + request);
 			post.setRequestEntity(new StringRequestEntity(request.toString(),
 					JSON_CONTENT_TYPE, null));
@@ -126,17 +155,11 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 			if (id == null) {
 				JsonObject error = response.getJsonObject(RPC_ERROR);
 				throw new BitcoinException(error.getInt(RPC_CODE),
-						error.getString(RPC_MESSAGE) + ": "
+						error.get(RPC_MESSAGE) + ": "
 								+ error.getJsonObject(RPC_DATA));
 			}
 			return response.getJsonObject(RPC_RESULT);
-		} catch (NullPointerException e) {
-			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-					+ e.getMessage(), e);
-		} catch (ClassCastException e) {
-			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-					+ e.getMessage(), e);
-		} catch (IOException e) {
+		} catch (NullPointerException | ClassCastException | IOException e) {
 			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
 					+ e.getMessage(), e);
 		} finally {

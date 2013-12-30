@@ -1,4 +1,4 @@
-package org.btc4j;
+package org.btc4j.btc.api;
 
 /*
  Copyright (c) 2013 btc4j.org
@@ -22,28 +22,35 @@ package org.btc4j;
  SOFTWARE.
  */
 
-public class BitcoinException extends Exception {
-	private static final long serialVersionUID = -3976168163536364789L;
+public interface BitcoinAccountService {
+	// getaccount
+	// <bitcoinaddress>
+	// Returns the account associated with the given address.
+	// N
+	// public void getAccount() throws BitcoinException;
 
-	private final int code;
+	// getaccountaddress
+	// <account>
+	// Returns the current bitcoin address for receiving payments to this
+	// account.
+	// N
+	// public void getAccountAddress() throws BitcoinException;
 
-	public BitcoinException(int code, String message) {
-		super(message);
-		this.code = code;
-	}
+	// getaddressesbyaccount
+	// <account>
+	// Returns the list of addresses for the given account.
+	// N
+	// public void getAddressesByAccount() throws BitcoinException;
 
-	public BitcoinException(int code, String message, Throwable cause) {
-		super(message, cause);
-		this.code = code;
-	}
+	// getbalance
+	// [account] [minconf=1]
+	// If [account] is not specified, returns the server's total available
+	// balance. If [account] is specified, returns the balance in the account.
+	// N
+	// public void getBalance() throws BitcoinException;
 
-	public int getCode() {
-		return code;
-	}
-
-	@Override
-	public String toString() {
-		return getClass().getName() + ": " + code + ": "
-				+ getLocalizedMessage();
-	}
+	// getnewaddress [account] Returns a new bitcoin address for receiving
+	// payments. If [account] is specified (recommended), it is added to the
+	// address book so payments received with the address will be credited to
+	// [account]. N
 }

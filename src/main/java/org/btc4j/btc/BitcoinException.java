@@ -1,4 +1,4 @@
-package org.btc4j.api;
+package org.btc4j.btc;
 
 /*
  Copyright (c) 2013 btc4j.org
@@ -22,24 +22,28 @@ package org.btc4j.api;
  SOFTWARE.
  */
 
-public interface BitcoinNodeService {
-	// addnode
-	// <node> <add/remove/onetry>
-	// version 0.8 Attempts add or remove <node> from the addnode list or try a
-	// connection to <node> once.
-	// N
-	// public void addNode() throws BitcoinException;
+public class BitcoinException extends Exception {
+	private static final long serialVersionUID = -3976168163536364789L;
 
-	// getaddednodeinfo
-	// <dns> [node]
-	// version 0.8 Returns information about the given added node, or all added
-	// nodes (note that onetry addnodes are not listed here) If dns is false,
-	// only a list of added nodes will be provided, otherwise connected
-	// information will also be available.
-	//
-	// public void getAddedNodeInfo() throws BitcoinException;
+	private final int code;
 
-	// getpeerinfo version 0.7 Returns data about each connected node. N
+	public BitcoinException(int code, String message) {
+		super(message);
+		this.code = code;
+	}
 
-	// getconnectioncount Returns the number of connections to other nodes. N
+	public BitcoinException(int code, String message, Throwable cause) {
+		super(message, cause);
+		this.code = code;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getName() + ": " + code + ": "
+				+ getLocalizedMessage();
+	}
 }

@@ -1,4 +1,4 @@
-package org.btc4j.api;
+package org.btc4j.btc.api;
 
 /*
  Copyright (c) 2013 btc4j.org
@@ -22,35 +22,34 @@ package org.btc4j.api;
  SOFTWARE.
  */
 
-public interface BitcoinAccountService {
-	// getaccount
-	// <bitcoinaddress>
-	// Returns the account associated with the given address.
-	// N
-	// public void getAccount() throws BitcoinException;
+import org.btc4j.btc.BitcoinException;
 
-	// getaccountaddress
-	// <account>
-	// Returns the current bitcoin address for receiving payments to this
-	// account.
-	// N
-	// public void getAccountAddress() throws BitcoinException;
+public interface BitcoinStatusService {
 
-	// getaddressesbyaccount
-	// <account>
-	// Returns the list of addresses for the given account.
-	// N
-	// public void getAddressesByAccount() throws BitcoinException;
+	// getdifficulty Returns the proof-of-work difficulty as a multiple of the
+	// minimum difficulty. N
 
-	// getbalance
-	// [account] [minconf=1]
-	// If [account] is not specified, returns the server's total available
-	// balance. If [account] is specified, returns the balance in the account.
-	// N
-	// public void getBalance() throws BitcoinException;
+	// getgenerate Returns true or false whether bitcoind is currently
+	// generating hashes N
 
-	// getnewaddress [account] Returns a new bitcoin address for receiving
-	// payments. If [account] is specified (recommended), it is added to the
-	// address book so payments received with the address will be credited to
-	// [account]. N
+	// gethashespersec Returns a recent hashes per second performance
+	// measurement while generating. N
+
+	// getinfo Returns an object containing various state info. N
+
+	// getmemorypool [data] Replaced in v0.7.0 with getblocktemplate,
+	// submitblock, getrawmempool``` N
+
+	// getrawmempool version 0.7 Returns all transaction ids in memory pool N
+
+	/**
+	 * <code>help</code> List commands, or get help for a command.
+	 * 
+	 * @param command
+	 *            the command
+	 * @return the help text
+	 */
+	public String help(String command) throws BitcoinException;
+
+	// stop Stop bitcoin server. N
 }
