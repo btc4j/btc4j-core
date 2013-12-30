@@ -83,7 +83,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		this.url = url;
 		state = new HttpState();
 	}
-			
+
 	public BitcoinDaemonBridge(URL url, String username, String password) {
 		this(url);
 		state.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
@@ -92,30 +92,30 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	@Override
 	public int getBlockCount() throws BitcoinException {
-		JsonObject result = invoke(BTCAPI_BLOCK_COUNT, null);
+		JsonValue result = invoke(BTCAPI_BLOCK_COUNT, null);
 		LOGGER.info("result: " + result);
 		return Integer.valueOf(result.toString());
 	}
-	
+
 	@Override
 	public int getConnectionCount() throws BitcoinException {
-		JsonObject result = invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
+		JsonValue result = invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
 		LOGGER.info("result: " + result);
 		return Integer.valueOf(result.toString());
 	}
-	
+
 	@Override
 	public String help(String command) throws BitcoinException {
 		JsonArray parameters = null;
 		if ((command != null) && (command.length() > 0)) {
 			parameters = Json.createArrayBuilder().add(command).build();
 		}
-		JsonObject result = invoke(BTCAPI_STATUS_HELP, parameters);
+		JsonValue result = invoke(BTCAPI_STATUS_HELP, parameters);
 		LOGGER.info("result: " + result);
 		return "" + result;
 	}
 
-	private JsonObject invoke(String method, JsonValue parameters)
+	private JsonValue invoke(String method, JsonValue parameters)
 			throws BitcoinException {
 		if (url == null) {
 			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
@@ -158,8 +158,14 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 						error.get(RPC_MESSAGE) + ": "
 								+ error.getJsonObject(RPC_DATA));
 			}
-			return response.getJsonObject(RPC_RESULT);
-		} catch (NullPointerException | ClassCastException | IOException e) {
+			return response.get(RPC_RESULT);
+		} catch (NullPointerException e) {
+			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
+					+ e.getMessage(), e);
+		} catch (ClassCastException e) {
+			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
+					+ e.getMessage(), e);
+		} catch (IOException e) {
 			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
 					+ e.getMessage(), e);
 		} finally {
