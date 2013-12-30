@@ -1,7 +1,3 @@
-package org.btc4j.btc.api;
-
-import org.btc4j.btc.BitcoinException;
-
 /*
  Copyright (c) 2013 btc4j.org
 
@@ -24,6 +20,9 @@ import org.btc4j.btc.BitcoinException;
  SOFTWARE.
  */
 
+package org.btc4j.btc.api;
+
+import org.btc4j.btc.BitcoinException;
 public interface BitcoinBlockService {
 	// getbestblockhash
 	//

@@ -1,5 +1,3 @@
-package org.btc4j.btc;
-
 /*
  Copyright (c) 2013 btc4j.org
 
@@ -21,6 +19,8 @@ package org.btc4j.btc;
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
+
+package org.btc4j.btc;
 
 public class BitcoinException extends Exception {
 	private static final long serialVersionUID = -3976168163536364789L;

@@ -1,5 +1,3 @@
-package org.btc4j.btc.impl;
-
 /*
  Copyright (c) 2013 btc4j.org
 
@@ -21,6 +19,8 @@ package org.btc4j.btc.impl;
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
+
+package org.btc4j.btc.impl;
 
 import java.io.IOException;
 import java.io.StringReader;
