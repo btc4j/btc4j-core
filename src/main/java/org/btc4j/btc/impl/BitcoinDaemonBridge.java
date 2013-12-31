@@ -56,26 +56,6 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
-	private static final String RPC_JSONRPC = "jsonrpc";
-	private static final String RPC_VERSION = "2.0";
-	private static final String RPC_ID = "id";
-	private static final String RPC_METHOD = "method";
-	private static final String RPC_PARAMS = "params";
-	private static final String RPC_RESULT = "result";
-	private static final String RPC_ERROR = "error";
-	private static final String RPC_CODE = "code";
-	private static final String RPC_MESSAGE = "message";
-	private static final String RPC_DATA = "data";
-	private static final String RPC_HTTP_HEADER = "Content-Type";
-	private static final String RPC_CONTENT_TYPE = "application/json-rpc";
-	private static final String JSON_CONTENT_TYPE = "application/json";
-	private static final int RPC_ERROR_CODE = -32077;
-	private static final String RPC_ERROR_MESSAGE = "Server error";
-	private static final String RPC_ERROR_DATA_NULL_URL = "Server URL is null";
-	private static final String RPC_ERROR_DATA_NULL_RESPONSE = "Response is empty";
-	private static final String BTCAPI_BLOCK_COUNT = "getblockcount";
-	private static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
-	private static final String BTCAPI_STATUS_HELP = "help";
 	private URL url;
 	private HttpState state;
 
@@ -90,18 +70,40 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				username, password));
 	}
 
+	//TODO BitcoinAccountService
+	
+	//BitcoinBlockService
+	private static final String BTCAPI_BLOCK_COUNT = "getblockcount";
+	
 	@Override
 	public int getBlockCount() throws BitcoinException {
 		JsonValue result = invoke(BTCAPI_BLOCK_COUNT, null);
 		LOGGER.info("result: " + result);
 		return Integer.valueOf(result.toString());
 	}
+	
+	//TODO BitcoinMiscService
+	
+	//BitcoinNodeService
+	private static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
 
 	@Override
 	public int getConnectionCount() throws BitcoinException {
 		JsonValue result = invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
 		LOGGER.info("result: " + result);
 		return Integer.valueOf(result.toString());
+	}
+	
+	//BitcoinStatusService
+	private static final String BTCAPI_STATUS_INFO = "getinfo";
+	private static final String BTCAPI_STATUS_HELP = "help";
+	private static final String BTCAPI_STATUS_STOP = "stop";
+	
+	@Override
+	public String getInfo() throws BitcoinException {
+		JsonValue result = invoke(BTCAPI_STATUS_INFO, null);
+		LOGGER.info("result: " + result);
+		return String.valueOf(result);
 	}
 
 	@Override
@@ -112,9 +114,36 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		}
 		JsonValue result = invoke(BTCAPI_STATUS_HELP, parameters);
 		LOGGER.info("result: " + result);
-		return "" + result;
+		return String.valueOf(result);
 	}
+	
+	@Override
+	public String stop() throws BitcoinException {
+		JsonValue result = invoke(BTCAPI_STATUS_STOP, null);
+		LOGGER.info("result: " + result);
+		return String.valueOf(result);
+	}
+	
+	//TODO BitcoinWalletService
 
+	//JSON-RPC over HTTP w/ basic authentication
+	private static final String RPC_JSONRPC = "jsonrpc";
+	private static final String RPC_VERSION = "2.0";
+	private static final String RPC_ID = "id";
+	private static final String RPC_METHOD = "method";
+	private static final String RPC_PARAMS = "params";
+	private static final String RPC_RESULT = "result";
+	private static final String RPC_ERROR = "error";
+	private static final String RPC_CODE = "code";
+	private static final String RPC_MESSAGE = "message";
+	private static final String RPC_DATA = "data";
+	private static final String RPC_HTTP_HEADER = "Content-Type";
+	private static final String RPC_CONTENT_TYPE = "application/json-rpc";
+	private static final String JSON_CONTENT_TYPE = "application/json";
+	private static final String RPC_ERROR_MESSAGE = "Server error";
+	private static final String RPC_ERROR_DATA_NULL_URL = "Server URL is null";
+	private static final String RPC_ERROR_DATA_NULL_RESPONSE = "Response is empty";
+	private static final int RPC_ERROR_CODE = -32077;
 	private JsonValue invoke(String method, JsonValue parameters)
 			throws BitcoinException {
 		if (url == null) {
@@ -159,13 +188,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 								+ error.getJsonObject(RPC_DATA));
 			}
 			return response.get(RPC_RESULT);
-		} catch (NullPointerException e) {
-			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-					+ e.getMessage(), e);
-		} catch (ClassCastException e) {
-			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-					+ e.getMessage(), e);
-		} catch (IOException e) {
+		} catch (NullPointerException | ClassCastException | IOException e) {
 			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
 					+ e.getMessage(), e);
 		} finally {

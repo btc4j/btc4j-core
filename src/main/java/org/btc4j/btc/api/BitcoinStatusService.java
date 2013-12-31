@@ -25,6 +25,9 @@ package org.btc4j.btc.api;
 import org.btc4j.btc.BitcoinException;
 
 public interface BitcoinStatusService {
+	public String getInfo() throws BitcoinException;
+	public String help(String command) throws BitcoinException;
+	public String stop() throws BitcoinException;
 
 	// getdifficulty Returns the proof-of-work difficulty as a multiple of the
 	// minimum difficulty. N
@@ -35,21 +38,8 @@ public interface BitcoinStatusService {
 	// gethashespersec Returns a recent hashes per second performance
 	// measurement while generating. N
 
-	// getinfo Returns an object containing various state info. N
-
 	// getmemorypool [data] Replaced in v0.7.0 with getblocktemplate,
 	// submitblock, getrawmempool``` N
 
 	// getrawmempool version 0.7 Returns all transaction ids in memory pool N
-
-	/**
-	 * <code>help</code> List commands, or get help for a command.
-	 * 
-	 * @param command
-	 *            the command
-	 * @return the help text
-	 */
-	public String help(String command) throws BitcoinException;
-
-	// stop Stop bitcoin server. N
 }
