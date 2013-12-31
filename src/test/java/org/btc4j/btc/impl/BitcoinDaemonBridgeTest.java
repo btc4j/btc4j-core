@@ -24,6 +24,7 @@ package org.btc4j.btc.impl;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.net.URL;
 
 import org.btc4j.btc.BitcoinException;
@@ -32,45 +33,71 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class BitcoinDaemonBridgeTest {
+	private static final String BITCOIND_DIR = "E:/bitcoind-0.8.6";
+	private static final String BITCOIND_CMD = "bitcoind.exe";
+	private static final String BITCOIND_TEST_ARG = "-testnet=1";
+	private static final String BITCOIND_USER = "user";
+	private static final String BITCOIND_USER_ARG = "-rpcuser=" + BITCOIND_USER;
+	private static final String BITCOIND_PASSWD = "password";
+	private static final String BITCOIND_PASSWD_ARG = "-rpcpassword="
+			+ BITCOIND_PASSWD;
+	private static final String BITCOIND_URL = "http://127.0.0.1:18332";
+	private static long BITCOIND_DELAY_SECONDS = 3;
 	private static BitcoinDaemonBridge BITCOIND;
 
 	@BeforeClass
 	public static void testSetup() throws Exception {
-		//TODO start bitcoind
-		BITCOIND = new BitcoinDaemonBridge(new URL("http://127.0.0.1:18332"), "testnetuser", "testnetpassword");
+		ProcessBuilder pb = new ProcessBuilder(BITCOIND_DIR + "/"
+				+ BITCOIND_CMD, BITCOIND_TEST_ARG, BITCOIND_USER_ARG,
+				BITCOIND_PASSWD_ARG);
+		pb.directory(new File(BITCOIND_DIR));
+		pb.start();
+		Thread.sleep(BITCOIND_DELAY_SECONDS * 1000);
+		BITCOIND = new BitcoinDaemonBridge(new URL(BITCOIND_URL),
+				BITCOIND_USER, BITCOIND_PASSWD);
 	}
-	
+
 	@AfterClass
 	public static void testCleanup() throws Exception {
 		assertTrue(BITCOIND.stop().length() >= 0);
 	}
 
-	//TODO BitcoinAccountService
-	
-	//BitcoinBlockService
+	// TODO BitcoinAccountService
+
+	// BitcoinBlockService
 	@Test
 	public void getBlockCount() throws BitcoinException {
 		assertTrue(BITCOIND.getBlockCount() >= 0);
 	}
-	
-	//TODO BitcoinMiscService
-	
-	//BitcoinNodeService
+
+	// TODO BitcoinMiscService
+
+	// BitcoinNodeService
 	@Test
 	public void getConnectionCount() throws BitcoinException {
 		assertTrue(BITCOIND.getConnectionCount() >= 0);
 	}
+
+	// BitcoinStatusService
+	@Test
+	public void getDifficulty() throws BitcoinException {
+		assertTrue(BITCOIND.getDifficulty() >= 0);
+	}
 	
-	//BitcoinStatusService
+	@Test
+	public void getGenerate() throws BitcoinException {
+		assertTrue(BITCOIND.getGenerate() || true);
+	}
+	
 	@Test
 	public void getInfo() throws BitcoinException {
 		assertTrue(BITCOIND.getInfo().length() >= 0);
 	}
-	
+
 	@Test
 	public void help() throws BitcoinException {
 		assertTrue(BITCOIND.help("help").length() >= 0);
 	}
-	
-	//TODO BitcoinWalletService
+
+	// TODO BitcoinWalletService
 }

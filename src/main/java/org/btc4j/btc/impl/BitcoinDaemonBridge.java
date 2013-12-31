@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonString;
@@ -77,9 +78,8 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	
 	@Override
 	public int getBlockCount() throws BitcoinException {
-		JsonValue result = invoke(BTCAPI_BLOCK_COUNT, null);
-		LOGGER.info("result: " + result);
-		return Integer.valueOf(result.toString());
+		JsonNumber result = (JsonNumber) invoke(BTCAPI_BLOCK_COUNT, null);
+		return result.intValueExact();
 	}
 	
 	//TODO BitcoinMiscService
@@ -89,20 +89,32 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	@Override
 	public int getConnectionCount() throws BitcoinException {
-		JsonValue result = invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
-		LOGGER.info("result: " + result);
-		return Integer.valueOf(result.toString());
+		JsonNumber result = (JsonNumber) invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
+		return result.intValueExact();
 	}
 	
 	//BitcoinStatusService
+	private static final String BTCAPI_STATUS_DIFFICULTY= "getdifficulty";
+	private static final String BTCAPI_STATUS_GENERATE= "getgenerate";
 	private static final String BTCAPI_STATUS_INFO = "getinfo";
 	private static final String BTCAPI_STATUS_HELP = "help";
 	private static final String BTCAPI_STATUS_STOP = "stop";
 	
 	@Override
+	public double getDifficulty() throws BitcoinException {
+		JsonNumber result = (JsonNumber) invoke(BTCAPI_STATUS_DIFFICULTY, null);
+		return result.doubleValue();
+	}
+
+	@Override
+	public boolean getGenerate() throws BitcoinException {
+		JsonValue result = invoke(BTCAPI_STATUS_GENERATE, null);
+		return Boolean.valueOf(String.valueOf(result));
+	}
+	
+	@Override
 	public String getInfo() throws BitcoinException {
 		JsonValue result = invoke(BTCAPI_STATUS_INFO, null);
-		LOGGER.info("result: " + result);
 		return String.valueOf(result);
 	}
 
@@ -112,16 +124,14 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		if ((command != null) && (command.length() > 0)) {
 			parameters = Json.createArrayBuilder().add(command).build();
 		}
-		JsonValue result = invoke(BTCAPI_STATUS_HELP, parameters);
-		LOGGER.info("result: " + result);
-		return String.valueOf(result);
+		JsonString result = (JsonString) invoke(BTCAPI_STATUS_HELP, parameters);
+		return result.getString();
 	}
 	
 	@Override
 	public String stop() throws BitcoinException {
-		JsonValue result = invoke(BTCAPI_STATUS_STOP, null);
-		LOGGER.info("result: " + result);
-		return String.valueOf(result);
+		JsonString result = (JsonString) invoke(BTCAPI_STATUS_STOP, null);
+		return result.getString();
 	}
 	
 	//TODO BitcoinWalletService
@@ -143,6 +153,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	private static final String RPC_ERROR_MESSAGE = "Server error";
 	private static final String RPC_ERROR_DATA_NULL_URL = "Server URL is null";
 	private static final String RPC_ERROR_DATA_NULL_RESPONSE = "Response is empty";
+	private static final String RPC_ERROR_DATA_INVALID_ID = "Response id does not match request id";
 	private static final int RPC_ERROR_CODE = -32077;
 	private JsonValue invoke(String method, JsonValue parameters)
 			throws BitcoinException {
@@ -180,12 +191,17 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE
 						+ ": " + RPC_ERROR_DATA_NULL_RESPONSE);
 			}
+			LOGGER.info("response: " + response);
 			JsonString id = response.getJsonString(RPC_ID);
 			if (id == null) {
 				JsonObject error = response.getJsonObject(RPC_ERROR);
 				throw new BitcoinException(error.getInt(RPC_CODE),
 						error.get(RPC_MESSAGE) + ": "
 								+ error.getJsonObject(RPC_DATA));
+			}
+			if (!guid.equals(id.getString())) {
+				throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
+						+ RPC_ERROR_DATA_INVALID_ID);
 			}
 			return response.get(RPC_RESULT);
 		} catch (NullPointerException | ClassCastException | IOException e) {

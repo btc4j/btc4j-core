@@ -25,15 +25,12 @@ package org.btc4j.btc.api;
 import org.btc4j.btc.BitcoinException;
 
 public interface BitcoinStatusService {
+	public double getDifficulty() throws BitcoinException;
+	public boolean getGenerate() throws BitcoinException;
+	//result: {"version":80600,"protocolversion":70001,"walletversion":60000,"balance":0E-8,"blocks":26000,"timeoffset":1,"connections":7,"proxy":"","difficulty":5.98565110,"testnet":true,"keypoololdest":1388494604,"keypoolsize":101,"paytxfee":0E-8,"errors":""}
 	public String getInfo() throws BitcoinException;
 	public String help(String command) throws BitcoinException;
 	public String stop() throws BitcoinException;
-
-	// getdifficulty Returns the proof-of-work difficulty as a multiple of the
-	// minimum difficulty. N
-
-	// getgenerate Returns true or false whether bitcoind is currently
-	// generating hashes N
 
 	// gethashespersec Returns a recent hashes per second performance
 	// measurement while generating. N
