@@ -23,13 +23,17 @@
 package org.btc4j.btc.api;
 
 import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinInfo;
 
 public interface BitcoinStatusService {
 	public double getDifficulty() throws BitcoinException;
+
 	public boolean getGenerate() throws BitcoinException;
-	//result: {"version":80600,"protocolversion":70001,"walletversion":60000,"balance":0E-8,"blocks":26000,"timeoffset":1,"connections":7,"proxy":"","difficulty":5.98565110,"testnet":true,"keypoololdest":1388494604,"keypoolsize":101,"paytxfee":0E-8,"errors":""}
-	public String getInfo() throws BitcoinException;
+
+	public BitcoinInfo getInfo() throws BitcoinException;
+
 	public String help(String command) throws BitcoinException;
+
 	public String stop() throws BitcoinException;
 
 	// gethashespersec Returns a recent hashes per second performance

@@ -28,6 +28,7 @@ import java.io.File;
 import java.net.URL;
 
 import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinInfo;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -59,45 +60,65 @@ public class BitcoinDaemonBridgeTest {
 
 	@AfterClass
 	public static void testCleanup() throws Exception {
-		assertTrue(BITCOIND.stop().length() >= 0);
+		String stop = BITCOIND.stop();
+		assertNotNull(stop);
+		assertTrue(stop.length() >= 0);
 	}
 
-	// TODO BitcoinAccountService
+	// BitcoinAccountService
 
 	// BitcoinBlockService
 	@Test
 	public void getBlockCount() throws BitcoinException {
-		assertTrue(BITCOIND.getBlockCount() >= 0);
+		int blocks = BITCOIND.getBlockCount();
+		assertTrue(blocks >= 0);
 	}
 
-	// TODO BitcoinMiscService
+	// BitcoinMiscService
 
 	// BitcoinNodeService
 	@Test
 	public void getConnectionCount() throws BitcoinException {
-		assertTrue(BITCOIND.getConnectionCount() >= 0);
+		int connections = BITCOIND.getConnectionCount();
+		assertTrue(connections >= 0);
 	}
 
 	// BitcoinStatusService
 	@Test
 	public void getDifficulty() throws BitcoinException {
-		assertTrue(BITCOIND.getDifficulty() >= 0);
+		double difficulty = BITCOIND.getDifficulty();
+		assertTrue(difficulty >= 0);
 	}
-	
+
 	@Test
 	public void getGenerate() throws BitcoinException {
-		assertTrue(BITCOIND.getGenerate() || true);
+		boolean generate = BITCOIND.getGenerate();
+		assertTrue(generate || true);
 	}
-	
+
 	@Test
 	public void getInfo() throws BitcoinException {
-		assertTrue(BITCOIND.getInfo().length() >= 0);
+		BitcoinInfo info = BITCOIND.getInfo();
+		assertNotNull(info);
+		assertTrue(info.isTestnet());
+		assertEquals(80600, info.getVersion());
 	}
 
 	@Test
 	public void help() throws BitcoinException {
-		assertTrue(BITCOIND.help("help").length() >= 0);
+		String help = BITCOIND.help(null);
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
+		help = BITCOIND.help("");
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
+		help = BITCOIND.help("fakecommand");
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
+		help = BITCOIND.help("help");
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
 	}
 
-	// TODO BitcoinWalletService
+	// BitcoinWalletService
 }

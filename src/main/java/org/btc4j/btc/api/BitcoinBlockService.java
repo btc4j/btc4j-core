@@ -23,6 +23,7 @@
 package org.btc4j.btc.api;
 
 import org.btc4j.btc.BitcoinException;
+
 public interface BitcoinBlockService {
 	// getbestblockhash
 	//

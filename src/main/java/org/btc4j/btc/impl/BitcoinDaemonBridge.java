@@ -43,6 +43,7 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.btc4j.btc.BitcoinConstant;
 import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.api.BitcoinAccountService;
 import org.btc4j.btc.api.BitcoinBlockService;
@@ -50,6 +51,7 @@ import org.btc4j.btc.api.BitcoinMiscService;
 import org.btc4j.btc.api.BitcoinNodeService;
 import org.btc4j.btc.api.BitcoinStatusService;
 import org.btc4j.btc.api.BitcoinWalletService;
+import org.btc4j.btc.model.BitcoinInfo;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
 		BitcoinBlockService, BitcoinMiscService, BitcoinNodeService,
@@ -71,51 +73,115 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				username, password));
 	}
 
-	//TODO BitcoinAccountService
-	
-	//BitcoinBlockService
-	private static final String BTCAPI_BLOCK_COUNT = "getblockcount";
-	
+	protected JsonValue invoke(String method, JsonValue parameters)
+			throws BitcoinException {
+		if (url == null) {
+			throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+							+ BitcoinConstant.BTC4J_ERROR_DATA_NULL_URL);
+		}
+		PostMethod post = new PostMethod(url.toString());
+		try {
+			post.setRequestHeader(BitcoinConstant.BTC4J_HTTP_HEADER,
+					BitcoinConstant.BTC4J_JSONRPC_CONTENT_TYPE);
+			String guid = UUID.randomUUID().toString();
+			JsonObjectBuilder builder = Json.createObjectBuilder();
+			builder.add(BitcoinConstant.JSONRPC,
+					BitcoinConstant.JSONRPC_VERSION).add(
+					BitcoinConstant.JSONRPC_METHOD, method);
+			if (parameters != null) {
+				builder.add(BitcoinConstant.JSONRPC_PARAMS, parameters);
+			} else {
+				builder.addNull(BitcoinConstant.JSONRPC_PARAMS);
+			}
+			builder.add(BitcoinConstant.JSONRPC_ID, guid);
+			JsonObject request = builder.build();
+			LOGGER.info("request: " + request);
+			post.setRequestEntity(new StringRequestEntity(request.toString(),
+					BitcoinConstant.BTC4J_JSON_CONTENT_TYPE, null));
+			HttpClient client = new HttpClient();
+			client.setState(state);
+			int status = client.executeMethod(post);
+			if (status != HttpStatus.SC_OK) {
+				throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+						BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + status
+								+ " " + HttpStatus.getStatusText(status));
+			}
+			JsonObject response = (JsonObject) Json.createReader(
+					new StringReader(post.getResponseBodyAsString())).read();
+			if (response == null) {
+				throw new BitcoinException(
+						BitcoinConstant.BTC4J_ERROR_CODE,
+						BitcoinConstant.BTC4J_ERROR_MESSAGE
+								+ ": "
+								+ BitcoinConstant.BTC4J_ERROR_DATA_NULL_RESPONSE);
+			}
+			LOGGER.info("response: " + response);
+			JsonString id = response.getJsonString(BitcoinConstant.JSONRPC_ID);
+			if (id == null) {
+				JsonObject error = response
+						.getJsonObject(BitcoinConstant.JSONRPC_ERROR);
+				throw new BitcoinException(
+						error.getInt(BitcoinConstant.JSONRPC_CODE),
+						error.get(BitcoinConstant.JSONRPC_MESSAGE)
+								+ ": "
+								+ error.getJsonObject(BitcoinConstant.JSONRPC_DATA));
+			}
+			if (!guid.equals(id.getString())) {
+				throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+						BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+								+ BitcoinConstant.BTC4J_ERROR_DATA_INVALID_ID);
+			}
+			return response.get(BitcoinConstant.JSONRPC_RESULT);
+		} catch (NullPointerException | ClassCastException | IOException e) {
+			throw new BitcoinException(
+					BitcoinConstant.BTC4J_ERROR_CODE,
+					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + e.getMessage(),
+					e);
+		} finally {
+			post.releaseConnection();
+		}
+	}
+
+	// BitcoinAccountService
+
+	// BitcoinBlockService
 	@Override
 	public int getBlockCount() throws BitcoinException {
-		JsonNumber result = (JsonNumber) invoke(BTCAPI_BLOCK_COUNT, null);
-		return result.intValueExact();
+		JsonNumber result = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_BLOCK_COUNT, null);
+		return result.intValue();
 	}
-	
-	//TODO BitcoinMiscService
-	
-	//BitcoinNodeService
-	private static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
 
+	// BitcoinMiscService
+
+	// BitcoinNodeService
 	@Override
 	public int getConnectionCount() throws BitcoinException {
-		JsonNumber result = (JsonNumber) invoke(BTCAPI_NODE_CONNECTION_COUNT, null);
-		return result.intValueExact();
+		JsonNumber result = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT, null);
+		return result.intValue();
 	}
-	
-	//BitcoinStatusService
-	private static final String BTCAPI_STATUS_DIFFICULTY= "getdifficulty";
-	private static final String BTCAPI_STATUS_GENERATE= "getgenerate";
-	private static final String BTCAPI_STATUS_INFO = "getinfo";
-	private static final String BTCAPI_STATUS_HELP = "help";
-	private static final String BTCAPI_STATUS_STOP = "stop";
-	
+
+	// BitcoinStatusService
 	@Override
 	public double getDifficulty() throws BitcoinException {
-		JsonNumber result = (JsonNumber) invoke(BTCAPI_STATUS_DIFFICULTY, null);
+		JsonNumber result = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_STATUS_DIFFICULTY, null);
 		return result.doubleValue();
 	}
 
 	@Override
 	public boolean getGenerate() throws BitcoinException {
-		JsonValue result = invoke(BTCAPI_STATUS_GENERATE, null);
+		JsonValue result = invoke(BitcoinConstant.BTCAPI_STATUS_GENERATE, null);
 		return Boolean.valueOf(String.valueOf(result));
 	}
-	
+
 	@Override
-	public String getInfo() throws BitcoinException {
-		JsonValue result = invoke(BTCAPI_STATUS_INFO, null);
-		return String.valueOf(result);
+	public BitcoinInfo getInfo() throws BitcoinException {
+		JsonObject result = (JsonObject) invoke(
+				BitcoinConstant.BTCAPI_STATUS_INFO, null);
+		return BitcoinInfo.fromJson(result);
 	}
 
 	@Override
@@ -124,91 +190,17 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		if ((command != null) && (command.length() > 0)) {
 			parameters = Json.createArrayBuilder().add(command).build();
 		}
-		JsonString result = (JsonString) invoke(BTCAPI_STATUS_HELP, parameters);
+		JsonString result = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_STATUS_HELP, parameters);
 		return result.getString();
 	}
-	
+
 	@Override
 	public String stop() throws BitcoinException {
-		JsonString result = (JsonString) invoke(BTCAPI_STATUS_STOP, null);
+		JsonString result = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_STATUS_STOP, null);
 		return result.getString();
 	}
-	
-	//TODO BitcoinWalletService
 
-	//JSON-RPC over HTTP w/ basic authentication
-	private static final String RPC_JSONRPC = "jsonrpc";
-	private static final String RPC_VERSION = "2.0";
-	private static final String RPC_ID = "id";
-	private static final String RPC_METHOD = "method";
-	private static final String RPC_PARAMS = "params";
-	private static final String RPC_RESULT = "result";
-	private static final String RPC_ERROR = "error";
-	private static final String RPC_CODE = "code";
-	private static final String RPC_MESSAGE = "message";
-	private static final String RPC_DATA = "data";
-	private static final String RPC_HTTP_HEADER = "Content-Type";
-	private static final String RPC_CONTENT_TYPE = "application/json-rpc";
-	private static final String JSON_CONTENT_TYPE = "application/json";
-	private static final String RPC_ERROR_MESSAGE = "Server error";
-	private static final String RPC_ERROR_DATA_NULL_URL = "Server URL is null";
-	private static final String RPC_ERROR_DATA_NULL_RESPONSE = "Response is empty";
-	private static final String RPC_ERROR_DATA_INVALID_ID = "Response id does not match request id";
-	private static final int RPC_ERROR_CODE = -32077;
-	private JsonValue invoke(String method, JsonValue parameters)
-			throws BitcoinException {
-		if (url == null) {
-			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-					+ RPC_ERROR_DATA_NULL_URL);
-		}
-		PostMethod post = new PostMethod(url.toString());
-		try {
-			post.setRequestHeader(RPC_HTTP_HEADER, RPC_CONTENT_TYPE);
-			String guid = UUID.randomUUID().toString();
-			JsonObjectBuilder builder = Json.createObjectBuilder();
-			builder.add(RPC_JSONRPC, RPC_VERSION).add(RPC_METHOD, method);
-			if (parameters != null) {
-				builder.add(RPC_PARAMS, parameters);
-			} else {
-				builder.addNull(RPC_PARAMS);
-			}
-			builder.add(RPC_ID, guid);
-			JsonObject request = builder.build();
-			LOGGER.info("request: " + request);
-			post.setRequestEntity(new StringRequestEntity(request.toString(),
-					JSON_CONTENT_TYPE, null));
-			HttpClient client = new HttpClient();
-			client.setState(state);
-			int status = client.executeMethod(post);
-			if (status != HttpStatus.SC_OK) {
-				throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE
-						+ ": " + status + " "
-						+ HttpStatus.getStatusText(status));
-			}
-			JsonObject response = (JsonObject) Json.createReader(
-					new StringReader(post.getResponseBodyAsString())).read();
-			if (response == null) {
-				throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE
-						+ ": " + RPC_ERROR_DATA_NULL_RESPONSE);
-			}
-			LOGGER.info("response: " + response);
-			JsonString id = response.getJsonString(RPC_ID);
-			if (id == null) {
-				JsonObject error = response.getJsonObject(RPC_ERROR);
-				throw new BitcoinException(error.getInt(RPC_CODE),
-						error.get(RPC_MESSAGE) + ": "
-								+ error.getJsonObject(RPC_DATA));
-			}
-			if (!guid.equals(id.getString())) {
-				throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-						+ RPC_ERROR_DATA_INVALID_ID);
-			}
-			return response.get(RPC_RESULT);
-		} catch (NullPointerException | ClassCastException | IOException e) {
-			throw new BitcoinException(RPC_ERROR_CODE, RPC_ERROR_MESSAGE + ": "
-					+ e.getMessage(), e);
-		} finally {
-			post.releaseConnection();
-		}
-	}
+	// BitcoinWalletService
 }
