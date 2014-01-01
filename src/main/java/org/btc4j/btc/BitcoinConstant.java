@@ -24,6 +24,9 @@ package org.btc4j.btc;
 
 public class BitcoinConstant {
 	// BTCAPI
+	public static final String BTCAPI_ACCOUNT = "getaccount";
+	public static final String BTCAPI_ACCOUNT_ADDRESS = "getaccountaddress";
+	public static final String BTCAPI_ACCOUNT_ADDRESSES = "getaddressesbyaccount";
 	public static final String BTCAPI_BLOCK_COUNT = "getblockcount";
 	public static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
 	public static final String BTCAPI_STATUS_DIFFICULTY = "getdifficulty";

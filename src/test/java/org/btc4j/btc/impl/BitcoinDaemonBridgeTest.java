@@ -26,7 +26,6 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.net.URL;
-
 import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.model.BitcoinInfo;
 import org.junit.AfterClass;
@@ -66,6 +65,28 @@ public class BitcoinDaemonBridgeTest {
 	}
 
 	// BitcoinAccountService
+	@Test
+	public void getAccount() throws BitcoinException {
+		String account = BITCOIND
+				.getAccount("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD");
+		assertNotNull(account);
+		assertEquals("user", account);
+	}
+
+	@Test
+	public void getAccountAddress() throws BitcoinException {
+		String address = BITCOIND.getAccountAddress("user");
+		assertNotNull(address);
+		assertEquals("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD", address);
+	}
+
+	@Test
+	public void getAddressesByAccount() throws BitcoinException {
+		String[] addresses = BITCOIND.getAddressesByAccount("user");
+		assertNotNull(addresses);
+		assertTrue(addresses.length >= 0);
+		assertEquals("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD", addresses[0]);
+	}
 
 	// BitcoinBlockService
 	@Test

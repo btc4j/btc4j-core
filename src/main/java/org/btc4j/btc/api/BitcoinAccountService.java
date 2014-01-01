@@ -22,25 +22,28 @@
 
 package org.btc4j.btc.api;
 
+import org.btc4j.btc.BitcoinException;
+
 public interface BitcoinAccountService {
 	// getaccount
 	// <bitcoinaddress>
 	// Returns the account associated with the given address.
 	// N
-	// public void getAccount() throws BitcoinException;
+	public String getAccount(String address) throws BitcoinException;
 
 	// getaccountaddress
 	// <account>
 	// Returns the current bitcoin address for receiving payments to this
 	// account.
 	// N
-	// public void getAccountAddress() throws BitcoinException;
+	public String getAccountAddress(String account) throws BitcoinException;
 
 	// getaddressesbyaccount
 	// <account>
 	// Returns the list of addresses for the given account.
 	// N
-	// public void getAddressesByAccount() throws BitcoinException;
+	public String[] getAddressesByAccount(String account)
+			throws BitcoinException;
 
 	// getbalance
 	// [account] [minconf=1]
