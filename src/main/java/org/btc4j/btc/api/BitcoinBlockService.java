@@ -26,13 +26,6 @@ import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.model.BitcoinBlock;
 
 public interface BitcoinBlockService {
-	// getbestblockhash
-	//
-	// recent git checkouts only Returns the hash of the best (tip) block in the
-	// longest block chain.
-	// N
-	public String getBestBlockHash() throws BitcoinException;
-
 	// getblock
 	// <hash>
 	// Returns information about the block with the given hash.

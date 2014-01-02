@@ -45,7 +45,7 @@ public class BitcoinDaemonBridgeTest {
 	private static final String BITCOIND_PASSWD_ARG = "-rpcpassword="
 			+ BITCOIND_PASSWD;
 	private static final String BITCOIND_URL = "http://127.0.0.1:18332";
-	private static long BITCOIND_DELAY_SECONDS = 3;
+	private static long BITCOIND_DELAY_SECONDS = 5;
 	private static BitcoinDaemonBridge BITCOIND;
 
 	@BeforeClass
@@ -109,17 +109,12 @@ public class BitcoinDaemonBridgeTest {
 
 	// BitcoinBlockService
 	@Test
-	public void getBestBlockHash() throws BitcoinException {
-		String hash = BITCOIND.getBestBlockHash();
-		assertNotNull(hash);
-		assertTrue(hash.length() >= 0);
-	}
-	
-	@Test
 	public void getBlock() throws BitcoinException {
 		BitcoinBlock block = BITCOIND.getBlock("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943");
 		assertNotNull(block);
 		assertEquals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943", block.getHash());
+		assertEquals(0, block.getHeight());
+		assertEquals(1, block.getVersion());
 	}
 	
 	@Test
@@ -173,9 +168,10 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("help");
+		help = BITCOIND.help("listaccounts");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
+		//System.out.println("help: " + help);
 	}
 
 	// BitcoinWalletService

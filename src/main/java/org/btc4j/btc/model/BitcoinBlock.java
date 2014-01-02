@@ -24,6 +24,7 @@ package org.btc4j.btc.model;
 
 import java.io.Serializable;
 
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 
 import org.btc4j.btc.BitcoinConstant;
@@ -45,9 +46,22 @@ public class BitcoinBlock implements Serializable {
 	
 	public static BitcoinBlock fromJson(JsonObject value) {
 		BitcoinBlock block = new BitcoinBlock();
-		
 		block.setHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_HASH, ""));
-		
+		block.setConfirmations(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_CONFIRMATIONS, 0));
+		block.setSize(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_SIZE, 0));
+		block.setHeight(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_HEIGHT, 0));
+		block.setVersion(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_VERSION, 0));
+		block.setMerkleRoot(value.getString(BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
+		block.setTx(value.getString(BitcoinConstant.BTCOBJ_BLOCK_TX, ""));
+		block.setTime(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_TIME, 0));
+		block.setNonce(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_NONCE, 0));
+		block.setBits(value.getString(BitcoinConstant.BTCOBJ_BLOCK_BITS, ""));
+		JsonNumber difficulty = value
+				.getJsonNumber(BitcoinConstant.BTCOBJ_BLOCK_DIFFICULTY);
+		if (difficulty != null) {
+			block.setDifficulty(difficulty.doubleValue());
+		}
+		block.setNextBlockHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_NEXT_HASH, ""));
 		return block;
 	}
 
