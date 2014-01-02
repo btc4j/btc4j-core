@@ -5,6 +5,30 @@
 	<groupId>org.btc4j</groupId>
 	<artifactId>btc4j-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>btc4j-core</name>
+	<description>Java bitcoin client and bitcoin daemon bridge</description>
+	<url>http://btc4j.github.io/btc4j-core</url>
+	<organization>
+		<name>btc4j</name>
+		<url>http://www.btc4j.org</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Guillermo Gonzalez</name>
+			<email>email@ggonzalez.info</email>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>The MIT License (MIT)</name>
+			<url>http://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/btc4j/btc4j-core</url>
+		<connection>https://github.com/btc4j/btc4j-core</connection>
+	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.version>3.1</maven.compiler.version>

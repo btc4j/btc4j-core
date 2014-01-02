@@ -41,7 +41,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class BitcoinDaemonBridgeTest {
-	private static final String BITCOIND_DIR = "E:/bitcoind-0.8.6";
+	private static final String BITCOIND_DIR = "E:/bitcoin/bitcoind-0.8.6";
 	private static final String BITCOIND_CMD = "bitcoind.exe";
 	private static final String BITCOIND_TEST_ARG = "-testnet=1";
 	private static final String BITCOIND_USER = "user";

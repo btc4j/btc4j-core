@@ -69,6 +69,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
+	private final static String[] VERSIONS = {"0.8.6"};
 	private URL url;
 	private HttpState state;
 
@@ -81,6 +82,10 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		this(url);
 		state.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
 				username, password));
+	}
+	
+	public String[] getSupportedVersions() {
+		return VERSIONS;
 	}
 
 	protected JsonValue invoke(String method) throws BitcoinException {
