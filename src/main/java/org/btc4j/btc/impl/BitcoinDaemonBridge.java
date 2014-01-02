@@ -25,6 +25,8 @@ package org.btc4j.btc.impl;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -51,6 +53,7 @@ import org.btc4j.btc.api.BitcoinMiscService;
 import org.btc4j.btc.api.BitcoinNodeService;
 import org.btc4j.btc.api.BitcoinStatusService;
 import org.btc4j.btc.api.BitcoinWalletService;
+import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinInfo;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
@@ -73,6 +76,10 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				username, password));
 	}
 
+	protected JsonValue invoke(String method) throws BitcoinException {
+		return invoke(method, null);
+	}
+	
 	protected JsonValue invoke(String method, JsonValue parameters)
 			throws BitcoinException {
 		if (url == null) {
@@ -161,25 +168,85 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	}
 
 	@Override
-	public String[] getAddressesByAccount(String account)
+	public List<String> getAddressesByAccount(String account)
 			throws BitcoinException {
 		JsonArray parameters = Json.createArrayBuilder().add(account).build();
 		JsonArray results = (JsonArray) invoke(
 				BitcoinConstant.BTCAPI_ACCOUNT_ADDRESSES, parameters);
-		String[] addresses = new String[results.size()];
-		for (int i = 0; i < results.size(); i++) {
-			JsonString result = results.getJsonString(i);
-			addresses[i] = result.getString();
+
+		List<String> addresses = new ArrayList<String>();
+		for (JsonString result : results.getValuesAs(JsonString.class)) {
+			addresses.add(result.getString());
 		}
 		return addresses;
 	}
 
+	@Override
+	public double getBalance(String account, int minConf)
+			throws BitcoinException {
+		if (account == null) {
+			account = "";
+		}
+		if (minConf < 1) {
+			minConf = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(account)
+				.add(minConf).build();
+		JsonNumber results = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_ACCOUNT_BALANCE, parameters);
+		return results.doubleValue();
+	}
+
+	@Override
+	public String getNewAddress(String account) throws BitcoinException {
+		JsonArray parameters = null;
+		if ((account != null) && (account.length() > 0)) {
+			parameters = Json.createArrayBuilder().add(account).build();
+		}
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_ACCOUNT_NEW_ADDRESS, parameters);
+		return results.getString();
+	}
+	
+	public String getNewAddress() throws BitcoinException {
+		return getNewAddress(null);
+	}
+
 	// BitcoinBlockService
+	@Override
+	public String getBestBlockHash() throws BitcoinException {
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_BLOCK_BEST_HASH);
+		return results.getString();
+	}
+
+	@Override
+	public BitcoinBlock getBlock(String hash) throws BitcoinException {
+		if (hash == null) {
+			hash = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(hash).build();
+		JsonObject results = (JsonObject) invoke(
+				BitcoinConstant.BTCAPI_BLOCK, parameters);
+		return BitcoinBlock.fromJson(results);
+	}
+	
 	@Override
 	public int getBlockCount() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_BLOCK_COUNT, null);
+				BitcoinConstant.BTCAPI_BLOCK_COUNT);
 		return results.intValue();
+	}
+
+	@Override
+	public String getBlockHash(int index) throws BitcoinException {
+		if (index < 0) {
+			index = 0;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(index).build();
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_BLOCK_HASH, parameters);
+		return results.getString();
 	}
 
 	// BitcoinMiscService
@@ -188,7 +255,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	@Override
 	public int getConnectionCount() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT, null);
+				BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
 		return results.intValue();
 	}
 
@@ -196,20 +263,20 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	@Override
 	public double getDifficulty() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_STATUS_DIFFICULTY, null);
+				BitcoinConstant.BTCAPI_STATUS_DIFFICULTY);
 		return results.doubleValue();
 	}
 
 	@Override
 	public boolean getGenerate() throws BitcoinException {
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_STATUS_GENERATE, null);
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_STATUS_GENERATE);
 		return Boolean.valueOf(String.valueOf(results));
 	}
 
 	@Override
 	public BitcoinInfo getInfo() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(
-				BitcoinConstant.BTCAPI_STATUS_INFO, null);
+				BitcoinConstant.BTCAPI_STATUS_INFO);
 		return BitcoinInfo.fromJson(results);
 	}
 
@@ -223,11 +290,15 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTCAPI_STATUS_HELP, parameters);
 		return results.getString();
 	}
-
+	
+	public String help() throws BitcoinException {
+		return help(null);
+	}
+	
 	@Override
 	public String stop() throws BitcoinException {
 		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_STATUS_STOP, null);
+				BitcoinConstant.BTCAPI_STATUS_STOP);
 		return results.getString();
 	}
 

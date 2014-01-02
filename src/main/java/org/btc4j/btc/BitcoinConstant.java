@@ -27,7 +27,12 @@ public class BitcoinConstant {
 	public static final String BTCAPI_ACCOUNT = "getaccount";
 	public static final String BTCAPI_ACCOUNT_ADDRESS = "getaccountaddress";
 	public static final String BTCAPI_ACCOUNT_ADDRESSES = "getaddressesbyaccount";
+	public static final String BTCAPI_ACCOUNT_BALANCE = "getbalance";
+	public static final String BTCAPI_ACCOUNT_NEW_ADDRESS = "getnewaddress";
+	public static final String BTCAPI_BLOCK_BEST_HASH= "getbestblockhash";
 	public static final String BTCAPI_BLOCK_COUNT = "getblockcount";
+	public static final String BTCAPI_BLOCK = "getblock";
+	public static final String BTCAPI_BLOCK_HASH = "getblockhash";
 	public static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
 	public static final String BTCAPI_STATUS_DIFFICULTY = "getdifficulty";
 	public static final String BTCAPI_STATUS_GENERATE = "getgenerate";
@@ -36,6 +41,18 @@ public class BitcoinConstant {
 	public static final String BTCAPI_STATUS_STOP = "stop";
 
 	// BTCOBJ
+	public static final String BTCOBJ_BLOCK_HASH = "hash";
+	public static final String BTCOBJ_BLOCK_CONFIRMATIONS = "confirmations";
+	public static final String BTCOBJ_BLOCK_SIZE = "size";
+	public static final String BTCOBJ_BLOCK_HEIGHT = "height";
+	public static final String BTCOBJ_BLOCK_VERSION = "version";
+	public static final String BTCOBJ_BLOCK_MERKLE_ROOT = "merkleroot";
+	public static final String BTCOBJ_BLOCK_TX = "tx";
+	public static final String BTCOBJ_BLOCK_TIME = "time";
+	public static final String BTCOBJ_BLOCK_NONCE = "nonce";
+	public static final String BTCOBJ_BLOCK_BITS = "bits";
+	public static final String BTCOBJ_BLOCK_DIFFICULTY = "difficulty";
+	public static final String BTCOBJ_BLOCK_NEXT_BLOCK_HASH = "nextblockhash";
 	public static final String BTCOBJ_INFO_VERSION = "version";
 	public static final String BTCOBJ_INFO_PROTO_VERSION = "protocolversion";
 	public static final String BTCOBJ_INFO_WALLET_VERSION = "walletversion";

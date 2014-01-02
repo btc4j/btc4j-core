@@ -23,6 +23,7 @@
 package org.btc4j.btc.api;
 
 import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinBlock;
 
 public interface BitcoinBlockService {
 	// getbestblockhash
@@ -30,18 +31,14 @@ public interface BitcoinBlockService {
 	// recent git checkouts only Returns the hash of the best (tip) block in the
 	// longest block chain.
 	// N
-	// public void getBestBlockHash() throws BitcoinException;
+	public String getBestBlockHash() throws BitcoinException;
 
 	// getblock
 	// <hash>
 	// Returns information about the block with the given hash.
 	// N
-	// public void getBlock() throws BitcoinException;
+	public BitcoinBlock getBlock(String hash) throws BitcoinException;
 
-	// getblockcount
-	//
-	// Returns the number of blocks in the longest block chain.
-	// N
 	public int getBlockCount() throws BitcoinException;
 
 	// getblockhash
@@ -49,13 +46,7 @@ public interface BitcoinBlockService {
 	// Returns hash of block in best-block-chain at <index>; index 0 is the
 	// genesis block
 	// N
-	// public void getBlockHash() throws BitcoinException;
-
-	// getblocknumber
-	//
-	// Deprecated. Removed in version 0.7. Use getblockcount.
-	// N
-	// public void getBlockNumber() throws BitcoinException;
+	public String getBlockHash(int index) throws BitcoinException;
 
 	// getblocktemplate
 	// [params]

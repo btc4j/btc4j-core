@@ -24,6 +24,157 @@ package org.btc4j.btc.model;
 
 import java.io.Serializable;
 
+import javax.json.JsonObject;
+
+import org.btc4j.btc.BitcoinConstant;
+
 public class BitcoinBlock implements Serializable {
 	private static final long serialVersionUID = -5115242454053420689L;
+	private String hash;
+	private int confirmations;
+	private int size;
+	private int height;
+	private int version;
+	private String merkleRoot;
+	private String tx;
+	private int time;
+	private int nonce;
+	private String bits;
+	private double difficulty;
+	private String nextBlockHash;
+	
+	public static BitcoinBlock fromJson(JsonObject value) {
+		BitcoinBlock block = new BitcoinBlock();
+		
+		block.setHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_HASH, ""));
+		
+		return block;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	public int getConfirmations() {
+		return confirmations;
+	}
+
+	public void setConfirmations(int confirmations) {
+		this.confirmations = confirmations;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public String getMerkleRoot() {
+		return merkleRoot;
+	}
+
+	public void setMerkleRoot(String merkleRoot) {
+		this.merkleRoot = merkleRoot;
+	}
+
+	public String getTx() {
+		return tx;
+	}
+
+	public void setTx(String tx) {
+		this.tx = tx;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	public int getNonce() {
+		return nonce;
+	}
+
+	public void setNonce(int nonce) {
+		this.nonce = nonce;
+	}
+
+	public String getBits() {
+		return bits;
+	}
+
+	public void setBits(String bits) {
+		this.bits = bits;
+	}
+
+	public double getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public String getNextBlockHash() {
+		return nextBlockHash;
+	}
+
+	public void setNextBlockHash(String nextBlockHash) {
+		this.nextBlockHash = nextBlockHash;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BitcoinBlock [hash=");
+		builder.append(hash);
+		builder.append(", confirmations=");
+		builder.append(confirmations);
+		builder.append(", size=");
+		builder.append(size);
+		builder.append(", height=");
+		builder.append(height);
+		builder.append(", version=");
+		builder.append(version);
+		builder.append(", merkleRoot=");
+		builder.append(merkleRoot);
+		builder.append(", tx=");
+		builder.append(tx);
+		builder.append(", time=");
+		builder.append(time);
+		builder.append(", nonce=");
+		builder.append(nonce);
+		builder.append(", bits=");
+		builder.append(bits);
+		builder.append(", difficulty=");
+		builder.append(difficulty);
+		builder.append(", nextBlockHash=");
+		builder.append(nextBlockHash);
+		builder.append("]");
+		return builder.toString();
+	}
 }

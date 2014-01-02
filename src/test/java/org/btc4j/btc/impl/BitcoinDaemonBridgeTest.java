@@ -26,7 +26,10 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
+
 import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinInfo;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -82,17 +85,54 @@ public class BitcoinDaemonBridgeTest {
 
 	@Test
 	public void getAddressesByAccount() throws BitcoinException {
-		String[] addresses = BITCOIND.getAddressesByAccount("user");
+		List<String> addresses = BITCOIND.getAddressesByAccount("user");
 		assertNotNull(addresses);
-		assertTrue(addresses.length >= 0);
-		assertEquals("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD", addresses[0]);
+		assertTrue(addresses.size() >= 0);
+		assertTrue(addresses.contains("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD"));
+	}
+	
+	@Test
+	public void getBalance() throws BitcoinException {
+		double balance = BITCOIND.getBalance("", -1);
+		assertTrue(balance >= 0);
+		balance = BITCOIND.getBalance("user", 2);
+		assertTrue(balance >= 0);
+	}
+	
+	@Test
+	public void getNewAddress() throws BitcoinException {
+		String address = BITCOIND.getNewAddress("user");
+		assertNotNull(address);
+		address = BITCOIND.getNewAddress();
+		assertNotNull(address);
 	}
 
 	// BitcoinBlockService
 	@Test
+	public void getBestBlockHash() throws BitcoinException {
+		String hash = BITCOIND.getBestBlockHash();
+		assertNotNull(hash);
+		assertTrue(hash.length() >= 0);
+	}
+	
+	@Test
+	public void getBlock() throws BitcoinException {
+		BitcoinBlock block = BITCOIND.getBlock("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943");
+		assertNotNull(block);
+		assertEquals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943", block.getHash());
+	}
+	
+	@Test
 	public void getBlockCount() throws BitcoinException {
 		int blocks = BITCOIND.getBlockCount();
 		assertTrue(blocks >= 0);
+	}
+	
+	@Test
+	public void getBlockHash() throws BitcoinException {
+		String hash = BITCOIND.getBlockHash(-1);
+		assertNotNull(hash);
+		assertTrue(hash.length() >= 0);
 	}
 
 	// BitcoinMiscService
@@ -127,10 +167,7 @@ public class BitcoinDaemonBridgeTest {
 
 	@Test
 	public void help() throws BitcoinException {
-		String help = BITCOIND.help(null);
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("");
+		String help = BITCOIND.help();
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
 		help = BITCOIND.help("fakecommand");
