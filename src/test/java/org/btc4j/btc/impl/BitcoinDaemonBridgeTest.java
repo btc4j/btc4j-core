@@ -34,6 +34,8 @@ import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinClientInfo;
 import org.btc4j.btc.model.BitcoinMiningInfo;
+import org.btc4j.btc.model.BitcoinPeer;
+import org.btc4j.btc.model.BitcoinTxOutputSet;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -177,6 +179,28 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(info.isTestnet());
 		assertTrue(info.getDifficulty() >= 0);
 	}
+	
+	@Test
+	public void getPeerInfo() throws BitcoinException {
+		List<BitcoinPeer> peers = BITCOIND.getPeerInfo();
+		assertNotNull(peers);
+		assertTrue(peers.size() >= 0);
+		assertTrue(peers.get(0).isSyncNode() || true);
+	}
+	
+	@Test
+	public void getRawMemPool() throws BitcoinException {
+		List<String> rawMemPool = BITCOIND.getRawMemPool();
+		assertNotNull(rawMemPool);
+		assertTrue(rawMemPool.size() >= 0);
+	}
+	
+	@Test
+	public void getTxOutputSetInfo() throws BitcoinException {
+		BitcoinTxOutputSet txOutputSet = BITCOIND.getTxOutputSetInfo();
+		assertNotNull(txOutputSet);
+		assertTrue(txOutputSet.getHeight() >= 0);
+	}
 
 	// BitcoinMiscService
 
@@ -196,7 +220,7 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("getrawmempool");
+		help = BITCOIND.help("gettransaction");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
 		System.out.println("help: " + help);

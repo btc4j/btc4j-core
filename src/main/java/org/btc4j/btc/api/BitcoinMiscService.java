@@ -56,10 +56,6 @@ public interface BitcoinMiscService {
 	// Bitcoin address, for receiving change. This is for use with raw
 	// transactions, NOT normal use. Y
 
-	// getmininginfo Returns an object containing mining-related information:
-	// blocks currentblocksize currentblocktx difficulty errors generate
-	// genproclimit hashespersec pooledtx testnet N
-
 	// getreceivedbyaccount [account] [minconf=1] Returns the total amount
 	// received by addresses with [account] in transactions with at least
 	// [minconf] confirmations. If [account] not provided return will include
@@ -96,9 +92,6 @@ public interface BitcoinMiscService {
 	// parameter added in 0.8.0. Y
 
 	// keypoolrefill Fills the keypool, requires wallet passphrase to be set. Y
-
-	// listaccounts [minconf=1] Returns Object that has account names as keys,
-	// account balances as values. N
 
 	// listaddressgroupings version 0.7 Returns all addresses in the wallet and
 	// info used for coincontrol. N

@@ -60,6 +60,8 @@ import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinClientInfo;
 import org.btc4j.btc.model.BitcoinMiningInfo;
+import org.btc4j.btc.model.BitcoinPeer;
+import org.btc4j.btc.model.BitcoinTxOutputSet;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
 		BitcoinBlockService, BitcoinInfoService, BitcoinMiscService,
@@ -311,6 +313,32 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		return BitcoinMiningInfo.fromJson(results);
 	}
 
+	@Override
+	public List<BitcoinPeer> getPeerInfo() throws BitcoinException {
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_INFO_PEER);
+		List<BitcoinPeer> peers = new ArrayList<BitcoinPeer>();
+		for (JsonObject result : results.getValuesAs(JsonObject.class)) {
+			peers.add(BitcoinPeer.fromJson(result));
+		}
+		return peers;
+	}
+
+	@Override
+	public List<String> getRawMemPool() throws BitcoinException {
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_INFO_RAW_MEM_POOL);
+		List<String> rawMemPool = new ArrayList<String>();
+		for (JsonString result : results.getValuesAs(JsonString.class)) {
+			rawMemPool.add(result.getString());
+		}
+		return rawMemPool;
+	}
+
+	@Override
+	public BitcoinTxOutputSet getTxOutputSetInfo() throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_TX_OUTPUT_SET);
+		return BitcoinTxOutputSet.fromJson(results);
+	}
+	
 	// BitcoinMiscService
 
 	// BitcoinNodeService

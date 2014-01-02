@@ -42,6 +42,9 @@ public class BitcoinConstant {
 	public static final String BTCAPI_INFO_GENERATE = "getgenerate";
 	public static final String BTCAPI_INFO_HASHESPERSEC = "gethashespersec";
 	public static final String BTCAPI_INFO_MINING = "getmininginfo";
+	public static final String BTCAPI_INFO_PEER = "getpeerinfo";
+	public static final String BTCAPI_INFO_RAW_MEM_POOL = "getrawmempool";
+	public static final String BTCAPI_INFO_TX_OUTPUT_SET = "gettxoutsetinfo";
 
 	public static final String BTCAPI_STATUS_HELP = "help";
 	public static final String BTCAPI_STATUS_STOP = "stop";
@@ -81,6 +84,28 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_INFO_HASHESPERSEC = "hashespersec";
 	public static final String BTCOBJ_INFO_POOLED_TX = "pooledtx";
 
+	public static final String BTCOBJ_PEER_ADDRESS = "addr";
+	public static final String BTCOBJ_PEER_SERVICES = "services";
+	public static final String BTCOBJ_PEER_LAST_SEND = "lastsend";
+	public static final String BTCOBJ_PEER_LAST_RECEIVED = "lastrecv";
+	public static final String BTCOBJ_PEER_BYTES_SENT = "bytessent";
+	public static final String BTCOBJ_PEER_BYTES_RECEIVED = "bytesrecv";
+	public static final String BTCOBJ_PEER_CONNECTION_TIME = "conntime";
+	public static final String BTCOBJ_PEER_VERSION = "version";
+	public static final String BTCOBJ_PEER_SUBVERSION = "subver";
+	public static final String BTCOBJ_PEER_INBOUND = "inbound";
+	public static final String BTCOBJ_PEER_START_HEIGHT = "startingheight";
+	public static final String BTCOBJ_PEER_BAN_SCORE = "banscore";
+	public static final String BTCOBJ_PEER_SYNC_NODE = "syncnode";
+	
+	public static final String BTCOBJ_TXOUTSET_HEIGHT = "height";
+	public static final String BTCOBJ_TXOUTSET_BEST_BLOCK = "bestblock";
+	public static final String BTCOBJ_TXOUTSET_TRANSACTIONS = "transactions";
+	public static final String BTCOBJ_TXOUTSET_TX_OUTS = "txouts";
+	public static final String BTCOBJ_TXOUTSET_BYTES_SERIALIZED = "bytes_serialized";
+	public static final String BTCOBJ_TXOUTSET_HASH_SERIALIZED = "hash_serialized";
+	public static final String BTCOBJ_TXOUTSET_TOTAL_AMOUT = "total_amount";
+	
 	// JSONRPC
 	public static final String JSONRPC = "jsonrpc";
 	public static final String JSONRPC_VERSION = "2.0";

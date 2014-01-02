@@ -22,9 +22,13 @@
 
 package org.btc4j.btc.api;
 
+import java.util.List;
+
 import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.model.BitcoinClientInfo;
 import org.btc4j.btc.model.BitcoinMiningInfo;
+import org.btc4j.btc.model.BitcoinPeer;
+import org.btc4j.btc.model.BitcoinTxOutputSet;
 
 public interface BitcoinInfoService {
 
@@ -38,7 +42,9 @@ public interface BitcoinInfoService {
 	
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException;
 
-	// getpeerinfo Returns data about each connected network node.
+	public List<BitcoinPeer> getPeerInfo() throws BitcoinException;
+
+	public List<String> getRawMemPool() throws BitcoinException;
 	
-	// getrawmempool version 0.7 Returns all transaction ids in memory pool N
+	public BitcoinTxOutputSet getTxOutputSetInfo() throws BitcoinException;
 }

@@ -40,17 +40,6 @@ public class BitcoinClientInfo extends BitcoinInfo {
 	private int keyPoolSize;
 	private double payTxFee;
 
-	//"blocks":4109,
-	//"currentblocksize":0,
-	//"currentblocktx":0,
-	//"difficulty":1.00000000,
-	//"errors":"",
-	//"generate":false,
-	//"genproclimit":-1,
-	//"hashespersec":0,
-	//"pooledtx":0,
-	//"testnet":true
-
 	public static BitcoinClientInfo fromJson(JsonObject value) {
 		BitcoinClientInfo info = new BitcoinClientInfo();
 		info.setVersion(value.getInt(BitcoinConstant.BTCOBJ_INFO_VERSION, 0));
