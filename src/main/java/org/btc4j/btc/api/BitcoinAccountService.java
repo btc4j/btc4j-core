@@ -36,9 +36,11 @@ public interface BitcoinAccountService {
 	public List<String> getAddressesByAccount(String account)
 			throws BitcoinException;
 
-	public double getBalance(String account, int minConf) throws BitcoinException;
+	public double getBalance(String account, int minConf)
+			throws BitcoinException;
 
 	public String getNewAddress(String account) throws BitcoinException;
-	
-	public Map<String, BitcoinAccount> listAccounts(int minConf) throws BitcoinException;
+
+	public Map<String, BitcoinAccount> listAccounts(int minConf)
+			throws BitcoinException;
 }

@@ -43,15 +43,17 @@ public class BitcoinBlock implements Serializable {
 	private String bits;
 	private double difficulty;
 	private String nextBlockHash;
-	
+
 	public static BitcoinBlock fromJson(JsonObject value) {
 		BitcoinBlock block = new BitcoinBlock();
 		block.setHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_HASH, ""));
-		block.setConfirmations(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_CONFIRMATIONS, 0));
+		block.setConfirmations(value.getInt(
+				BitcoinConstant.BTCOBJ_BLOCK_CONFIRMATIONS, 0));
 		block.setSize(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_SIZE, 0));
 		block.setHeight(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_HEIGHT, 0));
 		block.setVersion(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_VERSION, 0));
-		block.setMerkleRoot(value.getString(BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
+		block.setMerkleRoot(value.getString(
+				BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
 		block.setTx(value.getString(BitcoinConstant.BTCOBJ_BLOCK_TX, ""));
 		block.setTime(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_TIME, 0));
 		block.setNonce(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_NONCE, 0));
@@ -61,7 +63,8 @@ public class BitcoinBlock implements Serializable {
 		if (difficulty != null) {
 			block.setDifficulty(difficulty.doubleValue());
 		}
-		block.setNextBlockHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_NEXT_HASH, ""));
+		block.setNextBlockHash(value.getString(
+				BitcoinConstant.BTCOBJ_BLOCK_NEXT_HASH, ""));
 		return block;
 	}
 
@@ -159,36 +162,5 @@ public class BitcoinBlock implements Serializable {
 
 	public void setNextBlockHash(String nextBlockHash) {
 		this.nextBlockHash = nextBlockHash;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BitcoinBlock [hash=");
-		builder.append(hash);
-		builder.append(", confirmations=");
-		builder.append(confirmations);
-		builder.append(", size=");
-		builder.append(size);
-		builder.append(", height=");
-		builder.append(height);
-		builder.append(", version=");
-		builder.append(version);
-		builder.append(", merkleRoot=");
-		builder.append(merkleRoot);
-		builder.append(", tx=");
-		builder.append(tx);
-		builder.append(", time=");
-		builder.append(time);
-		builder.append(", nonce=");
-		builder.append(nonce);
-		builder.append(", bits=");
-		builder.append(bits);
-		builder.append(", difficulty=");
-		builder.append(difficulty);
-		builder.append(", nextBlockHash=");
-		builder.append(nextBlockHash);
-		builder.append("]");
-		return builder.toString();
 	}
 }

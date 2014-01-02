@@ -51,17 +51,19 @@ import org.btc4j.btc.BitcoinConstant;
 import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.api.BitcoinAccountService;
 import org.btc4j.btc.api.BitcoinBlockService;
+import org.btc4j.btc.api.BitcoinInfoService;
 import org.btc4j.btc.api.BitcoinMiscService;
 import org.btc4j.btc.api.BitcoinNodeService;
 import org.btc4j.btc.api.BitcoinStatusService;
 import org.btc4j.btc.api.BitcoinWalletService;
 import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
-import org.btc4j.btc.model.BitcoinInfo;
+import org.btc4j.btc.model.BitcoinClientInfo;
+import org.btc4j.btc.model.BitcoinMiningInfo;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
-		BitcoinBlockService, BitcoinMiscService, BitcoinNodeService,
-		BitcoinStatusService, BitcoinWalletService {
+		BitcoinBlockService, BitcoinInfoService, BitcoinMiscService,
+		BitcoinNodeService, BitcoinStatusService, BitcoinWalletService {
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
@@ -82,7 +84,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	protected JsonValue invoke(String method) throws BitcoinException {
 		return invoke(method, null);
 	}
-	
+
 	protected JsonValue invoke(String method, JsonValue parameters)
 			throws BitcoinException {
 		if (url == null) {
@@ -199,15 +201,15 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTCAPI_ACCOUNT_BALANCE, parameters);
 		return results.doubleValue();
 	}
-	
+
 	public double getBalance(String account) throws BitcoinException {
 		return getBalance(account, 1);
 	}
-	
+
 	public double getBalance(int minConf) throws BitcoinException {
 		return getBalance("", minConf);
 	}
-	
+
 	public double getBalance() throws BitcoinException {
 		return getBalance("", 1);
 	}
@@ -222,13 +224,14 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTCAPI_ACCOUNT_NEW_ADDRESS, parameters);
 		return results.getString();
 	}
-	
+
 	public String getNewAddress() throws BitcoinException {
 		return getNewAddress(null);
 	}
-	
+
 	@Override
-	public Map<String, BitcoinAccount> listAccounts(int minConf) throws BitcoinException {
+	public Map<String, BitcoinAccount> listAccounts(int minConf)
+			throws BitcoinException {
 		if (minConf < 1) {
 			minConf = 1;
 		}
@@ -238,11 +241,12 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		Map<String, BitcoinAccount> accounts = new HashMap<String, BitcoinAccount>();
 		for (String account : results.keySet()) {
 			JsonNumber balance = results.getJsonNumber(account);
-			accounts.put(account, new BitcoinAccount(account, balance.doubleValue()));
+			accounts.put(account,
+					new BitcoinAccount(account, balance.doubleValue()));
 		}
 		return accounts;
 	}
-	
+
 	public Map<String, BitcoinAccount> listAccounts() throws BitcoinException {
 		return listAccounts(1);
 	}
@@ -254,15 +258,14 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 			hash = "";
 		}
 		JsonArray parameters = Json.createArrayBuilder().add(hash).build();
-		JsonObject results = (JsonObject) invoke(
-				BitcoinConstant.BTCAPI_BLOCK, parameters);
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_BLOCK,
+				parameters);
 		return BitcoinBlock.fromJson(results);
 	}
-	
+
 	@Override
 	public int getBlockCount() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_BLOCK_COUNT);
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_BLOCK_COUNT);
 		return results.intValue();
 	}
 
@@ -277,37 +280,47 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		return results.getString();
 	}
 
-	// BitcoinMiscService
-
-	// BitcoinNodeService
+	// BitcoinInfoService
 	@Override
-	public int getConnectionCount() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
-		return results.intValue();
+	public BitcoinClientInfo getInfo() throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO);
+		return BitcoinClientInfo.fromJson(results);
 	}
 
-	// BitcoinStatusService
 	@Override
 	public double getDifficulty() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_STATUS_DIFFICULTY);
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_DIFFICULTY);
 		return results.doubleValue();
 	}
 
 	@Override
 	public boolean getGenerate() throws BitcoinException {
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_STATUS_GENERATE);
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_INFO_GENERATE);
 		return Boolean.valueOf(String.valueOf(results));
 	}
 
 	@Override
-	public BitcoinInfo getInfo() throws BitcoinException {
-		JsonObject results = (JsonObject) invoke(
-				BitcoinConstant.BTCAPI_STATUS_INFO);
-		return BitcoinInfo.fromJson(results);
+	public int getHashesPerSec() throws BitcoinException {
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_HASHESPERSEC);
+		return results.intValue();
+	}
+	
+	@Override
+	public BitcoinMiningInfo getMiningInfo() throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_MINING);
+		return BitcoinMiningInfo.fromJson(results);
 	}
 
+	// BitcoinMiscService
+
+	// BitcoinNodeService
+	@Override
+	public int getConnectionCount() throws BitcoinException {
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
+		return results.intValue();
+	}
+
+	// BitcoinStatusService
 	@Override
 	public String help(String command) throws BitcoinException {
 		JsonArray parameters = null;
@@ -318,78 +331,16 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTCAPI_STATUS_HELP, parameters);
 		return results.getString();
 	}
-	
+
 	public String help() throws BitcoinException {
 		return help(null);
 	}
-	
+
 	@Override
 	public String stop() throws BitcoinException {
-		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_STATUS_STOP);
+		JsonString results = (JsonString) invoke(BitcoinConstant.BTCAPI_STATUS_STOP);
 		return results.getString();
 	}
 
 	// BitcoinWalletService
 }
-/*
-addmultisigaddress <nrequired> <'["key","key"]'> [account]
-addnode <node> <add|remove|onetry>
-backupwallet <destination>
-createmultisig <nrequired> <'["key","key"]'>
-createrawtransaction [{"txid":txid,"vout":n},...] {address:amount,...}
-decoderawtransaction <hex string>
-dumpprivkey <bitcoinaddress>
-encryptwallet <passphrase>
-******************** getaccount <bitcoinaddress>
-******************** getaccountaddress <account>
-getaddednodeinfo <dns> [node]
-******************** getaddressesbyaccount <account>
-******************** getbalance [account] [minconf=1]
-******************** getblock <hash>
-******************** getblockcount
-******************** getblockhash <index>
-getblocktemplate [params]
-******************** getconnectioncount
-******************** getdifficulty
-******************** getgenerate
-gethashespersec
-******************** getinfo
-getmininginfo
-******************** getnewaddress [account]
-getpeerinfo
-getrawmempool
-getrawtransaction <txid> [verbose=0]
-getreceivedbyaccount <account> [minconf=1]
-getreceivedbyaddress <bitcoinaddress> [minconf=1]
-gettransaction <txid>
-gettxout <txid> <n> [includemempool=true]
-gettxoutsetinfo
-getwork [data]
-******************** help [command]
-importprivkey <bitcoinprivkey> [label] [rescan=true]
-keypoolrefill
-******************** listaccounts [minconf=1]
-listaddressgroupings
-listlockunspent
-listreceivedbyaccount [minconf=1] [includeempty=false]
-listreceivedbyaddress [minconf=1] [includeempty=false]
-listsinceblock [blockhash] [target-confirmations]
-listtransactions [account] [count=10] [from=0]
-listunspent [minconf=1] [maxconf=9999999]  ["address",...]
-lockunspent unlock? [array-of-Objects]
-move <fromaccount> <toaccount> <amount> [minconf=1] [comment]
-sendfrom <fromaccount> <tobitcoinaddress> <amount> [minconf=1] [comment] [comment-to]
-sendmany <fromaccount> {address:amount,...} [minconf=1] [comment]
-sendrawtransaction <hex string>
-sendtoaddress <bitcoinaddress> <amount> [comment] [comment-to]
-setaccount <bitcoinaddress> <account>
-setgenerate <generate> [genproclimit]
-settxfee <amount>
-signmessage <bitcoinaddress> <message>
-signrawtransaction <hex string> [{"txid":txid,"vout":n,"scriptPubKey":hex,"redeemScript":hex},...] [<privatekey1>,...] [sighashtype="ALL"]
-******************** stop
-submitblock <hex data> [optional-params-obj]
-validateaddress <bitcoinaddress>
-verifymessage <bitcoinaddress> <signature> <message>
-*/

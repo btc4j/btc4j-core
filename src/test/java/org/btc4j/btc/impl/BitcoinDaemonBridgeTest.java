@@ -32,7 +32,8 @@ import java.util.Map;
 import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
-import org.btc4j.btc.model.BitcoinInfo;
+import org.btc4j.btc.model.BitcoinClientInfo;
+import org.btc4j.btc.model.BitcoinMiningInfo;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -92,7 +93,7 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(addresses.size() >= 0);
 		assertTrue(addresses.contains("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD"));
 	}
-	
+
 	@Test
 	public void getBalance() throws BitcoinException {
 		double balance = BITCOIND.getBalance("", -1);
@@ -100,7 +101,7 @@ public class BitcoinDaemonBridgeTest {
 		balance = BITCOIND.getBalance(BITCOIND_USER, 2);
 		assertTrue(balance >= 0);
 	}
-	
+
 	@Test
 	public void getNewAddress() throws BitcoinException {
 		String address = BITCOIND.getNewAddress(BITCOIND_USER);
@@ -108,7 +109,7 @@ public class BitcoinDaemonBridgeTest {
 		address = BITCOIND.getNewAddress();
 		assertNotNull(address);
 	}
-	
+
 	@Test
 	public void listAccounts() throws BitcoinException {
 		Map<String, BitcoinAccount> accounts = BITCOIND.listAccounts();
@@ -119,19 +120,22 @@ public class BitcoinDaemonBridgeTest {
 	// BitcoinBlockService
 	@Test
 	public void getBlock() throws BitcoinException {
-		BitcoinBlock block = BITCOIND.getBlock("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943");
+		BitcoinBlock block = BITCOIND
+				.getBlock("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943");
 		assertNotNull(block);
-		assertEquals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943", block.getHash());
+		assertEquals(
+				"000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943",
+				block.getHash());
 		assertEquals(0, block.getHeight());
 		assertEquals(1, block.getVersion());
 	}
-	
+
 	@Test
 	public void getBlockCount() throws BitcoinException {
 		int blocks = BITCOIND.getBlockCount();
 		assertTrue(blocks >= 0);
 	}
-	
+
 	@Test
 	public void getBlockHash() throws BitcoinException {
 		String hash = BITCOIND.getBlockHash(-1);
@@ -139,16 +143,15 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(hash.length() >= 0);
 	}
 
-	// BitcoinMiscService
-
-	// BitcoinNodeService
+	// BitcoinInfoService
 	@Test
-	public void getConnectionCount() throws BitcoinException {
-		int connections = BITCOIND.getConnectionCount();
-		assertTrue(connections >= 0);
+	public void getInfo() throws BitcoinException {
+		BitcoinClientInfo info = BITCOIND.getInfo();
+		assertNotNull(info);
+		assertTrue(info.isTestnet());
+		assertEquals(80600, info.getVersion());
 	}
 
-	// BitcoinStatusService
 	@Test
 	public void getDifficulty() throws BitcoinException {
 		double difficulty = BITCOIND.getDifficulty();
@@ -162,13 +165,29 @@ public class BitcoinDaemonBridgeTest {
 	}
 
 	@Test
-	public void getInfo() throws BitcoinException {
-		BitcoinInfo info = BITCOIND.getInfo();
+	public void getHashesPerSec() throws BitcoinException {
+		int hashesPerSec = BITCOIND.getHashesPerSec();
+		assertTrue(hashesPerSec >= 0);
+	}
+	
+	@Test
+	public void getMiningInfo() throws BitcoinException {
+		BitcoinMiningInfo info = BITCOIND.getMiningInfo();
 		assertNotNull(info);
 		assertTrue(info.isTestnet());
-		assertEquals(80600, info.getVersion());
+		assertTrue(info.getDifficulty() >= 0);
 	}
 
+	// BitcoinMiscService
+
+	// BitcoinNodeService
+	@Test
+	public void getConnectionCount() throws BitcoinException {
+		int connections = BITCOIND.getConnectionCount();
+		assertTrue(connections >= 0);
+	}
+
+	// BitcoinStatusService
 	@Test
 	public void help() throws BitcoinException {
 		String help = BITCOIND.help();
@@ -177,7 +196,7 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("gethashespersec");
+		help = BITCOIND.help("getrawmempool");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
 		System.out.println("help: " + help);

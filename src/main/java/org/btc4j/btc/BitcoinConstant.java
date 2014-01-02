@@ -30,24 +30,23 @@ public class BitcoinConstant {
 	public static final String BTCAPI_ACCOUNT_BALANCE = "getbalance";
 	public static final String BTCAPI_ACCOUNT_NEW_ADDRESS = "getnewaddress";
 	public static final String BTCAPI_ACCOUNT_LIST = "listaccounts";
-	
+
 	public static final String BTCAPI_BLOCK = "getblock";
 	public static final String BTCAPI_BLOCK_COUNT = "getblockcount";
 	public static final String BTCAPI_BLOCK_HASH = "getblockhash";
-	
+
 	public static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
-	
-	// TODO change STATUS to INFO, move stop() to another interface
-	public static final String BTCAPI_STATUS_DIFFICULTY = "getdifficulty";
-	public static final String BTCAPI_STATUS_GENERATE = "getgenerate";
-	public static final String BTCAPI_STATUS_INFO = "getinfo";
+
+	public static final String BTCAPI_INFO = "getinfo";
+	public static final String BTCAPI_INFO_DIFFICULTY = "getdifficulty";
+	public static final String BTCAPI_INFO_GENERATE = "getgenerate";
+	public static final String BTCAPI_INFO_HASHESPERSEC = "gethashespersec";
+	public static final String BTCAPI_INFO_MINING = "getmininginfo";
+
 	public static final String BTCAPI_STATUS_HELP = "help";
 	public static final String BTCAPI_STATUS_STOP = "stop";
 
 	// BTCOBJ
-	//public static final String BTCOBJ_ACCOUNT = "account";
-	//public static final String BTCOBJ_ACCOUNT_BALANCE = "balance";
-	
 	public static final String BTCOBJ_BLOCK_HASH = "hash";
 	public static final String BTCOBJ_BLOCK_CONFIRMATIONS = "confirmations";
 	public static final String BTCOBJ_BLOCK_SIZE = "size";
@@ -60,7 +59,7 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_BLOCK_BITS = "bits";
 	public static final String BTCOBJ_BLOCK_DIFFICULTY = "difficulty";
 	public static final String BTCOBJ_BLOCK_NEXT_HASH = "nextblockhash";
-	
+
 	public static final String BTCOBJ_INFO_VERSION = "version";
 	public static final String BTCOBJ_INFO_PROTO_VERSION = "protocolversion";
 	public static final String BTCOBJ_INFO_WALLET_VERSION = "walletversion";
@@ -75,6 +74,12 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_INFO_KEYPOOL_SIZE = "keypoolsize";
 	public static final String BTCOBJ_INFO_TX_FEE = "paytxfee";
 	public static final String BTCOBJ_INFO_ERRORS = "errors";
+	public static final String BTCOBJ_INFO_CURRENT_BLOCK_SIZE = "currentblocksize";
+	public static final String BTCOBJ_INFO_CURRENT_BLOCK_TX = "currentblocktx";
+	public static final String BTCOBJ_INFO_GENERATE = "generate";
+	public static final String BTCOBJ_INFO_PROC_LIMIT = "genproclimit";
+	public static final String BTCOBJ_INFO_HASHESPERSEC = "hashespersec";
+	public static final String BTCOBJ_INFO_POOLED_TX = "pooledtx";
 
 	// JSONRPC
 	public static final String JSONRPC = "jsonrpc";

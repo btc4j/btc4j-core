@@ -23,24 +23,10 @@
 package org.btc4j.btc.api;
 
 import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinInfo;
 
 public interface BitcoinStatusService {
-	public double getDifficulty() throws BitcoinException;
-
-	public boolean getGenerate() throws BitcoinException;
-
-	public BitcoinInfo getInfo() throws BitcoinException;
 
 	public String help(String command) throws BitcoinException;
 
 	public String stop() throws BitcoinException;
-
-	// gethashespersec Returns a recent hashes per second performance
-	// measurement while generating. N
-
-	// getmemorypool [data] Replaced in v0.7.0 with getblocktemplate,
-	// submitblock, getrawmempool``` N
-
-	// getrawmempool version 0.7 Returns all transaction ids in memory pool N
 }

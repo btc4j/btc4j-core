@@ -20,36 +20,25 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc.api;
 
-import java.io.Serializable;
+import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinClientInfo;
+import org.btc4j.btc.model.BitcoinMiningInfo;
 
-public class BitcoinAccount implements Serializable {
-	private static final long serialVersionUID = -9141351425810937383L;
-	private String account;
-	private double balance;
+public interface BitcoinInfoService {
 
-	public BitcoinAccount() {
-	}
+	public BitcoinClientInfo getInfo() throws BitcoinException;
 
-	public BitcoinAccount(String account, double balance) {
-		this.account = account;
-		this.balance = balance;
-	}
+	public double getDifficulty() throws BitcoinException;
 
-	public String getAccount() {
-		return account;
-	}
+	public boolean getGenerate() throws BitcoinException;
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+	public int getHashesPerSec() throws BitcoinException;
+	
+	public BitcoinMiningInfo getMiningInfo() throws BitcoinException;
 
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+	// getpeerinfo Returns data about each connected network node.
+	
+	// getrawmempool version 0.7 Returns all transaction ids in memory pool N
 }
