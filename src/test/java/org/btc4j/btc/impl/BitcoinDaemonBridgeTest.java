@@ -27,8 +27,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinInfo;
 import org.junit.AfterClass;
@@ -73,19 +75,19 @@ public class BitcoinDaemonBridgeTest {
 		String account = BITCOIND
 				.getAccount("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD");
 		assertNotNull(account);
-		assertEquals("user", account);
+		assertEquals(BITCOIND_USER, account);
 	}
 
 	@Test
 	public void getAccountAddress() throws BitcoinException {
-		String address = BITCOIND.getAccountAddress("user");
+		String address = BITCOIND.getAccountAddress(BITCOIND_USER);
 		assertNotNull(address);
 		assertEquals("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD", address);
 	}
 
 	@Test
 	public void getAddressesByAccount() throws BitcoinException {
-		List<String> addresses = BITCOIND.getAddressesByAccount("user");
+		List<String> addresses = BITCOIND.getAddressesByAccount(BITCOIND_USER);
 		assertNotNull(addresses);
 		assertTrue(addresses.size() >= 0);
 		assertTrue(addresses.contains("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD"));
@@ -95,16 +97,23 @@ public class BitcoinDaemonBridgeTest {
 	public void getBalance() throws BitcoinException {
 		double balance = BITCOIND.getBalance("", -1);
 		assertTrue(balance >= 0);
-		balance = BITCOIND.getBalance("user", 2);
+		balance = BITCOIND.getBalance(BITCOIND_USER, 2);
 		assertTrue(balance >= 0);
 	}
 	
 	@Test
 	public void getNewAddress() throws BitcoinException {
-		String address = BITCOIND.getNewAddress("user");
+		String address = BITCOIND.getNewAddress(BITCOIND_USER);
 		assertNotNull(address);
 		address = BITCOIND.getNewAddress();
 		assertNotNull(address);
+	}
+	
+	@Test
+	public void listAccounts() throws BitcoinException {
+		Map<String, BitcoinAccount> accounts = BITCOIND.listAccounts();
+		assertNotNull(accounts);
+		assertTrue(accounts.containsKey(BITCOIND_USER));
 	}
 
 	// BitcoinBlockService
@@ -168,10 +177,10 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("listaccounts");
+		help = BITCOIND.help("gethashespersec");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		//System.out.println("help: " + help);
+		System.out.println("help: " + help);
 	}
 
 	// BitcoinWalletService

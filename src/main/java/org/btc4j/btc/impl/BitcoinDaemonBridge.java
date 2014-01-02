@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -53,6 +55,7 @@ import org.btc4j.btc.api.BitcoinMiscService;
 import org.btc4j.btc.api.BitcoinNodeService;
 import org.btc4j.btc.api.BitcoinStatusService;
 import org.btc4j.btc.api.BitcoinWalletService;
+import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinInfo;
 
@@ -196,6 +199,18 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTCAPI_ACCOUNT_BALANCE, parameters);
 		return results.doubleValue();
 	}
+	
+	public double getBalance(String account) throws BitcoinException {
+		return getBalance(account, 1);
+	}
+	
+	public double getBalance(int minConf) throws BitcoinException {
+		return getBalance("", minConf);
+	}
+	
+	public double getBalance() throws BitcoinException {
+		return getBalance("", 1);
+	}
 
 	@Override
 	public String getNewAddress(String account) throws BitcoinException {
@@ -210,6 +225,26 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	
 	public String getNewAddress() throws BitcoinException {
 		return getNewAddress(null);
+	}
+	
+	@Override
+	public Map<String, BitcoinAccount> listAccounts(int minConf) throws BitcoinException {
+		if (minConf < 1) {
+			minConf = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(minConf).build();
+		JsonObject results = (JsonObject) invoke(
+				BitcoinConstant.BTCAPI_ACCOUNT_LIST, parameters);
+		Map<String, BitcoinAccount> accounts = new HashMap<String, BitcoinAccount>();
+		for (String account : results.keySet()) {
+			JsonNumber balance = results.getJsonNumber(account);
+			accounts.put(account, new BitcoinAccount(account, balance.doubleValue()));
+		}
+		return accounts;
+	}
+	
+	public Map<String, BitcoinAccount> listAccounts() throws BitcoinException {
+		return listAccounts(1);
 	}
 
 	// BitcoinBlockService
@@ -321,7 +356,7 @@ getblocktemplate [params]
 gethashespersec
 ******************** getinfo
 getmininginfo
-getnewaddress [account]
+******************** getnewaddress [account]
 getpeerinfo
 getrawmempool
 getrawtransaction <txid> [verbose=0]
@@ -334,7 +369,7 @@ getwork [data]
 ******************** help [command]
 importprivkey <bitcoinprivkey> [label] [rescan=true]
 keypoolrefill
-listaccounts [minconf=1]
+******************** listaccounts [minconf=1]
 listaddressgroupings
 listlockunspent
 listreceivedbyaccount [minconf=1] [includeempty=false]

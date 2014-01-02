@@ -20,25 +20,46 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.api;
+package org.btc4j.btc.model;
 
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
 
-import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinAccount;
+public class BitcoinAccount implements Serializable {
+	private static final long serialVersionUID = -9141351425810937383L;
+	private String account;
+	private double balance;
 
-public interface BitcoinAccountService {
-	public String getAccount(String address) throws BitcoinException;
+	public BitcoinAccount() {}
 
-	public String getAccountAddress(String account) throws BitcoinException;
-
-	public List<String> getAddressesByAccount(String account)
-			throws BitcoinException;
-
-	public double getBalance(String account, int minConf) throws BitcoinException;
-
-	public String getNewAddress(String account) throws BitcoinException;
+	public BitcoinAccount(String account, double balance) {
+		this.account = account;
+		this.balance = balance;
+	}
 	
-	public Map<String, BitcoinAccount> listAccounts(int minConf) throws BitcoinException;
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BitcoinAccount [account=");
+		builder.append(account);
+		builder.append(", balance=");
+		builder.append(balance);
+		builder.append("]");
+		return builder.toString();
+	}
 }

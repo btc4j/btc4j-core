@@ -26,19 +26,11 @@ import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.model.BitcoinBlock;
 
 public interface BitcoinBlockService {
-	// getblock
-	// <hash>
-	// Returns information about the block with the given hash.
-	// N
+
 	public BitcoinBlock getBlock(String hash) throws BitcoinException;
 
 	public int getBlockCount() throws BitcoinException;
 
-	// getblockhash
-	// <index>
-	// Returns hash of block in best-block-chain at <index>; index 0 is the
-	// genesis block
-	// N
 	public String getBlockHash(int index) throws BitcoinException;
 
 	// getblocktemplate
