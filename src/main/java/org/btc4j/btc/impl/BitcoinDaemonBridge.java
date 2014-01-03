@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -69,7 +71,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
-	private final static String[] VERSIONS = {"0.8.6"};
+	private final static String[] VERSIONS = { "0.8.6" };
 	private URL url;
 	private HttpState state;
 
@@ -83,7 +85,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		state.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
 				username, password));
 	}
-	
+
 	public String[] getSupportedVersions() {
 		return VERSIONS;
 	}
@@ -311,7 +313,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_HASHESPERSEC);
 		return results.intValue();
 	}
-	
+
 	@Override
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_MINING);
@@ -343,7 +345,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_TX_OUTPUT_SET);
 		return BitcoinTxOutputSet.fromJson(results);
 	}
-	
+
 	// BitcoinMiscService
 
 	// BitcoinNodeService

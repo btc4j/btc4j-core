@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -41,12 +43,18 @@ public class BitcoinTxOutputSet implements Serializable {
 
 	public static BitcoinTxOutputSet fromJson(JsonObject value) {
 		BitcoinTxOutputSet output = new BitcoinTxOutputSet();
-		output.setHeight(value.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_HEIGHT, 0));
-		output.setBestBlock(value.getString(BitcoinConstant.BTCOBJ_TXOUTSET_BEST_BLOCK, ""));
-		output.setTransactions(value.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_TRANSACTIONS, 0));
-		output.setTxOuts(value.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_TX_OUTS, 0));
-		output.setBytesSerialized(value.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_BYTES_SERIALIZED, 0));
-		output.setHashSerialized(value.getString(BitcoinConstant.BTCOBJ_TXOUTSET_HASH_SERIALIZED, ""));
+		output.setHeight(value
+				.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_HEIGHT, 0));
+		output.setBestBlock(value.getString(
+				BitcoinConstant.BTCOBJ_TXOUTSET_BEST_BLOCK, ""));
+		output.setTransactions(value.getInt(
+				BitcoinConstant.BTCOBJ_TXOUTSET_TRANSACTIONS, 0));
+		output.setTxOuts(value.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_TX_OUTS,
+				0));
+		output.setBytesSerialized(value.getInt(
+				BitcoinConstant.BTCOBJ_TXOUTSET_BYTES_SERIALIZED, 0));
+		output.setHashSerialized(value.getString(
+				BitcoinConstant.BTCOBJ_TXOUTSET_HASH_SERIALIZED, ""));
 		JsonNumber balance = value
 				.getJsonNumber(BitcoinConstant.BTCOBJ_TXOUTSET_TOTAL_AMOUT);
 		if (balance != null) {

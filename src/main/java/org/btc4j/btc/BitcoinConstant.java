@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -97,7 +99,7 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_PEER_START_HEIGHT = "startingheight";
 	public static final String BTCOBJ_PEER_BAN_SCORE = "banscore";
 	public static final String BTCOBJ_PEER_SYNC_NODE = "syncnode";
-	
+
 	public static final String BTCOBJ_TXOUTSET_HEIGHT = "height";
 	public static final String BTCOBJ_TXOUTSET_BEST_BLOCK = "bestblock";
 	public static final String BTCOBJ_TXOUTSET_TRANSACTIONS = "transactions";
@@ -105,7 +107,7 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_TXOUTSET_BYTES_SERIALIZED = "bytes_serialized";
 	public static final String BTCOBJ_TXOUTSET_HASH_SERIALIZED = "hash_serialized";
 	public static final String BTCOBJ_TXOUTSET_TOTAL_AMOUT = "total_amount";
-	
+
 	// JSONRPC
 	public static final String JSONRPC = "jsonrpc";
 	public static final String JSONRPC_VERSION = "2.0";

@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -39,8 +41,10 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 	public static BitcoinMiningInfo fromJson(JsonObject value) {
 		BitcoinMiningInfo info = new BitcoinMiningInfo();
 		info.setBlocks(value.getInt(BitcoinConstant.BTCOBJ_INFO_BLOCKS, 0));
-		info.setCurrentBlockSize(value.getInt(BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_SIZE, 0));
-		info.setCurrentBlockTx(value.getInt(BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_TX, 0));
+		info.setCurrentBlockSize(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_SIZE, 0));
+		info.setCurrentBlockTx(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_TX, 0));
 		JsonNumber difficulty = value
 				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_DIFFICULTY);
 		if (difficulty != null) {
@@ -49,8 +53,10 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 		info.setErrors(value.getString(BitcoinConstant.BTCOBJ_INFO_ERRORS, ""));
 		info.setGenerate(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_GENERATE,
 				false));
-		info.setGenProcLimit(value.getInt(BitcoinConstant.BTCOBJ_INFO_PROC_LIMIT, -1));
-		info.setHashesPerSec(value.getInt(BitcoinConstant.BTCOBJ_INFO_HASHESPERSEC, 0));
+		info.setGenProcLimit(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_PROC_LIMIT, -1));
+		info.setHashesPerSec(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_HASHESPERSEC, 0));
 		info.setPooledTx(value.getInt(BitcoinConstant.BTCOBJ_INFO_POOLED_TX, 0));
 		info.setTestnet(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_TESTNET,
 				false));

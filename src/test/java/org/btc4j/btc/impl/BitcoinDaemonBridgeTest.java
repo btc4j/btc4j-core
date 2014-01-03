@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +24,9 @@
 
 package org.btc4j.btc.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
@@ -171,7 +175,7 @@ public class BitcoinDaemonBridgeTest {
 		int hashesPerSec = BITCOIND.getHashesPerSec();
 		assertTrue(hashesPerSec >= 0);
 	}
-	
+
 	@Test
 	public void getMiningInfo() throws BitcoinException {
 		BitcoinMiningInfo info = BITCOIND.getMiningInfo();
@@ -179,7 +183,7 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(info.isTestnet());
 		assertTrue(info.getDifficulty() >= 0);
 	}
-	
+
 	@Test
 	public void getPeerInfo() throws BitcoinException {
 		List<BitcoinPeer> peers = BITCOIND.getPeerInfo();
@@ -187,14 +191,14 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(peers.size() >= 0);
 		assertTrue(peers.get(0).isSyncNode() || true);
 	}
-	
+
 	@Test
 	public void getRawMemPool() throws BitcoinException {
 		List<String> rawMemPool = BITCOIND.getRawMemPool();
 		assertNotNull(rawMemPool);
 		assertTrue(rawMemPool.size() >= 0);
 	}
-	
+
 	@Test
 	public void getTxOutputSetInfo() throws BitcoinException {
 		BitcoinTxOutputSet txOutputSet = BITCOIND.getTxOutputSetInfo();

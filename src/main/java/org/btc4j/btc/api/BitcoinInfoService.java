@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -39,12 +41,12 @@ public interface BitcoinInfoService {
 	public boolean getGenerate() throws BitcoinException;
 
 	public int getHashesPerSec() throws BitcoinException;
-	
+
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException;
 
 	public List<BitcoinPeer> getPeerInfo() throws BitcoinException;
 
 	public List<String> getRawMemPool() throws BitcoinException;
-	
+
 	public BitcoinTxOutputSet getTxOutputSetInfo() throws BitcoinException;
 }

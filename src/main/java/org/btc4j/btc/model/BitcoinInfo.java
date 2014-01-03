@@ -1,5 +1,7 @@
 /*
- Copyright (c) 2013 Guillermo Gonzalez, btc4j.org
+ The MIT License (MIT)
+ 
+ Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +32,7 @@ public abstract class BitcoinInfo implements Serializable {
 	private double difficulty;
 	private boolean testnet;
 	private String errors;
-	
+
 	public int getBlocks() {
 		return blocks;
 	}
@@ -38,7 +40,7 @@ public abstract class BitcoinInfo implements Serializable {
 	public void setBlocks(int blocks) {
 		this.blocks = blocks;
 	}
-	
+
 	public double getDifficulty() {
 		return difficulty;
 	}
@@ -54,7 +56,7 @@ public abstract class BitcoinInfo implements Serializable {
 	public void setTestnet(boolean testnet) {
 		this.testnet = testnet;
 	}
-	
+
 	public String getErrors() {
 		return errors;
 	}

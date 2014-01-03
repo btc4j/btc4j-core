@@ -23,6 +23,7 @@
 		<license>
 			<name>The MIT License (MIT)</name>
 			<url>http://opensource.org/licenses/MIT</url>
+			<comments>Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org</comments>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
