@@ -9,6 +9,11 @@
 	<name>btc4j-core</name>
 	<description>Bitcoin Java API. Java implementation of the Bitcoin client and Java Bitcoin daemon bridge.</description>
 	<url>http://btc4j.github.io/btc4j-core</url>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<organization>
 		<name>btc4j</name>
 		<url>http://www.btc4j.org</url>
@@ -37,6 +42,7 @@
 		<jdk.version>1.7</jdk.version>
 		<maven.javadoc.version>2.9.1</maven.javadoc.version>
 		<maven.source.version>2.2.1</maven.source.version>
+		<maven.gpg.version>1.4</maven.gpg.version>
 		<commons.httpclient.version>3.1</commons.httpclient.version>
 		<javax.json.version>1.0.4</javax.json.version>
 		<junit.version>4.11</junit.version>
@@ -84,6 +90,35 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven.gpg.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>commons-httpclient</groupId>

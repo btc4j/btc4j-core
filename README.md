@@ -15,6 +15,8 @@ The project is available from Maven Central:
 			<artifactId>btc4j-core</artifactId>
 			<version>0.1.0</version>
 		</dependency>
+
+btc4j-core is open source under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org.
 		
 API Services
 ------------
@@ -41,8 +43,3 @@ Model
 **Info, Client Info, Mining Info**
 
 **Peer**
-
-&nbsp;
-------
-
-Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org. Open source under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)").
