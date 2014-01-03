@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>btc4j-core</name>
-	<description>Java bitcoin client and bitcoin daemon bridge</description>
+	<description>Bitcoin Java API. Java implementation of the Bitcoin client and Java Bitcoin daemon bridge.</description>
 	<url>http://btc4j.github.io/btc4j-core</url>
 	<organization>
 		<name>btc4j</name>
