@@ -24,7 +24,15 @@
 
 package org.btc4j.btc.api;
 
+import org.btc4j.btc.BitcoinException;
+
 public interface BitcoinWalletService {
+	//help: gettransaction <txid> Get detailed information about in-wallet transaction <txid>
+	public String getTransaction(String txId) throws BitcoinException;
+	
+	//help: getrawtransaction <txid> [verbose=0] If verbose=0, returns a string that is serialized, hex-encoded data for <txid>.
+	//If verbose is non-zero, returns an Object with information about <txid>.
+	
 	// backupwallet
 	// <destination>
 	// Safely copies wallet.dat to destination, which can be a directory or a

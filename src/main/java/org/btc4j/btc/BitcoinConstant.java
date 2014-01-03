@@ -31,6 +31,8 @@ public class BitcoinConstant {
 	public static final String BTCAPI_ACCOUNT_ADDRESSES = "getaddressesbyaccount";
 	public static final String BTCAPI_ACCOUNT_BALANCE = "getbalance";
 	public static final String BTCAPI_ACCOUNT_NEW_ADDRESS = "getnewaddress";
+	public static final String BTCAPI_ACCOUNT_RECEIVED = "getreceivedbyaccount";
+	public static final String BTCAPI_ACCOUNT_RECEIVED_ADDRESS = "getreceivedbyaddress";
 	public static final String BTCAPI_ACCOUNT_LIST = "listaccounts";
 
 	public static final String BTCAPI_BLOCK = "getblock";
@@ -50,6 +52,8 @@ public class BitcoinConstant {
 
 	public static final String BTCAPI_STATUS_HELP = "help";
 	public static final String BTCAPI_STATUS_STOP = "stop";
+	
+	public static final String BTCAPI_WALLET_TX = "gettransaction";
 
 	// BTCOBJ
 	public static final String BTCOBJ_BLOCK_HASH = "hash";

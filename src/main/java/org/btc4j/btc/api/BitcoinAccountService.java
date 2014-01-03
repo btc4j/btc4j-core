@@ -42,7 +42,11 @@ public interface BitcoinAccountService {
 			throws BitcoinException;
 
 	public String getNewAddress(String account) throws BitcoinException;
-
+	
+	public double getReceivedByAccount(String account, int minConf) throws BitcoinException;
+	
+	public double getReceivedByAddress(String address, int minConf) throws BitcoinException;
+			
 	public Map<String, BitcoinAccount> listAccounts(int minConf)
 			throws BitcoinException;
 }

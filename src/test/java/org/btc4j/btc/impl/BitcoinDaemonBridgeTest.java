@@ -115,6 +115,20 @@ public class BitcoinDaemonBridgeTest {
 		address = BITCOIND.getNewAddress();
 		assertNotNull(address);
 	}
+	
+	@Test
+	public void getReceivedByAccount() throws BitcoinException {
+		double balance = BITCOIND.getReceivedByAccount("");
+		assertTrue(balance >= 0);
+		balance = BITCOIND.getReceivedByAccount(BITCOIND_USER, 2);
+		assertTrue(balance >= 0);
+	}
+	
+	@Test
+	public void getReceivedByAddress() throws BitcoinException {
+		double balance = BITCOIND.getReceivedByAccount("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD");
+		assertTrue(balance >= 0);
+	}
 
 	@Test
 	public void listAccounts() throws BitcoinException {
@@ -224,11 +238,16 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("gettransaction");
+		help = BITCOIND.help("getrawtransaction");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
 		System.out.println("help: " + help);
 	}
 
 	// BitcoinWalletService
+	@Test
+	public void getTransaction() throws BitcoinException {
+		String tx = BITCOIND.getTransaction("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b");
+		assertNotNull(tx);
+	}
 }
