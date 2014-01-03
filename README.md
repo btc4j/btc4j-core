@@ -9,60 +9,50 @@ Bitcoin daemon bridge calls the bitcoind Json-Rpc service (Bitcoin-Qt v0.8.6) us
 Using btc4j-core
 ----------------
 The project is available from Maven Central:
+
 		<dependency>
 			<groupId>org.btc4j</groupId>
 			<artifactId>btc4j-core</artifactId>
 			<version>0.1.0</version>
 		</dependency>
-btc4j-core is open source under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). It is maintained by Guillermo Gonzalez (email@ggonzalez.info). You can support the project by reporting issues, contributing code, or by making donations.
+
+It is free software (open source) under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). It is maintained by Guillermo Gonzalez (email@ggonzalez.info). You can support the project by reporting issues, contributing code, or by making donations.
 
 Issues
 ------
-You can report bugs, issues, or suggestions at https://github.com/btc4j/btc4j-core/issues.
+Report bugs, issues, or suggestions: https://github.com/btc4j/btc4j-core/issues.
 
 Contributions
 -------------
-* git: 'git@github.com:btc4j/btc4j-core.git'
-* svn: 'https://github.com/btc4j/btc4j-core'
+* git: `git@github.com:btc4j/btc4j-core.git`
+* svn: `https://github.com/btc4j/btc4j-core`
 
 Donations
 ---------
-If you find the software useful and would like to make a donation, please send bitcoins to [1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j] (bitcoin:1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j).
+If you find the software useful and would like to make a donation, please send bitcoins to bitcoin:1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j.
 
 API Services
-============
-
-Account Service
----------------
-
-Block Service
--------------
-
-Info Service
 ------------
+**Account Service**
 
-Node Service
-------------
+**Block Service**
 
-Status Service
---------------
+**Info Service**
 
-Wallet Service
---------------
+**Node Service**
+
+**Status Service**
+
+**Wallet Service**
 
 Model
-=====
-
-Account
--------
-
-Block
 -----
+**Account**
 
-Info, Client Info, Mining Info
-------------------------------
+**Block**
 
-Peer
-----
+**Info, Client Info, Mining Info**
+
+**Peer**
 
 Copyright &copy; 2013, 2014 by Guillermo Gonzalez, btc4j.org.
