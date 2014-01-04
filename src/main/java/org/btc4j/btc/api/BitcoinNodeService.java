@@ -43,5 +43,6 @@ public interface BitcoinNodeService {
 	// only a list of added nodes will be provided, otherwise connected
 	// information will also be available.
 	//
-	public String getAddedNodeInfo(boolean dns, String node) throws BitcoinException;
+	public String getAddedNodeInfo(boolean dns, String node)
+			throws BitcoinException;
 }

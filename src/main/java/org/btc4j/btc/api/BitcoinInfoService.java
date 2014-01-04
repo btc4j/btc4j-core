@@ -41,7 +41,7 @@ public interface BitcoinInfoService {
 	public boolean getGenerate() throws BitcoinException;
 
 	public int getHashesPerSec() throws BitcoinException;
-	
+
 	public BitcoinClientInfo getInfo() throws BitcoinException;
 
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException;

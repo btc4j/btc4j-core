@@ -43,7 +43,8 @@ public interface BitcoinRawTransactionService {
 	// [{"txid":txid,"vout":n},...] {address:amount,...}
 	// version 0.7 Creates a raw transaction spending given inputs.
 	// N
-	public String createRawTransaction(List<Object> txIds, List<Object> addresses) throws BitcoinException;
+	public String createRawTransaction(List<Object> txIds,
+			List<Object> addresses) throws BitcoinException;
 
 	// decoderawtransaction <hex string>
 	// Returns JSON object with information about a serialized, hex-encoded
@@ -53,7 +54,7 @@ public interface BitcoinRawTransactionService {
 	// version 0.7 Produces a human-readable JSON object for a raw transaction.
 	// N
 	public String decodeRawTransaction(String txId) throws BitcoinException;
-	
+
 	// getrawtransaction <txid> [verbose=0]
 	// If verbose=0, returns serialized, hex-encoded data for transaction txid.
 	// If verbose is non-zero, returns a JSON Object containing information
@@ -61,8 +62,9 @@ public interface BitcoinRawTransactionService {
 	// getrawtransaction <txid> [verbose=0] If verbose=0, returns a string
 	// that is serialized, hex-encoded data for <txid>.
 	// If verbose is non-zero, returns an Object with information about <txid>.
-	public String getRawTransaction(String txId, boolean verbose) throws BitcoinException;
-	
+	public String getRawTransaction(String txId, boolean verbose)
+			throws BitcoinException;
+
 	// listunspent [minconf=1] [maxconf=999999]
 	// Returns an array of unspent transaction outputs in the wallet that have
 	// between minconf and maxconf (inclusive) confirmations. Each output is a

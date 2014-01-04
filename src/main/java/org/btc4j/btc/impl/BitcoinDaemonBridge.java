@@ -347,7 +347,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
-	
+
 	@Override
 	public String getWork(String data) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
@@ -373,13 +373,13 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_HASHESPERSEC);
 		return results.intValue();
 	}
-	
+
 	@Override
 	public BitcoinClientInfo getInfo() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO);
 		return BitcoinClientInfo.fromJson(results);
 	}
-	
+
 	@Override
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_MINING);
@@ -430,13 +430,13 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
-	
+
 	@Override
 	public int getConnectionCount() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
 		return results.intValue();
 	}
-	
+
 	// BitcoinRawTransactionService
 	@Override
 	public String createRawTransaction(List<Object> txIds,
@@ -460,7 +460,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
-	
+
 	// BitcoinStatusService
 	@Override
 	public String help(String command) throws BitcoinException {
@@ -511,7 +511,6 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
-	
 
 	@Override
 	public String dumpPivateKey(String address) throws BitcoinException {

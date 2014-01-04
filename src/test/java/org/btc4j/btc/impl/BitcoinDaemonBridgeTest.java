@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,7 @@ import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinClientInfo;
 import org.btc4j.btc.model.BitcoinMiningInfo;
+import org.btc4j.btc.model.BitcoinNodeOperationEnum;
 import org.btc4j.btc.model.BitcoinPeer;
 import org.btc4j.btc.model.BitcoinTxOutputSet;
 import org.junit.AfterClass;
@@ -180,11 +182,9 @@ public class BitcoinDaemonBridgeTest {
 
 	// BitcoinInfoService
 	@Test
-	public void getInfo() throws BitcoinException {
-		BitcoinClientInfo info = BITCOIND.getInfo();
-		assertNotNull(info);
-		assertTrue(info.isTestnet());
-		assertEquals(80600, info.getVersion());
+	public void getConnectionCount() throws BitcoinException {
+		int connections = BITCOIND.getConnectionCount();
+		assertTrue(connections >= 0);
 	}
 
 	@Test
@@ -203,6 +203,14 @@ public class BitcoinDaemonBridgeTest {
 	public void getHashesPerSec() throws BitcoinException {
 		int hashesPerSec = BITCOIND.getHashesPerSec();
 		assertTrue(hashesPerSec >= 0);
+	}
+
+	@Test
+	public void getInfo() throws BitcoinException {
+		BitcoinClientInfo info = BITCOIND.getInfo();
+		assertNotNull(info);
+		assertTrue(info.isTestnet());
+		assertEquals(80600, info.getVersion());
 	}
 
 	@Test
@@ -238,10 +246,9 @@ public class BitcoinDaemonBridgeTest {
 	// BitcoinMiscService
 
 	// BitcoinNodeService
-	@Test
-	public void getConnectionCount() throws BitcoinException {
-		int connections = BITCOIND.getConnectionCount();
-		assertTrue(connections >= 0);
+	@Test(expected = BitcoinException.class)
+	public void addNode() throws BitcoinException {
+		BITCOIND.addNode("", BitcoinNodeOperationEnum.ADD);
 	}
 
 	// BitcoinStatusService
@@ -256,14 +263,39 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("getrawtransaction");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		System.out.println("help: " + help);
+		// System.out.println("help: " + help);
 	}
-	
+
 	// BitcoinRawTransactionService
+	@Test(expected = BitcoinException.class)
+	public void createRawTransaction() throws BitcoinException {
+		BITCOIND.createRawTransaction(new ArrayList<Object>(),
+				new ArrayList<Object>());
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void decodeRawTransaction() throws BitcoinException {
+		BITCOIND.decodeRawTransaction("");
+	}
 
 	// BitcoinWalletService
+	@Test(expected = BitcoinException.class)
+	public void addMultiSignatureAddress() throws BitcoinException {
+		BITCOIND.addMultiSignatureAddress(0, new ArrayList<String>(), "");
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void backupWallet() throws BitcoinException {
+		BITCOIND.backupWallet(new File(""));
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void createMultiSignatureAddress() throws BitcoinException {
+		BITCOIND.createMultiSignatureAddress(0, new ArrayList<String>());
+	}
+
 	@Ignore("Need valid txid")
-	@Test
+	@Test(expected = BitcoinException.class)
 	public void getTransaction() throws BitcoinException {
 		String tx = BITCOIND
 				.getTransaction("f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba");

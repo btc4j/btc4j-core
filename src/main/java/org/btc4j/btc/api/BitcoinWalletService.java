@@ -68,19 +68,23 @@ public interface BitcoinWalletService {
 	// help: gettransaction <txid> Get detailed information about in-wallet
 	// transaction <txid>
 	public String getTransaction(String txId) throws BitcoinException;
-	
+
 	// gettxout
 	// <txid> <n> [includemempool=true]
 	// Returns details about an unspent transaction output (UTXO)
 	// N
-	public String getTxOutput(String txId, int n, boolean includeMemPool) throws BitcoinException;
-	
+	public String getTxOutput(String txId, int n, boolean includeMemPool)
+			throws BitcoinException;
+
 	// importprivkey
 	// <bitcoinprivkey> [label] [rescan=true]
-	// Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a rescan is done, looking for existing transactions. Optional [rescan] parameter added in 0.8.0.
+	// Adds a private key (as returned by dumpprivkey) to your wallet. This may
+	// take a while, as a rescan is done, looking for existing transactions.
+	// Optional [rescan] parameter added in 0.8.0.
 	// Y
-	public String importPrivateKey(String privateKey, String label, boolean reScan) throws BitcoinException;
-	
+	public String importPrivateKey(String privateKey, String label,
+			boolean reScan) throws BitcoinException;
+
 	// keypoolrefill
 	// Fills the keypool, requires wallet passphrase to be set.
 	// Y
