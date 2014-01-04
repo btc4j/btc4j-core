@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.impl;
+package org.btc4j.btc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,14 +34,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.btc4j.btc.BitcoinAccount;
+import org.btc4j.btc.BitcoinBlock;
+import org.btc4j.btc.BitcoinClientInfo;
+import org.btc4j.btc.BitcoinDaemonBridge;
 import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinAccount;
-import org.btc4j.btc.model.BitcoinBlock;
-import org.btc4j.btc.model.BitcoinClientInfo;
-import org.btc4j.btc.model.BitcoinMiningInfo;
-import org.btc4j.btc.model.BitcoinNodeOperationEnum;
-import org.btc4j.btc.model.BitcoinPeer;
-import org.btc4j.btc.model.BitcoinTxOutputSet;
+import org.btc4j.btc.BitcoinMiningInfo;
+import org.btc4j.btc.BitcoinNodeOperationEnum;
+import org.btc4j.btc.BitcoinPeer;
+import org.btc4j.btc.BitcoinTxOutputSet;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

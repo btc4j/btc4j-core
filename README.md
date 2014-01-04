@@ -34,28 +34,4 @@ Donations
 ---------
 If you find the software useful and would like to make a donation, please send bitcoins to <a href="bitcoin:1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j">1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j</a>.
 
-API Services
-------------
-**Account Service**
-
-**Block Service**
-
-**Info Service**
-
-**Node Service**
-
-**Status Service**
-
-**Wallet Service**
-
-Model
------
-**Account**
-
-**Block**
-
-**Info, Client Info, Mining Info**
-
-**Peer**
-
 Copyright &copy; 2013, 2014 by Guillermo Gonzalez, btc4j.org.

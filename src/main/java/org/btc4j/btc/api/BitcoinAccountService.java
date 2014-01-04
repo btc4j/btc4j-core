@@ -27,8 +27,8 @@ package org.btc4j.btc.api;
 import java.util.List;
 import java.util.Map;
 
+import org.btc4j.btc.BitcoinAccount;
 import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinAccount;
 
 public interface BitcoinAccountService {
 	public String getAccount(String address) throws BitcoinException;

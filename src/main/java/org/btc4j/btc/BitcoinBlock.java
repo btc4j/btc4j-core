@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,8 +32,6 @@ import javax.json.JsonArray;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonString;
-
-import org.btc4j.btc.BitcoinConstant;
 
 public class BitcoinBlock implements Serializable {
 	private static final long serialVersionUID = -5115242454053420689L;

@@ -22,14 +22,12 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc;
 
 import java.io.Serializable;
 
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
-
-import org.btc4j.btc.BitcoinConstant;
 
 public class BitcoinTxOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;

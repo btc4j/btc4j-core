@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.impl;
+package org.btc4j.btc;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,8 +50,6 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.btc4j.btc.BitcoinConstant;
-import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.api.BitcoinAccountService;
 import org.btc4j.btc.api.BitcoinBlockService;
 import org.btc4j.btc.api.BitcoinInfoService;
@@ -60,13 +58,6 @@ import org.btc4j.btc.api.BitcoinNodeService;
 import org.btc4j.btc.api.BitcoinRawTransactionService;
 import org.btc4j.btc.api.BitcoinStatusService;
 import org.btc4j.btc.api.BitcoinWalletService;
-import org.btc4j.btc.model.BitcoinAccount;
-import org.btc4j.btc.model.BitcoinBlock;
-import org.btc4j.btc.model.BitcoinClientInfo;
-import org.btc4j.btc.model.BitcoinMiningInfo;
-import org.btc4j.btc.model.BitcoinNodeOperationEnum;
-import org.btc4j.btc.model.BitcoinPeer;
-import org.btc4j.btc.model.BitcoinTxOutputSet;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
 		BitcoinBlockService, BitcoinInfoService, BitcoinMiscService,

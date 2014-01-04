@@ -22,46 +22,36 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc;
 
 import java.io.Serializable;
 
-public abstract class BitcoinInfo implements Serializable {
-	private static final long serialVersionUID = -1439258025227209294L;
-	private int blocks;
-	private double difficulty;
-	private boolean testnet;
-	private String errors;
+public class BitcoinAccount implements Serializable {
+	private static final long serialVersionUID = -9141351425810937383L;
+	private String account;
+	private double balance;
 
-	public int getBlocks() {
-		return blocks;
+	public BitcoinAccount() {
 	}
 
-	public void setBlocks(int blocks) {
-		this.blocks = blocks;
+	public BitcoinAccount(String account, double balance) {
+		this.account = account;
+		this.balance = balance;
 	}
 
-	public double getDifficulty() {
-		return difficulty;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setDifficulty(double difficulty) {
-		this.difficulty = difficulty;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
-	public boolean isTestnet() {
-		return testnet;
+	public double getBalance() {
+		return balance;
 	}
 
-	public void setTestnet(boolean testnet) {
-		this.testnet = testnet;
-	}
-
-	public String getErrors() {
-		return errors;
-	}
-
-	public void setErrors(String errors) {
-		this.errors = errors;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 }

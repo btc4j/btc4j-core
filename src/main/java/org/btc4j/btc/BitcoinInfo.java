@@ -22,27 +22,46 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.api;
+package org.btc4j.btc;
 
-import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.BitcoinNodeOperationEnum;
+import java.io.Serializable;
 
-public interface BitcoinNodeService {
-	// addnode
-	// <node> <add/remove/onetry>
-	// version 0.8 Attempts add or remove <node> from the addnode list or try a
-	// connection to <node> once.
-	// N
-	public void addNode(String node, BitcoinNodeOperationEnum operation)
-			throws BitcoinException;
+public abstract class BitcoinInfo implements Serializable {
+	private static final long serialVersionUID = -1439258025227209294L;
+	private int blocks;
+	private double difficulty;
+	private boolean testnet;
+	private String errors;
 
-	// getaddednodeinfo
-	// <dns> [node]
-	// version 0.8 Returns information about the given added node, or all added
-	// nodes (note that onetry addnodes are not listed here) If dns is false,
-	// only a list of added nodes will be provided, otherwise connected
-	// information will also be available.
-	//
-	public String getAddedNodeInfo(boolean dns, String node)
-			throws BitcoinException;
+	public int getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(int blocks) {
+		this.blocks = blocks;
+	}
+
+	public double getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public boolean isTestnet() {
+		return testnet;
+	}
+
+	public void setTestnet(boolean testnet) {
+		this.testnet = testnet;
+	}
+
+	public String getErrors() {
+		return errors;
+	}
+
+	public void setErrors(String errors) {
+		this.errors = errors;
+	}
 }

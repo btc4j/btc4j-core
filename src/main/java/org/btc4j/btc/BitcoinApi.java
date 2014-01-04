@@ -22,42 +22,8 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.impl;
+package org.btc4j.btc;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+public interface BitcoinApi {
 
-import org.btc4j.btc.BitcoinException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-public class BitcoinClientTest {
-	private static BitcoinClient BITCOINC;
-
-	@BeforeClass
-	public static void testSetup() throws Exception {
-		BITCOINC = new BitcoinClient();
-	}
-
-	@AfterClass
-	public static void testCleanup() throws Exception {
-		String stop = BITCOINC.stop();
-		assertNotNull(stop);
-		assertTrue(stop.length() >= 0);
-	}
-
-	// BitcoinStatusService
-	@Test
-	public void help() throws BitcoinException {
-		String help = BITCOINC.help();
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
-		help = BITCOINC.help("fakecommand");
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
-		help = BITCOINC.help("getrawtransaction");
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
-	}
 }

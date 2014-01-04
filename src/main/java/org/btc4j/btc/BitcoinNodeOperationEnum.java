@@ -22,36 +22,8 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc;
 
-import java.io.Serializable;
-
-public class BitcoinAccount implements Serializable {
-	private static final long serialVersionUID = -9141351425810937383L;
-	private String account;
-	private double balance;
-
-	public BitcoinAccount() {
-	}
-
-	public BitcoinAccount(String account, double balance) {
-		this.account = account;
-		this.balance = balance;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+public enum BitcoinNodeOperationEnum {
+	ADD, REMOVE, ONE_TRY
 }

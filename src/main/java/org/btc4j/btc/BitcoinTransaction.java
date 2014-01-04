@@ -22,8 +22,20 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc;
 
-public enum BitcoinNodeOperationEnum {
-	ADD, REMOVE, ONE_TRY
+import java.io.Serializable;
+
+public class BitcoinTransaction implements Serializable {
+	private static final long serialVersionUID = -5995582642392441320L;
+	// "amount" : total amount of the transaction
+	// "confirmations" : number of confirmations of the transaction
+	// "txid" : the transaction ID
+	// "time" : time associated with the transaction[1].
+	// "details" - An array of objects containing:
+	// "account"
+	// "address"
+	// "category"
+	// "amount"
+	// "fee"
 }

@@ -22,9 +22,8 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.impl;
+package org.btc4j.btc;
 
-import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.api.BitcoinStatusService;
 
 public class BitcoinClient implements BitcoinStatusService {

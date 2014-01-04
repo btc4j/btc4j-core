@@ -26,11 +26,11 @@ package org.btc4j.btc.api;
 
 import java.util.List;
 
+import org.btc4j.btc.BitcoinClientInfo;
 import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinClientInfo;
-import org.btc4j.btc.model.BitcoinMiningInfo;
-import org.btc4j.btc.model.BitcoinPeer;
-import org.btc4j.btc.model.BitcoinTxOutputSet;
+import org.btc4j.btc.BitcoinMiningInfo;
+import org.btc4j.btc.BitcoinPeer;
+import org.btc4j.btc.BitcoinTxOutputSet;
 
 public interface BitcoinInfoService {
 

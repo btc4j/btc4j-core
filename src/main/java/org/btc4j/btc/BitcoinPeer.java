@@ -22,13 +22,11 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.model;
+package org.btc4j.btc;
 
 import java.io.Serializable;
 
 import javax.json.JsonObject;
-
-import org.btc4j.btc.BitcoinConstant;
 
 public class BitcoinPeer implements Serializable {
 	private static final long serialVersionUID = -300084370265716627L;
