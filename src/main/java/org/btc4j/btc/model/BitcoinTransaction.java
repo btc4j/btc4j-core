@@ -22,26 +22,20 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.api;
+package org.btc4j.btc.model;
 
-import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinNodeOperationEnum;
+import java.io.Serializable;
 
-public interface BitcoinNodeService {
-	// addnode
-	// <node> <add/remove/onetry>
-	// version 0.8 Attempts add or remove <node> from the addnode list or try a
-	// connection to <node> once.
-	// N
-	public void addNode(String node, BitcoinNodeOperationEnum operation)
-			throws BitcoinException;
-
-	// getaddednodeinfo
-	// <dns> [node]
-	// version 0.8 Returns information about the given added node, or all added
-	// nodes (note that onetry addnodes are not listed here) If dns is false,
-	// only a list of added nodes will be provided, otherwise connected
-	// information will also be available.
-	//
-	public String getAddedNodeInfo(boolean dns, String node) throws BitcoinException;
+public class BitcoinTransaction implements Serializable {
+	private static final long serialVersionUID = -5995582642392441320L;
+	// "amount" : total amount of the transaction
+	// "confirmations" : number of confirmations of the transaction
+	// "txid" : the transaction ID
+	// "time" : time associated with the transaction[1].
+	// "details" - An array of objects containing:
+	// "account"
+	// "address"
+	// "category"
+	// "amount"
+	// "fee"
 }

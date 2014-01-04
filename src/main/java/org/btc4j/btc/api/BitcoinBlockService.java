@@ -40,5 +40,16 @@ public interface BitcoinBlockService {
 	// Returns data needed to construct a block to work on. See BIP_0022 for
 	// more info on params.
 	// N
-	// public void getblocktemplate() throws BitcoinException;
+	public String getBlockTemplate(String params) throws BitcoinException;
+	
+	// getwork
+	// [data]
+	// If [data] is not specified, returns formatted hash data to work on:
+	// "midstate" : precomputed hash state after hashing the first half of the data
+	// "data" : block data
+	// "hash1" : formatted hash buffer for second hash
+	// "target" : little endian hash target
+	// If [data] is specified, tries to solve the block and returns true if it was successful.
+	// N
+	public String getWork(String data) throws BitcoinException;
 }

@@ -49,29 +49,42 @@ public interface BitcoinWalletService {
 	// createmultisig
 	// <nrequired> <'["key,"key"]'>
 	// Creates a multi-signature address and returns a json object.
-	//
+	// N/A
 	public String createMultiSignatureAddress(int required, List<String> keys)
 			throws BitcoinException;
-
-	// help: gettransaction <txid> Get detailed information about in-wallet
-	// transaction <txid>
-	public String getTransaction(String txId) throws BitcoinException;
-
-	// help: getrawtransaction <txid> [verbose=0] If verbose=0, returns a string
-	// that is serialized, hex-encoded data for <txid>.
-	// If verbose is non-zero, returns an Object with information about <txid>.
-
-	// encryptwallet
-	// <passphrase>
-	// Encrypts the wallet with <passphrase>.
-	// N
-	// public void encryptWallet() throws BitcoinException;
 
 	// dumpprivkey
 	// <bitcoinaddress>
 	// Reveals the private key corresponding to <bitcoinaddress>
 	// Y
-	// public void dumpPivateKey() throws BitcoinException;
+	public String dumpPivateKey(String address) throws BitcoinException;
+
+	// encryptwallet
+	// <passphrase>
+	// Encrypts the wallet with <passphrase>.
+	// N
+	public void encryptWallet(String passPhrase) throws BitcoinException;
+
+	// help: gettransaction <txid> Get detailed information about in-wallet
+	// transaction <txid>
+	public String getTransaction(String txId) throws BitcoinException;
+	
+	// gettxout
+	// <txid> <n> [includemempool=true]
+	// Returns details about an unspent transaction output (UTXO)
+	// N
+	public String getTxOutput(String txId, int n, boolean includeMemPool) throws BitcoinException;
+	
+	// importprivkey
+	// <bitcoinprivkey> [label] [rescan=true]
+	// Adds a private key (as returned by dumpprivkey) to your wallet. This may take a while, as a rescan is done, looking for existing transactions. Optional [rescan] parameter added in 0.8.0.
+	// Y
+	public String importPrivateKey(String privateKey, String label, boolean reScan) throws BitcoinException;
+	
+	// keypoolrefill
+	// Fills the keypool, requires wallet passphrase to be set.
+	// Y
+	public void keyPoolRefill() throws BitcoinException;
 
 	// walletlock Removes the wallet encryption key from memory, locking the
 	// wallet. After calling this method, you will need to call walletpassphrase

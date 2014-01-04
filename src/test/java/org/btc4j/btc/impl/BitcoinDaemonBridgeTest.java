@@ -258,6 +258,8 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(help.length() >= 0);
 		System.out.println("help: " + help);
 	}
+	
+	// BitcoinRawTransactionService
 
 	// BitcoinWalletService
 	@Ignore("Need valid txid")

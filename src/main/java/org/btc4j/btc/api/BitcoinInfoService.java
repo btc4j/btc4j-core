@@ -34,13 +34,15 @@ import org.btc4j.btc.model.BitcoinTxOutputSet;
 
 public interface BitcoinInfoService {
 
-	public BitcoinClientInfo getInfo() throws BitcoinException;
+	public int getConnectionCount() throws BitcoinException;
 
 	public double getDifficulty() throws BitcoinException;
 
 	public boolean getGenerate() throws BitcoinException;
 
 	public int getHashesPerSec() throws BitcoinException;
+	
+	public BitcoinClientInfo getInfo() throws BitcoinException;
 
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException;
 

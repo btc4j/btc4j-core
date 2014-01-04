@@ -57,6 +57,7 @@ import org.btc4j.btc.api.BitcoinBlockService;
 import org.btc4j.btc.api.BitcoinInfoService;
 import org.btc4j.btc.api.BitcoinMiscService;
 import org.btc4j.btc.api.BitcoinNodeService;
+import org.btc4j.btc.api.BitcoinRawTransactionService;
 import org.btc4j.btc.api.BitcoinStatusService;
 import org.btc4j.btc.api.BitcoinWalletService;
 import org.btc4j.btc.model.BitcoinAccount;
@@ -69,7 +70,8 @@ import org.btc4j.btc.model.BitcoinTxOutputSet;
 
 public class BitcoinDaemonBridge implements BitcoinAccountService,
 		BitcoinBlockService, BitcoinInfoService, BitcoinMiscService,
-		BitcoinNodeService, BitcoinStatusService, BitcoinWalletService {
+		BitcoinNodeService, BitcoinRawTransactionService, BitcoinStatusService,
+		BitcoinWalletService {
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
@@ -339,13 +341,21 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		return results.getString();
 	}
 
-	// BitcoinInfoService
 	@Override
-	public BitcoinClientInfo getInfo() throws BitcoinException {
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO);
-		return BitcoinClientInfo.fromJson(results);
+	public String getBlockTemplate(String params) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+	
+	@Override
+	public String getWork(String data) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
+	// BitcoinInfoService
 	@Override
 	public double getDifficulty() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_DIFFICULTY);
@@ -363,7 +373,13 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_HASHESPERSEC);
 		return results.intValue();
 	}
-
+	
+	@Override
+	public BitcoinClientInfo getInfo() throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO);
+		return BitcoinClientInfo.fromJson(results);
+	}
+	
 	@Override
 	public BitcoinMiningInfo getMiningInfo() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_MINING);
@@ -408,11 +424,43 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	}
 
 	@Override
+	public String getAddedNodeInfo(boolean dns, String node)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+	
+	@Override
 	public int getConnectionCount() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
 		return results.intValue();
 	}
+	
+	// BitcoinRawTransactionService
+	@Override
+	public String createRawTransaction(List<Object> txIds,
+			List<Object> addresses) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
 
+	@Override
+	public String decodeRawTransaction(String txId) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String getRawTransaction(String txId, boolean verbose)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+	
 	// BitcoinStatusService
 	@Override
 	public String help(String command) throws BitcoinException {
@@ -426,7 +474,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	}
 
 	public String help() throws BitcoinException {
-		return help(null);
+		return help("");
 	}
 
 	@Override
@@ -463,6 +511,21 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
+	
+
+	@Override
+	public String dumpPivateKey(String address) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void encryptWallet(String passPhrase) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
 
 	@Override
 	public String getTransaction(String txId) throws BitcoinException {
@@ -472,5 +535,28 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		JsonArray parameters = Json.createArrayBuilder().add(txId).build();
 		JsonValue results = invoke(BitcoinConstant.BTCAPI_WALLET_TX, parameters);
 		return String.valueOf(results);
+	}
+
+	@Override
+	public String getTxOutput(String txId, int n, boolean includeMemPool)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String importPrivateKey(String privateKey, String label,
+			boolean reScan) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void keyPoolRefill() throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 }

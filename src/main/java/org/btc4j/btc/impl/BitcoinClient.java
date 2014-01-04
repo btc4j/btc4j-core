@@ -33,6 +33,10 @@ public class BitcoinClient implements BitcoinStatusService {
 	public String help(String command) throws BitcoinException {
 		return "Bitcoin Client not yet implemented";
 	}
+	
+	public String help() throws BitcoinException {
+		return help("");
+	}
 
 	@Override
 	public String stop() throws BitcoinException {

@@ -22,26 +22,42 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.api;
+package org.btc4j.btc.impl;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinNodeOperationEnum;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public interface BitcoinNodeService {
-	// addnode
-	// <node> <add/remove/onetry>
-	// version 0.8 Attempts add or remove <node> from the addnode list or try a
-	// connection to <node> once.
-	// N
-	public void addNode(String node, BitcoinNodeOperationEnum operation)
-			throws BitcoinException;
+public class BitcoinClientTest {
+	private static BitcoinClient BITCOINC;
 
-	// getaddednodeinfo
-	// <dns> [node]
-	// version 0.8 Returns information about the given added node, or all added
-	// nodes (note that onetry addnodes are not listed here) If dns is false,
-	// only a list of added nodes will be provided, otherwise connected
-	// information will also be available.
-	//
-	public String getAddedNodeInfo(boolean dns, String node) throws BitcoinException;
+	@BeforeClass
+	public static void testSetup() throws Exception {
+		BITCOINC = new BitcoinClient();
+	}
+
+	@AfterClass
+	public static void testCleanup() throws Exception {
+		String stop = BITCOINC.stop();
+		assertNotNull(stop);
+		assertTrue(stop.length() >= 0);
+	}
+
+	// BitcoinStatusService
+	@Test
+	public void help() throws BitcoinException {
+		String help = BITCOINC.help();
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
+		help = BITCOINC.help("fakecommand");
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
+		help = BITCOINC.help("getrawtransaction");
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
+	}
 }
