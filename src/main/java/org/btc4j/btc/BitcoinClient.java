@@ -24,11 +24,9 @@
 
 package org.btc4j.btc;
 
-import org.btc4j.btc.api.BitcoinStatusService;
+// implements BitcoinApi
+public class BitcoinClient {
 
-public class BitcoinClient implements BitcoinStatusService {
-
-	@Override
 	public String help(String command) throws BitcoinException {
 		return "Bitcoin Client not yet implemented";
 	}
@@ -37,7 +35,6 @@ public class BitcoinClient implements BitcoinStatusService {
 		return help("");
 	}
 
-	@Override
 	public String stop() throws BitcoinException {
 		return "Stopping Bitcoin Client";
 	}

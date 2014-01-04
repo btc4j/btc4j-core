@@ -50,19 +50,8 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.btc4j.btc.api.BitcoinAccountService;
-import org.btc4j.btc.api.BitcoinBlockService;
-import org.btc4j.btc.api.BitcoinInfoService;
-import org.btc4j.btc.api.BitcoinMiscService;
-import org.btc4j.btc.api.BitcoinNodeService;
-import org.btc4j.btc.api.BitcoinRawTransactionService;
-import org.btc4j.btc.api.BitcoinStatusService;
-import org.btc4j.btc.api.BitcoinWalletService;
 
-public class BitcoinDaemonBridge implements BitcoinAccountService,
-		BitcoinBlockService, BitcoinInfoService, BitcoinMiscService,
-		BitcoinNodeService, BitcoinRawTransactionService, BitcoinStatusService,
-		BitcoinWalletService {
+public class BitcoinDaemonBridge implements BitcoinApi {
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
