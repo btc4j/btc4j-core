@@ -312,6 +312,22 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		return listAccounts(1);
 	}
 
+	@Override
+	public List<String> listReceivedByAccount(int minConf, boolean includeEmpty)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listReceivedByAddress(int minConf, boolean includeEmpty)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
 	// BitcoinBlockService
 	@Override
 	public BitcoinBlock getBlock(String hash) throws BitcoinException {
@@ -350,6 +366,14 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	@Override
 	public String getWork(String data) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+	
+	@Override
+	public List<String> listSinceBlock(String blockHash, int targetConfirmations)
+			throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -554,6 +578,13 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	@Override
 	public void keyPoolRefill() throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listAddressGroupings() throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);

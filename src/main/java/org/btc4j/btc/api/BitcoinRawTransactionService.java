@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.btc4j.btc.BitcoinException;
 
+// https://en.bitcoin.it/wiki/Raw_Transactions
 public interface BitcoinRawTransactionService {
 
 	// createrawtransaction [{"txid":txid,"vout":n},...] {address:amount,...}

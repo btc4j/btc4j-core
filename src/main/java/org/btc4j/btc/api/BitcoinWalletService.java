@@ -89,6 +89,11 @@ public interface BitcoinWalletService {
 	// Fills the keypool, requires wallet passphrase to be set.
 	// Y
 	public void keyPoolRefill() throws BitcoinException;
+	
+	// listaddressgroupings
+	// version 0.7 Returns all addresses in the wallet and info used for coincontrol.
+	// N
+	public List<String> listAddressGroupings() throws BitcoinException;
 
 	// walletlock Removes the wallet encryption key from memory, locking the
 	// wallet. After calling this method, you will need to call walletpassphrase

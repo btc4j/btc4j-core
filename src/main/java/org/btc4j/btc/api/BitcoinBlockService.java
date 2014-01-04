@@ -24,6 +24,8 @@
 
 package org.btc4j.btc.api;
 
+import java.util.List;
+
 import org.btc4j.btc.BitcoinException;
 import org.btc4j.btc.model.BitcoinBlock;
 
@@ -54,4 +56,10 @@ public interface BitcoinBlockService {
 	// was successful.
 	// N
 	public String getWork(String data) throws BitcoinException;
+	
+	// listsinceblock
+	// [blockhash] [target-confirmations]
+	// Get all transactions in blocks since block [blockhash], or all transactions if omitted. [target-confirmations] is ignored (bug) up to (at least) v0.8.5
+	// N
+	public List<String> listSinceBlock(String blockHash, int targetConfirmations) throws BitcoinException;
 }

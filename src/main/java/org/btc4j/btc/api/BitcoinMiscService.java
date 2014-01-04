@@ -25,43 +25,6 @@
 package org.btc4j.btc.api;
 
 public interface BitcoinMiscService {
-	// createrawtransaction
-	// [{"txid":txid,"vout":n},...] {address:amount,...}
-	// version 0.7 Creates a raw transaction spending given inputs.
-	// N
-	// public void createRawTransaction() throws BitcoinException;
-
-	// decoderawtransaction
-	// <hex string>
-	// version 0.7 Produces a human-readable JSON object for a raw transaction.
-	// N
-	// public void decodeRawTransaction() throws BitcoinException;
-
-	// getrawtransaction <txid> [verbose=0] version 0.7 Returns raw transaction
-	// representation for given transaction id. N
-
-	// getrawchangeaddress [account] recent git checkouts only Returns a new
-	// Bitcoin address, for receiving change. This is for use with raw
-	// transactions, NOT normal use. Y
-
-	// getreceivedbyaccount [account] [minconf=1] Returns the total amount
-	// received by addresses with [account] in transactions with at least
-	// [minconf] confirmations. If [account] not provided return will include
-	// all transactions to all accounts. (version 0.3.24) N
-
-	// getreceivedbyaddress <bitcoinaddress> [minconf=1] Returns the amount
-	// received by <bitcoinaddress> in transactions with at least [minconf]
-	// confirmations. It correctly handles the case where someone has sent to
-	// the address in multiple transactions. Keep in mind that addresses are
-	// only ever used for receiving transactions. Works only for addresses in
-	// the local wallet, external addresses will always show 0. N
-
-	// gettransaction <txid> Returns an object about the given transaction
-	// containing: "amount" : total amount of the transaction "confirmations" :
-	// number of confirmations of the transaction "txid" : the transaction ID
-	// "time" : time associated with the transaction[1]. "details" - An array of
-	// objects containing: "account" "address" "category" "amount" "fee" N
-
 	// gettxout <txid> <n> [includemempool=true] Returns details about an
 	// unspent transaction output (UTXO) N
 

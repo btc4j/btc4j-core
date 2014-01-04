@@ -51,4 +51,24 @@ public interface BitcoinAccountService {
 
 	public Map<String, BitcoinAccount> listAccounts(int minConf)
 			throws BitcoinException;
+	
+	// listreceivedbyaccount
+	// [minconf=1] [includeempty=false]
+	// Returns an array of objects containing:
+	// "account" : the account of the receiving addresses
+	// "amount" : total amount received by addresses with this account
+	// "confirmations" : number of confirmations of the most recent transaction included
+	// N
+	public List<String> listReceivedByAccount(int minConf, boolean includeEmpty) throws BitcoinException;
+	
+	// listreceivedbyaddress
+	// [minconf=1] [includeempty=false]
+	// Returns an array of objects containing:
+	// "address" : receiving address
+	// "account" : the account of the receiving address
+	// "amount" : total amount received by the address
+	// "confirmations" : number of confirmations of the most recent transaction included
+	// To get a list of accounts on the system, execute bitcoind listreceivedbyaddress 0 true
+	// N
+	public List<String> listReceivedByAddress(int minConf, boolean includeEmpty) throws BitcoinException;
 }
