@@ -40,12 +40,13 @@ public interface BitcoinApi {
 	public String createMultiSignatureAddress(int required, List<String> keys)
 			throws BitcoinException;
 
-	public String createRawTransaction(List<Object> txIds,
+	public String createRawTransaction(List<Object> transactionIds,
 			List<Object> addresses) throws BitcoinException;
 
-	public String decodeRawTransaction(String txId) throws BitcoinException;
+	public String decodeRawTransaction(String transactionId)
+			throws BitcoinException;
 
-	public String dumpPivateKey(String address) throws BitcoinException;
+	public String dumpPrivateKey(String address) throws BitcoinException;
 
 	public void encryptWallet(String passPhrase) throws BitcoinException;
 
@@ -53,13 +54,13 @@ public interface BitcoinApi {
 
 	public String getAccountAddress(String account) throws BitcoinException;
 
-	public String getAddedNodeInfo(boolean dns, String node)
+	public String getAddedNodeInformation(boolean dns, String node)
 			throws BitcoinException;
 
 	public List<String> getAddressesByAccount(String account)
 			throws BitcoinException;
 
-	public double getBalance(String account, int minConf)
+	public double getBalance(String account, int minConfirms)
 			throws BitcoinException;
 
 	public BitcoinBlock getBlock(String hash) throws BitcoinException;
@@ -76,56 +77,107 @@ public interface BitcoinApi {
 
 	public boolean getGenerate() throws BitcoinException;
 
-	public int getHashesPerSec() throws BitcoinException;
+	public int getHashesPerSecond() throws BitcoinException;
 
-	public BitcoinClientInfo getInfo() throws BitcoinException;
+	public BitcoinClientInfo getInformation() throws BitcoinException;
 
-	public BitcoinMiningInfo getMiningInfo() throws BitcoinException;
+	public BitcoinMiningInfo getMiningInformation() throws BitcoinException;
 
 	public String getNewAddress(String account) throws BitcoinException;
 
-	public List<BitcoinPeer> getPeerInfo() throws BitcoinException;
+	public List<BitcoinPeer> getPeerInformation() throws BitcoinException;
 
-	public List<String> getRawMemPool() throws BitcoinException;
+	public List<String> getRawMemoryPool() throws BitcoinException;
 
-	public String getRawTransaction(String txId, boolean verbose)
+	public String getRawTransaction(String transactionId, boolean verbose)
 			throws BitcoinException;
 
-	public double getReceivedByAccount(String account, int minConf)
+	public double getReceivedByAccount(String account, int minConfirms)
 			throws BitcoinException;
 
-	public double getReceivedByAddress(String address, int minConf)
+	public double getReceivedByAddress(String address, int minConfirms)
 			throws BitcoinException;
 
-	public String getTransaction(String txId) throws BitcoinException;
+	public String getTransaction(String transactionId) throws BitcoinException;
 
-	public String getTxOutput(String txId, int n, boolean includeMemPool)
+	public String getTransactionOutput(String transactionId, int n,
+			boolean includeMemoryPool) throws BitcoinException;
+
+	public BitcoinTxOutputSet getTransactionOutputSetInformation()
 			throws BitcoinException;
-
-	public BitcoinTxOutputSet getTxOutputSetInfo() throws BitcoinException;
 
 	public String getWork(String data) throws BitcoinException;
 
 	public String help(String command) throws BitcoinException;
 
 	public String importPrivateKey(String privateKey, String label,
-			boolean reScan) throws BitcoinException;
+			boolean rescan) throws BitcoinException;
 
 	public void keyPoolRefill() throws BitcoinException;
 
-	public Map<String, BitcoinAccount> listAccounts(int minConf)
+	public Map<String, BitcoinAccount> listAccounts(int minConfirms)
 			throws BitcoinException;
 
 	public List<String> listAddressGroupings() throws BitcoinException;
 
-	public List<String> listReceivedByAccount(int minConf, boolean includeEmpty)
+	public List<String> listLockUnspent() throws BitcoinException;
+
+	public List<String> listReceivedByAccount(int minConfirms,
+			boolean includeEmpty) throws BitcoinException;
+
+	public List<String> listReceivedByAddress(int minConfirms,
+			boolean includeEmpty) throws BitcoinException;
+
+	public List<String> listSinceBlock(String blockHash, int targetConfirms)
 			throws BitcoinException;
 
-	public List<String> listReceivedByAddress(int minConf, boolean includeEmpty)
+	public List<String> listTransactions(String account, int count, int from)
 			throws BitcoinException;
 
-	public List<String> listSinceBlock(String blockHash, int targetConfirmations)
+	public List<String> listUnspent(int minConfirms, int maxConfirms)
 			throws BitcoinException;
+
+	public void lockUnspent(boolean unlock, List<Object> outputs)
+			throws BitcoinException;
+
+	public void move(String fromAccount, String toAccount, double amount,
+			int minConfirms, String comment) throws BitcoinException;
+
+	public String sendFrom(String fromAccount, String toAddress, double amount,
+			int minConfirms, String commentFrom, String commentTo)
+			throws BitcoinException;
+
+	public String sendMany(String fromAccount, List<Object> addresses,
+			int minConfirms, String commentFrom, String commentTo)
+			throws BitcoinException;
+
+	public void sendRawTransaction(String transactionId)
+			throws BitcoinException;
+
+	public String sendToAddress(String toAddress, double amount,
+			String commentFrom, String commentTo) throws BitcoinException;
+
+	public void setAccount(String address, String account)
+			throws BitcoinException;
+
+	public void setGenerate(boolean generate, int generateProcessorsLimit)
+			throws BitcoinException;
+
+	public void setTransactionFee(double amount) throws BitcoinException;
+
+	public void signMessage(String address, String message)
+			throws BitcoinException;
+
+	public void signRawTransaction(String transactionId,
+			List<Object> signatures, List<String> keys) throws BitcoinException;
 
 	public String stop() throws BitcoinException;
+
+	public void submitBlock(String data, List<Object> params)
+			throws BitcoinException;
+
+	public String validateAddress(String address) throws BitcoinException;
+
+	public String verifyMessage(String address, String signature, String message)
+			throws BitcoinException;
 }

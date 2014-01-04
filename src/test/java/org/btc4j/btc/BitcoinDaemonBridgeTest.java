@@ -34,37 +34,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.btc4j.btc.BitcoinAccount;
-import org.btc4j.btc.BitcoinBlock;
-import org.btc4j.btc.BitcoinClientInfo;
-import org.btc4j.btc.BitcoinDaemonBridge;
-import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.BitcoinMiningInfo;
-import org.btc4j.btc.BitcoinNodeOperationEnum;
-import org.btc4j.btc.BitcoinPeer;
-import org.btc4j.btc.BitcoinTxOutputSet;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class BitcoinDaemonBridgeTest {
-	private static final String BITCOIND_DIR = "E:/bitcoin/bitcoind-0.8.6";
-	private static final String BITCOIND_CMD = "bitcoind.exe";
-	private static final String BITCOIND_TEST_ARG = "-testnet=1";
+	private static BitcoinDaemonBridge BITCOIND;
 	private static final String BITCOIND_ACCOUNT = "user";
-	private static final String BITCOIND_USER_ARG = "-rpcuser="
-			+ BITCOIND_ACCOUNT;
-	private static final String BITCOIND_PASSWD = "password";
-	private static final String BITCOIND_PASSWD_ARG = "-rpcpassword="
-			+ BITCOIND_PASSWD;
-	private static final String BITCOIND_URL = "http://127.0.0.1:18332";
+	private static final String BITCOIND_CMD = "bitcoind.exe";
 	// battlestar.xeno-genesis.com:18333
 	// https://en.bitcoin.it/wiki/Testnet
 	// 54.243.211.176:18333
 	// YVmHAJ94qhsVMNvdjzw4Jt
 	private static long BITCOIND_DELAY_SECONDS = 5;
-	private static BitcoinDaemonBridge BITCOIND;
+	private static final String BITCOIND_DIR = "E:/bitcoin/bitcoind-0.8.6";
+	private static final String BITCOIND_PASSWD = "password";
+	private static final String BITCOIND_PASSWD_ARG = "-rpcpassword="
+			+ BITCOIND_PASSWD;
+	private static final String BITCOIND_TEST_ARG = "-testnet=1";
+	private static final String BITCOIND_URL = "http://127.0.0.1:18332";
+	private static final String BITCOIND_USER_ARG = "-rpcuser="
+			+ BITCOIND_ACCOUNT;
 
 	@BeforeClass
 	public static void testSetup() throws Exception {
@@ -77,7 +68,7 @@ public class BitcoinDaemonBridgeTest {
 		BITCOIND = new BitcoinDaemonBridge(new URL(BITCOIND_URL),
 				BITCOIND_ACCOUNT, BITCOIND_PASSWD);
 	}
-
+	
 	@AfterClass
 	public static void testCleanup() throws Exception {
 		String stop = BITCOIND.stop();
@@ -85,7 +76,47 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(stop.length() >= 0);
 	}
 
-	// BitcoinAccountService
+	@Test(expected = BitcoinException.class)
+	public void addMultiSignatureAddress() throws BitcoinException {
+		BITCOIND.addMultiSignatureAddress(0, new ArrayList<String>(), "");
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void addNode() throws BitcoinException {
+		BITCOIND.addNode("", BitcoinNodeOperationEnum.ADD);
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void backupWallet() throws BitcoinException {
+		BITCOIND.backupWallet(new File(""));
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void createMultiSignatureAddress() throws BitcoinException {
+		BITCOIND.createMultiSignatureAddress(0, new ArrayList<String>());
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void createRawTransaction() throws BitcoinException {
+		BITCOIND.createRawTransaction(new ArrayList<Object>(),
+				new ArrayList<Object>());
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void decodeRawTransaction() throws BitcoinException {
+		BITCOIND.decodeRawTransaction("");
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void dumpPrivateKey() throws BitcoinException {
+		BITCOIND.dumpPrivateKey("");
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void encryptWallet() throws BitcoinException {
+		BITCOIND.encryptWallet("");
+	}
+
 	@Test
 	public void getAccount() throws BitcoinException {
 		String account = BITCOIND
@@ -101,6 +132,11 @@ public class BitcoinDaemonBridgeTest {
 		assertEquals("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD", address);
 	}
 
+	@Test(expected = BitcoinException.class)
+	public void getAddedNodeInformation() throws BitcoinException {
+		BITCOIND.getAddedNodeInformation(false, "");
+	}
+	
 	@Test
 	public void getAddressesByAccount() throws BitcoinException {
 		List<String> addresses = BITCOIND
@@ -109,7 +145,7 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(addresses.size() >= 0);
 		assertTrue(addresses.contains("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD"));
 	}
-
+	
 	@Test
 	public void getBalance() throws BitcoinException {
 		double balance = BITCOIND.getBalance("", -1);
@@ -118,37 +154,6 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(balance >= 0);
 	}
 
-	@Test
-	public void getNewAddress() throws BitcoinException {
-		String address = BITCOIND.getNewAddress(BITCOIND_ACCOUNT);
-		assertNotNull(address);
-		address = BITCOIND.getNewAddress();
-		assertNotNull(address);
-	}
-
-	@Test
-	public void getReceivedByAccount() throws BitcoinException {
-		double balance = BITCOIND.getReceivedByAccount("");
-		assertTrue(balance >= 0);
-		balance = BITCOIND.getReceivedByAccount(BITCOIND_ACCOUNT, 2);
-		assertTrue(balance >= 0);
-	}
-
-	@Test
-	public void getReceivedByAddress() throws BitcoinException {
-		double balance = BITCOIND
-				.getReceivedByAccount("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD");
-		assertTrue(balance >= 0);
-	}
-
-	@Test
-	public void listAccounts() throws BitcoinException {
-		Map<String, BitcoinAccount> accounts = BITCOIND.listAccounts();
-		assertNotNull(accounts);
-		assertTrue(accounts.containsKey(BITCOIND_ACCOUNT));
-	}
-
-	// BitcoinBlockService
 	@Test
 	public void getBlock() throws BitcoinException {
 		BitcoinBlock block = BITCOIND
@@ -180,18 +185,12 @@ public class BitcoinDaemonBridgeTest {
 		assertNotNull(hash);
 		assertTrue(hash.length() >= 0);
 	}
-	
+
 	@Test(expected = BitcoinException.class)
 	public void getBlockTemplate() throws BitcoinException {
 		BITCOIND.getBlockTemplate("");
 	}
-	
-	@Test(expected = BitcoinException.class)
-	public void getWork() throws BitcoinException {
-		BITCOIND.getWork("");
-	}
 
-	// BitcoinInfoService
 	@Test
 	public void getConnectionCount() throws BitcoinException {
 		int connections = BITCOIND.getConnectionCount();
@@ -211,63 +210,98 @@ public class BitcoinDaemonBridgeTest {
 	}
 
 	@Test
-	public void getHashesPerSec() throws BitcoinException {
-		int hashesPerSec = BITCOIND.getHashesPerSec();
+	public void getHashesPerSecond() throws BitcoinException {
+		int hashesPerSec = BITCOIND.getHashesPerSecond();
 		assertTrue(hashesPerSec >= 0);
 	}
 
 	@Test
-	public void getInfo() throws BitcoinException {
-		BitcoinClientInfo info = BITCOIND.getInfo();
+	public void getInformation() throws BitcoinException {
+		BitcoinClientInfo info = BITCOIND.getInformation();
 		assertNotNull(info);
 		assertTrue(info.isTestnet());
 		assertEquals(80600, info.getVersion());
 	}
 
 	@Test
-	public void getMiningInfo() throws BitcoinException {
-		BitcoinMiningInfo info = BITCOIND.getMiningInfo();
+	public void getMiningInformation() throws BitcoinException {
+		BitcoinMiningInfo info = BITCOIND.getMiningInformation();
 		assertNotNull(info);
 		assertTrue(info.isTestnet());
 		assertTrue(info.getDifficulty() >= 0);
 	}
+	
+	@Test
+	public void getNewAddress() throws BitcoinException {
+		String address = BITCOIND.getNewAddress(BITCOIND_ACCOUNT);
+		assertNotNull(address);
+		address = BITCOIND.getNewAddress();
+		assertNotNull(address);
+	}
 
 	@Test
-	public void getPeerInfo() throws BitcoinException {
-		List<BitcoinPeer> peers = BITCOIND.getPeerInfo();
+	public void getPeerInformation() throws BitcoinException {
+		List<BitcoinPeer> peers = BITCOIND.getPeerInformation();
 		assertNotNull(peers);
 		assertTrue(peers.size() >= 0);
 		assertTrue(peers.get(0).isSyncNode() || true);
 	}
 
 	@Test
-	public void getRawMemPool() throws BitcoinException {
-		List<String> rawMemPool = BITCOIND.getRawMemPool();
+	public void getRawMemoryPool() throws BitcoinException {
+		List<String> rawMemPool = BITCOIND.getRawMemoryPool();
 		assertNotNull(rawMemPool);
 		assertTrue(rawMemPool.size() >= 0);
 	}
 
+	@Test(expected = BitcoinException.class)
+	public void getRawTransaction() throws BitcoinException {
+		BITCOIND.getRawTransaction("", false);
+	}
+	
 	@Test
-	public void getTxOutputSetInfo() throws BitcoinException {
-		BitcoinTxOutputSet txOutputSet = BITCOIND.getTxOutputSetInfo();
+	public void getReceivedByAccount() throws BitcoinException {
+		double balance = BITCOIND.getReceivedByAccount("");
+		assertTrue(balance >= 0);
+		balance = BITCOIND.getReceivedByAccount(BITCOIND_ACCOUNT, 2);
+		assertTrue(balance >= 0);
+	}
+
+	@Test
+	public void getReceivedByAddress() throws BitcoinException {
+		double balance = BITCOIND
+				.getReceivedByAccount("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD");
+		assertTrue(balance >= 0);
+	}
+
+	@Ignore("Need valid txid")
+	@Test(expected = BitcoinException.class)
+	public void getTransaction() throws BitcoinException {
+		String tx = BITCOIND
+				.getTransaction("f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba");
+		assertNotNull(tx);
+		tx = BITCOIND
+				.getTransaction("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b");
+		assertNotNull(tx);
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void getTransactionOutput() throws BitcoinException {
+		BITCOIND.getTransactionOutput("", 0, false);
+	}
+	
+	@Test
+	public void getTransactionOutputSetInformation() throws BitcoinException {
+		BitcoinTxOutputSet txOutputSet = BITCOIND.getTransactionOutputSetInformation();
 		assertNotNull(txOutputSet);
 		assertTrue(txOutputSet.getHeight() >= 0);
 	}
-
-	// BitcoinMiscService
-
-	// BitcoinNodeService
-	@Test(expected = BitcoinException.class)
-	public void addNode() throws BitcoinException {
-		BITCOIND.addNode("", BitcoinNodeOperationEnum.ADD);
-	}
 	
 	@Test(expected = BitcoinException.class)
-	public void getAddedNodeInfo() throws BitcoinException {
-		BITCOIND.getAddedNodeInfo(false, "");
+	public void getWork() throws BitcoinException {
+		BITCOIND.getWork("");
 	}
 
-	// BitcoinStatusService
 	@Test
 	public void help() throws BitcoinException {
 		String help = BITCOIND.help();
@@ -281,65 +315,6 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(help.length() >= 0);
 		System.out.println("help: " + help);
 	}
-
-	// BitcoinRawTransactionService
-	@Test(expected = BitcoinException.class)
-	public void createRawTransaction() throws BitcoinException {
-		BITCOIND.createRawTransaction(new ArrayList<Object>(),
-				new ArrayList<Object>());
-	}
-
-	@Test(expected = BitcoinException.class)
-	public void decodeRawTransaction() throws BitcoinException {
-		BITCOIND.decodeRawTransaction("");
-	}
-	
-	@Test(expected = BitcoinException.class)
-	public void getRawTransaction() throws BitcoinException {
-		BITCOIND.getRawTransaction("", false);
-	}
-
-	// BitcoinWalletService
-	@Test(expected = BitcoinException.class)
-	public void addMultiSignatureAddress() throws BitcoinException {
-		BITCOIND.addMultiSignatureAddress(0, new ArrayList<String>(), "");
-	}
-
-	@Test(expected = BitcoinException.class)
-	public void backupWallet() throws BitcoinException {
-		BITCOIND.backupWallet(new File(""));
-	}
-
-	@Test(expected = BitcoinException.class)
-	public void createMultiSignatureAddress() throws BitcoinException {
-		BITCOIND.createMultiSignatureAddress(0, new ArrayList<String>());
-	}
-	
-	@Test(expected = BitcoinException.class)
-	public void dumpPivateKey() throws BitcoinException {
-		BITCOIND.dumpPivateKey("");
-	}
-	
-	@Test(expected = BitcoinException.class)
-	public void encryptWallet() throws BitcoinException {
-		BITCOIND.encryptWallet("");
-	}
-
-	@Ignore("Need valid txid")
-	@Test(expected = BitcoinException.class)
-	public void getTransaction() throws BitcoinException {
-		String tx = BITCOIND
-				.getTransaction("f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba");
-		assertNotNull(tx);
-		tx = BITCOIND
-				.getTransaction("4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b");
-		assertNotNull(tx);
-	}
-	
-	@Test(expected = BitcoinException.class)
-	public void getTxOutput() throws BitcoinException {
-		BITCOIND.getTxOutput("", 0, false);
-	}
 	
 	@Test(expected = BitcoinException.class)
 	public void importPrivateKey() throws BitcoinException {
@@ -349,5 +324,12 @@ public class BitcoinDaemonBridgeTest {
 	@Test(expected = BitcoinException.class)
 	public void keyPoolRefill() throws BitcoinException {
 		BITCOIND.keyPoolRefill();
+	}
+	
+	@Test
+	public void listAccounts() throws BitcoinException {
+		Map<String, BitcoinAccount> accounts = BITCOIND.listAccounts();
+		assertNotNull(accounts);
+		assertTrue(accounts.containsKey(BITCOIND_ACCOUNT));
 	}
 }

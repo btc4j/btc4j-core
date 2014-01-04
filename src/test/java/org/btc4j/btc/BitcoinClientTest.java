@@ -48,7 +48,6 @@ public class BitcoinClientTest {
 		assertTrue(stop.length() >= 0);
 	}
 
-	// BitcoinStatusService
 	@Test
 	public void help() throws BitcoinException {
 		String help = BITCOINC.help();

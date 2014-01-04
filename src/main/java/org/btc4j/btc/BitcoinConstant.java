@@ -26,34 +26,65 @@ package org.btc4j.btc;
 
 public class BitcoinConstant {
 	// BTCAPI
-	public static final String BTCAPI_ACCOUNT = "getaccount";
-	public static final String BTCAPI_ACCOUNT_ADDRESS = "getaccountaddress";
-	public static final String BTCAPI_ACCOUNT_ADDRESSES = "getaddressesbyaccount";
-	public static final String BTCAPI_ACCOUNT_BALANCE = "getbalance";
-	public static final String BTCAPI_ACCOUNT_NEW_ADDRESS = "getnewaddress";
-	public static final String BTCAPI_ACCOUNT_RECEIVED = "getreceivedbyaccount";
-	public static final String BTCAPI_ACCOUNT_RECEIVED_ADDRESS = "getreceivedbyaddress";
-	public static final String BTCAPI_ACCOUNT_LIST = "listaccounts";
-
-	public static final String BTCAPI_BLOCK = "getblock";
-	public static final String BTCAPI_BLOCK_COUNT = "getblockcount";
-	public static final String BTCAPI_BLOCK_HASH = "getblockhash";
-
-	public static final String BTCAPI_NODE_CONNECTION_COUNT = "getconnectioncount";
-
-	public static final String BTCAPI_INFO = "getinfo";
-	public static final String BTCAPI_INFO_DIFFICULTY = "getdifficulty";
-	public static final String BTCAPI_INFO_GENERATE = "getgenerate";
-	public static final String BTCAPI_INFO_HASHESPERSEC = "gethashespersec";
-	public static final String BTCAPI_INFO_MINING = "getmininginfo";
-	public static final String BTCAPI_INFO_PEER = "getpeerinfo";
-	public static final String BTCAPI_INFO_RAW_MEM_POOL = "getrawmempool";
-	public static final String BTCAPI_INFO_TX_OUTPUT_SET = "gettxoutsetinfo";
-
-	public static final String BTCAPI_STATUS_HELP = "help";
-	public static final String BTCAPI_STATUS_STOP = "stop";
-
-	public static final String BTCAPI_WALLET_TX = "gettransaction";
+	public static final String BTCAPI_ADD_MULTI_SIGNATURE_ADDRESS = "addmultisigaddress";
+	public static final String BTCAPI_ADD_NODE = "addnode";
+	public static final String BTCAPI_BACKUP_WALLET = "backupwallet";
+	public static final String BTCAPI_CREATE_MULTI_SIGNATURE_ADDRESS = "createmultisig";
+	public static final String BTCAPI_CREATE_RAW_TRANSACTION = "createrawtransaction";
+	public static final String BTCAPI_DECODE_RAW_TRANSACTION = "decoderawtransaction";
+	public static final String BTCAPI_DUMP_PRIVATE_KEY = "dumpprivkey";
+	public static final String BTCAPI_ENCRYPT_WALLET = "encryptwallet";
+	public static final String BTCAPI_GET_ACCOUNT = "getaccount";
+	public static final String BTCAPI_GET_ACCOUNT_ADDRESS = "getaccountaddress";
+	public static final String BTCAPI_GET_ADDED_NODE_INFORMATION = "getaddednodeinfo";
+	public static final String BTCAPI_GET_ADDRESSES_BY_ACCOUNT = "getaddressesbyaccount";
+	public static final String BTCAPI_GET_BALANCE = "getbalance";
+	public static final String BTCAPI_GET_BLOCK = "getblock";
+	public static final String BTCAPI_GET_BLOCK_COUNT = "getblockcount";
+	public static final String BTCAPI_GET_BLOCK_HASH = "getblockhash";
+	public static final String BTCAPI_GET_BLOCK_TEMPLATE = "getblocktemplate";
+	public static final String BTCAPI_GET_CONNECTION_COUNT = "getconnectioncount";
+	public static final String BTCAPI_GET_DIFFICULTY = "getdifficulty";
+	public static final String BTCAPI_GET_GENERATE = "getgenerate";
+	public static final String BTCAPI_GET_HASHES_PER_SECOND = "gethashespersec";
+	public static final String BTCAPI_GET_INFORMATION = "getinfo";
+	public static final String BTCAPI_GET_MINING_INFORMATION = "getmininginfo";
+	public static final String BTCAPI_GET_NEW_ADDRESS = "getnewaddress";
+	public static final String BTCAPI_GET_PEER_INFORMATION = "getpeerinfo";
+	public static final String BTCAPI_GET_RAW_MEMORY_POOL = "getrawmempool";
+	public static final String BTCAPI_GET_RAW_TRANSACTION = "getrawtransaction";
+	public static final String BTCAPI_GET_RECEIVED_BY_ACCOUNT = "getreceivedbyaccount";
+	public static final String BTCAPI_GET_RECEIVED_BY_ADDRESS = "getreceivedbyaddress";
+	public static final String BTCAPI_GET_TRANSACTION = "gettransaction";
+	public static final String BTCAPI_GET_TRANSACTION_OUTPUT = "gettxout";
+	public static final String BTCAPI_GET_TRANSACTION_OUTPUT_SET_INFORMATION = "gettxoutsetinfo";
+	public static final String BTCAPI_GET_WORK = "getwork";
+	public static final String BTCAPI_HELP = "help";
+	public static final String BTCAPI_IMPORT_PRIVATE_KEY = "importprivkey";
+	public static final String BTCAPI_KEY_POOL_REFILL = "keypoolrefill";
+	public static final String BTCAPI_LIST_ACCOUNTS = "listaccounts";
+	public static final String BTCAPI_ADDRESS_GROUPINGS = "listaddressgroupings";
+	public static final String BTCAPI_LIST_LOCK_UNSPENT = "listlockunspent";
+	public static final String BTCAPI_RECEIVED_BY_ACCOUNT = "listreceivedbyaccount";
+	public static final String BTCAPI_RECEIVED_BY_ADDRESS = "listreceivedbyaddress";
+	public static final String BTCAPI_LIST_SINCE_BLOCK = "listsinceblock";
+	public static final String BTCAPI_LIST_TRANSACTIONS = "listtransactions";
+	public static final String BTCAPI_LIST_UNSPENT = "listunspent";
+	public static final String BTCAPI_LOCK_UNSPENT = "lockunspent";
+	public static final String BTCAPI_MOVE = "move";
+	public static final String BTCAPI_SEND_FROM = "sendfrom";
+	public static final String BTCAPI_SEND_MANY = "sendmany";
+	public static final String BTCAPI_SEND_RAW_TRANSACTION = "sendrawtransaction";
+	public static final String BTCAPI_SEND_TO_ADDRESS = "sendtoaddress";
+	public static final String BTCAPI_SET_ACCOUNT = "setaccount";
+	public static final String BTCAPI_SET_GENERATE = "setgenerate";
+	public static final String BTCAPI_SET_TRANSACTION_FEE = "settxfee";
+	public static final String BTCAPI_SIGN_MESSAGE = "signmessage";
+	public static final String BTCAPI_SIGN_RAW_TRANSACTION = "signrawtransaction";
+	public static final String BTCAPI_STOP = "stop";
+	public static final String BTCAPI_SUBMIT_BLOCK = "submitblock";
+	public static final String BTCAPI_VALIDATE_ADDRESS = "validateaddress";
+	public static final String BTCAPI_VERIFY_MESSAGE = "verifymessage";
 
 	// BTCOBJ
 	public static final String BTCOBJ_BLOCK_HASH = "hash";
@@ -69,7 +100,6 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_BLOCK_DIFFICULTY = "difficulty";
 	public static final String BTCOBJ_BLOCK_PREV_HASH = "previousblockhash";
 	public static final String BTCOBJ_BLOCK_NEXT_HASH = "nextblockhash";
-
 	public static final String BTCOBJ_INFO_VERSION = "version";
 	public static final String BTCOBJ_INFO_PROTO_VERSION = "protocolversion";
 	public static final String BTCOBJ_INFO_WALLET_VERSION = "walletversion";
@@ -90,7 +120,6 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_INFO_PROC_LIMIT = "genproclimit";
 	public static final String BTCOBJ_INFO_HASHESPERSEC = "hashespersec";
 	public static final String BTCOBJ_INFO_POOLED_TX = "pooledtx";
-
 	public static final String BTCOBJ_PEER_ADDRESS = "addr";
 	public static final String BTCOBJ_PEER_SERVICES = "services";
 	public static final String BTCOBJ_PEER_LAST_SEND = "lastsend";
@@ -104,7 +133,6 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_PEER_START_HEIGHT = "startingheight";
 	public static final String BTCOBJ_PEER_BAN_SCORE = "banscore";
 	public static final String BTCOBJ_PEER_SYNC_NODE = "syncnode";
-
 	public static final String BTCOBJ_TXOUTSET_HEIGHT = "height";
 	public static final String BTCOBJ_TXOUTSET_BEST_BLOCK = "bestblock";
 	public static final String BTCOBJ_TXOUTSET_TRANSACTIONS = "transactions";

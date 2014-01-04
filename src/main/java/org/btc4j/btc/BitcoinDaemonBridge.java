@@ -55,8 +55,8 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
-	private URL url;
 	private HttpState state;
+	private URL url;
 
 	public BitcoinDaemonBridge(URL url) {
 		this.url = url;
@@ -68,11 +68,11 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		state.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
 				username, password));
 	}
-
+	
 	public String[] getSupportedVersions() {
 		return BitcoinConstant.BTC4J_VERSIONS;
 	}
-
+	
 	protected JsonValue invoke(String method) throws BitcoinException {
 		return invoke(method, null);
 	}
@@ -147,347 +147,11 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		}
 	}
 
-	// BitcoinAccountService
-	@Override
-	public String getAccount(String address) throws BitcoinException {
-		if (address == null) {
-			address = "";
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(address).build();
-		JsonString resultss = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT, parameters);
-		return resultss.getString();
-	}
-
-	@Override
-	public String getAccountAddress(String account) throws BitcoinException {
-		if (account == null) {
-			account = "";
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(account).build();
-		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_ADDRESS, parameters);
-		return results.getString();
-	}
-
-	@Override
-	public List<String> getAddressesByAccount(String account)
+	public void addMultiSignatureAddress(int required, List<String> keys)
 			throws BitcoinException {
-		if (account == null) {
-			account = "";
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(account).build();
-		JsonArray results = (JsonArray) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_ADDRESSES, parameters);
-
-		List<String> addresses = new ArrayList<String>();
-		for (JsonString result : results.getValuesAs(JsonString.class)) {
-			addresses.add(result.getString());
-		}
-		return addresses;
+		addMultiSignatureAddress(required, keys, "");
 	}
 
-	@Override
-	public double getBalance(String account, int minConf)
-			throws BitcoinException {
-		if (account == null) {
-			account = "";
-		}
-		if (minConf < 1) {
-			minConf = 1;
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(account)
-				.add(minConf).build();
-		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_BALANCE, parameters);
-		return results.doubleValue();
-	}
-
-	public double getBalance(String account) throws BitcoinException {
-		return getBalance(account, 1);
-	}
-
-	public double getBalance(int minConf) throws BitcoinException {
-		return getBalance("", minConf);
-	}
-
-	public double getBalance() throws BitcoinException {
-		return getBalance("", 1);
-	}
-
-	@Override
-	public String getNewAddress(String account) throws BitcoinException {
-		JsonArray parameters = null;
-		if ((account != null) && (account.length() > 0)) {
-			parameters = Json.createArrayBuilder().add(account).build();
-		}
-		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_NEW_ADDRESS, parameters);
-		return results.getString();
-	}
-
-	public String getNewAddress() throws BitcoinException {
-		return getNewAddress(null);
-	}
-
-	@Override
-	public double getReceivedByAccount(String account, int minConf)
-			throws BitcoinException {
-		if (account == null) {
-			account = "";
-		}
-		if (minConf < 1) {
-			minConf = 1;
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(account)
-				.add(minConf).build();
-		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_RECEIVED, parameters);
-		return results.doubleValue();
-	}
-
-	public double getReceivedByAccount(String account) throws BitcoinException {
-		return getReceivedByAccount(account, 1);
-	}
-
-	@Override
-	public double getReceivedByAddress(String address, int minConf)
-			throws BitcoinException {
-		if (address == null) {
-			address = "";
-		}
-		if (minConf < 1) {
-			minConf = 1;
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(address)
-				.add(minConf).build();
-		JsonNumber results = (JsonNumber) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_RECEIVED_ADDRESS, parameters);
-		return results.doubleValue();
-	}
-
-	public double getReceivedByAddress(String address) throws BitcoinException {
-		return getReceivedByAddress(address, 1);
-	}
-
-	@Override
-	public Map<String, BitcoinAccount> listAccounts(int minConf)
-			throws BitcoinException {
-		if (minConf < 1) {
-			minConf = 1;
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(minConf).build();
-		JsonObject results = (JsonObject) invoke(
-				BitcoinConstant.BTCAPI_ACCOUNT_LIST, parameters);
-		Map<String, BitcoinAccount> accounts = new HashMap<String, BitcoinAccount>();
-		for (String account : results.keySet()) {
-			JsonNumber balance = results.getJsonNumber(account);
-			accounts.put(account,
-					new BitcoinAccount(account, balance.doubleValue()));
-		}
-		return accounts;
-	}
-
-	public Map<String, BitcoinAccount> listAccounts() throws BitcoinException {
-		return listAccounts(1);
-	}
-
-	@Override
-	public List<String> listReceivedByAccount(int minConf, boolean includeEmpty)
-			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public List<String> listReceivedByAddress(int minConf, boolean includeEmpty)
-			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	// BitcoinBlockService
-	@Override
-	public BitcoinBlock getBlock(String hash) throws BitcoinException {
-		if (hash == null) {
-			hash = "";
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(hash).build();
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_BLOCK,
-				parameters);
-		return BitcoinBlock.fromJson(results);
-	}
-
-	@Override
-	public int getBlockCount() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_BLOCK_COUNT);
-		return results.intValue();
-	}
-
-	@Override
-	public String getBlockHash(int index) throws BitcoinException {
-		if (index < 0) {
-			index = 0;
-		}
-		JsonArray parameters = Json.createArrayBuilder().add(index).build();
-		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_BLOCK_HASH, parameters);
-		return results.getString();
-	}
-
-	@Override
-	public String getBlockTemplate(String params) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public String getWork(String data) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-	
-	@Override
-	public List<String> listSinceBlock(String blockHash, int targetConfirmations)
-			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	// BitcoinInfoService
-	@Override
-	public double getDifficulty() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_DIFFICULTY);
-		return results.doubleValue();
-	}
-
-	@Override
-	public boolean getGenerate() throws BitcoinException {
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_INFO_GENERATE);
-		return Boolean.valueOf(String.valueOf(results));
-	}
-
-	@Override
-	public int getHashesPerSec() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_INFO_HASHESPERSEC);
-		return results.intValue();
-	}
-
-	@Override
-	public BitcoinClientInfo getInfo() throws BitcoinException {
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO);
-		return BitcoinClientInfo.fromJson(results);
-	}
-
-	@Override
-	public BitcoinMiningInfo getMiningInfo() throws BitcoinException {
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_MINING);
-		return BitcoinMiningInfo.fromJson(results);
-	}
-
-	@Override
-	public List<BitcoinPeer> getPeerInfo() throws BitcoinException {
-		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_INFO_PEER);
-		List<BitcoinPeer> peers = new ArrayList<BitcoinPeer>();
-		for (JsonObject result : results.getValuesAs(JsonObject.class)) {
-			peers.add(BitcoinPeer.fromJson(result));
-		}
-		return peers;
-	}
-
-	@Override
-	public List<String> getRawMemPool() throws BitcoinException {
-		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_INFO_RAW_MEM_POOL);
-		List<String> rawMemPool = new ArrayList<String>();
-		for (JsonString result : results.getValuesAs(JsonString.class)) {
-			rawMemPool.add(result.getString());
-		}
-		return rawMemPool;
-	}
-
-	@Override
-	public BitcoinTxOutputSet getTxOutputSetInfo() throws BitcoinException {
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_INFO_TX_OUTPUT_SET);
-		return BitcoinTxOutputSet.fromJson(results);
-	}
-
-	// BitcoinMiscService
-
-	// BitcoinNodeService
-	@Override
-	public void addNode(String node, BitcoinNodeOperationEnum operation)
-			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public String getAddedNodeInfo(boolean dns, String node)
-			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public int getConnectionCount() throws BitcoinException {
-		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
-		return results.intValue();
-	}
-
-	// BitcoinRawTransactionService
-	@Override
-	public String createRawTransaction(List<Object> txIds,
-			List<Object> addresses) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public String decodeRawTransaction(String txId) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public String getRawTransaction(String txId, boolean verbose)
-			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
-	}
-
-	// BitcoinStatusService
-	@Override
-	public String help(String command) throws BitcoinException {
-		JsonArray parameters = null;
-		if ((command != null) && (command.length() > 0)) {
-			parameters = Json.createArrayBuilder().add(command).build();
-		}
-		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_STATUS_HELP, parameters);
-		return results.getString();
-	}
-
-	public String help() throws BitcoinException {
-		return help("");
-	}
-
-	@Override
-	public String stop() throws BitcoinException {
-		JsonString results = (JsonString) invoke(BitcoinConstant.BTCAPI_STATUS_STOP);
-		return results.getString();
-	}
-
-	// BitcoinWalletService
 	@Override
 	public void addMultiSignatureAddress(int required, List<String> keys,
 			String account) throws BitcoinException {
@@ -496,9 +160,12 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
-	public void addMultiSignatureAddress(int required, List<String> keys)
+	@Override
+	public void addNode(String node, BitcoinNodeOperationEnum operation)
 			throws BitcoinException {
-		addMultiSignatureAddress(required, keys, "");
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
 	@Override
@@ -517,7 +184,22 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	@Override
-	public String dumpPivateKey(String address) throws BitcoinException {
+	public String createRawTransaction(List<Object> transactionIds,
+			List<Object> addresses) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String decodeRawTransaction(String transactionId) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String dumpPrivateKey(String address) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -531,21 +213,279 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	@Override
-	public String getTransaction(String txId) throws BitcoinException {
-		if (txId == null) {
-			txId = "";
+	public String getAccount(String address) throws BitcoinException {
+		if (address == null) {
+			address = "";
 		}
-		JsonArray parameters = Json.createArrayBuilder().add(txId).build();
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_WALLET_TX, parameters);
-		return String.valueOf(results);
+		JsonArray parameters = Json.createArrayBuilder().add(address).build();
+		JsonString resultss = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_GET_ACCOUNT, parameters);
+		return resultss.getString();
 	}
 
 	@Override
-	public String getTxOutput(String txId, int n, boolean includeMemPool)
+	public String getAccountAddress(String account) throws BitcoinException {
+		if (account == null) {
+			account = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(account).build();
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_GET_ACCOUNT_ADDRESS, parameters);
+		return results.getString();
+	}
+
+	@Override
+	public String getAddedNodeInformation(boolean dns, String node)
 			throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> getAddressesByAccount(String account)
+			throws BitcoinException {
+		if (account == null) {
+			account = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(account).build();
+		JsonArray results = (JsonArray) invoke(
+				BitcoinConstant.BTCAPI_GET_ADDRESSES_BY_ACCOUNT, parameters);
+
+		List<String> addresses = new ArrayList<String>();
+		for (JsonString result : results.getValuesAs(JsonString.class)) {
+			addresses.add(result.getString());
+		}
+		return addresses;
+	}
+
+	public double getBalance() throws BitcoinException {
+		return getBalance("", 1);
+	}
+
+	public double getBalance(int minConfirms) throws BitcoinException {
+		return getBalance("", minConfirms);
+	}
+
+	public double getBalance(String account) throws BitcoinException {
+		return getBalance(account, 1);
+	}
+
+	@Override
+	public double getBalance(String account, int minConfirms)
+			throws BitcoinException {
+		if (account == null) {
+			account = "";
+		}
+		if (minConfirms < 1) {
+			minConfirms = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(account)
+				.add(minConfirms).build();
+		JsonNumber results = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_GET_BALANCE, parameters);
+		return results.doubleValue();
+	}
+
+	@Override
+	public BitcoinBlock getBlock(String hash) throws BitcoinException {
+		if (hash == null) {
+			hash = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(hash).build();
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_BLOCK,
+				parameters);
+		return BitcoinBlock.fromJson(results);
+	}
+
+	@Override
+	public int getBlockCount() throws BitcoinException {
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_GET_BLOCK_COUNT);
+		return results.intValue();
+	}
+
+	@Override
+	public String getBlockHash(int index) throws BitcoinException {
+		if (index < 0) {
+			index = 0;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(index).build();
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_GET_BLOCK_HASH, parameters);
+		return results.getString();
+	}
+
+	@Override
+	public String getBlockTemplate(String params) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public int getConnectionCount() throws BitcoinException {
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_GET_CONNECTION_COUNT);
+		return results.intValue();
+	}
+
+	@Override
+	public double getDifficulty() throws BitcoinException {
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_GET_DIFFICULTY);
+		return results.doubleValue();
+	}
+
+	@Override
+	public boolean getGenerate() throws BitcoinException {
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_GET_GENERATE);
+		return Boolean.valueOf(String.valueOf(results));
+	}
+
+	@Override
+	public int getHashesPerSecond() throws BitcoinException {
+		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_GET_HASHES_PER_SECOND);
+		return results.intValue();
+	}
+
+	@Override
+	public BitcoinClientInfo getInformation() throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_INFORMATION);
+		return BitcoinClientInfo.fromJson(results);
+	}
+
+	@Override
+	public BitcoinMiningInfo getMiningInformation() throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_MINING_INFORMATION);
+		return BitcoinMiningInfo.fromJson(results);
+	}
+
+	public String getNewAddress() throws BitcoinException {
+		return getNewAddress(null);
+	}
+
+	@Override
+	public String getNewAddress(String account) throws BitcoinException {
+		JsonArray parameters = null;
+		if ((account != null) && (account.length() > 0)) {
+			parameters = Json.createArrayBuilder().add(account).build();
+		}
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_GET_NEW_ADDRESS, parameters);
+		return results.getString();
+	}
+
+	@Override
+	public List<BitcoinPeer> getPeerInformation() throws BitcoinException {
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_GET_PEER_INFORMATION);
+		List<BitcoinPeer> peers = new ArrayList<BitcoinPeer>();
+		for (JsonObject result : results.getValuesAs(JsonObject.class)) {
+			peers.add(BitcoinPeer.fromJson(result));
+		}
+		return peers;
+	}
+
+	@Override
+	public List<String> getRawMemoryPool() throws BitcoinException {
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_GET_RAW_MEMORY_POOL);
+		List<String> rawMemPool = new ArrayList<String>();
+		for (JsonString result : results.getValuesAs(JsonString.class)) {
+			rawMemPool.add(result.getString());
+		}
+		return rawMemPool;
+	}
+
+	@Override
+	public String getRawTransaction(String transactionId, boolean verbose)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	public double getReceivedByAccount(String account) throws BitcoinException {
+		return getReceivedByAccount(account, 1);
+	}
+
+	@Override
+	public double getReceivedByAccount(String account, int minConfirms)
+			throws BitcoinException {
+		if (account == null) {
+			account = "";
+		}
+		if (minConfirms < 1) {
+			minConfirms = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(account)
+				.add(minConfirms).build();
+		JsonNumber results = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_GET_RECEIVED_BY_ACCOUNT, parameters);
+		return results.doubleValue();
+	}
+
+	public double getReceivedByAddress(String address) throws BitcoinException {
+		return getReceivedByAddress(address, 1);
+	}
+
+	@Override
+	public double getReceivedByAddress(String address, int minConfirms)
+			throws BitcoinException {
+		if (address == null) {
+			address = "";
+		}
+		if (minConfirms < 1) {
+			minConfirms = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(address)
+				.add(minConfirms).build();
+		JsonNumber results = (JsonNumber) invoke(
+				BitcoinConstant.BTCAPI_GET_RECEIVED_BY_ADDRESS, parameters);
+		return results.doubleValue();
+	}
+
+	@Override
+	public String getTransaction(String transactionId) throws BitcoinException {
+		if (transactionId == null) {
+			transactionId = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(transactionId).build();
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_GET_TRANSACTION, parameters);
+		return String.valueOf(results);
+	}
+
+	@Override
+	public String getTransactionOutput(String transactionId, int n,
+			boolean includeMemoryPool) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public BitcoinTxOutputSet getTransactionOutputSetInformation()
+			throws BitcoinException {
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_TRANSACTION_OUTPUT_SET_INFORMATION);
+		return BitcoinTxOutputSet.fromJson(results);
+	}
+
+	@Override
+	public String getWork(String data) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	public String help() throws BitcoinException {
+		return help("");
+	}
+
+	@Override
+	public String help(String command) throws BitcoinException {
+		JsonArray parameters = null;
+		if ((command != null) && (command.length() > 0)) {
+			parameters = Json.createArrayBuilder().add(command).build();
+		}
+		JsonString results = (JsonString) invoke(
+				BitcoinConstant.BTCAPI_HELP, parameters);
+		return results.getString();
 	}
 
 	@Override
@@ -563,8 +503,195 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
+	public Map<String, BitcoinAccount> listAccounts() throws BitcoinException {
+		return listAccounts(1);
+	}
+
+	@Override
+	public Map<String, BitcoinAccount> listAccounts(int minConfirms)
+			throws BitcoinException {
+		if (minConfirms < 1) {
+			minConfirms = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(minConfirms).build();
+		JsonObject results = (JsonObject) invoke(
+				BitcoinConstant.BTCAPI_LIST_ACCOUNTS, parameters);
+		Map<String, BitcoinAccount> accounts = new HashMap<String, BitcoinAccount>();
+		for (String account : results.keySet()) {
+			JsonNumber balance = results.getJsonNumber(account);
+			accounts.put(account,
+					new BitcoinAccount(account, balance.doubleValue()));
+		}
+		return accounts;
+	}
+	
 	@Override
 	public List<String> listAddressGroupings() throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listLockUnspent() throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+	
+	@Override
+	public List<String> listReceivedByAccount(int minConfirms, boolean includeEmpty)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listReceivedByAddress(int minConfirms, boolean includeEmpty)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listSinceBlock(String blockHash, int targetConfirms)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listTransactions(String account, int count, int from)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public List<String> listUnspent(int minConfirms, int maxConfirms)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void lockUnspent(boolean unlock, List<Object> outputs)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void move(String fromAccount, String toAccount, double amount,
+			int minConfirms, String comment) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String sendFrom(String fromAccount, String toAddress, double amount,
+			int minConfirms, String commentFrom, String commentTo)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String sendMany(String fromAccount, List<Object> addresses,
+			int minConfirms, String commentFrom, String commentTo)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void sendRawTransaction(String transactionId)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String sendToAddress(String toAddress, double amount,
+			String commentFrom, String commentTo) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void setAccount(String address, String account)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void setGenerate(boolean generate, int generateProcessorsLimit)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void setTransactionFee(double amount) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void signMessage(String address, String message)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public void signRawTransaction(String transactionId,
+			List<Object> signatures, List<String> keys) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+	
+	@Override
+	public String stop() throws BitcoinException {
+		JsonString results = (JsonString) invoke(BitcoinConstant.BTCAPI_STOP);
+		return results.getString();
+	}
+
+	@Override
+	public void submitBlock(String data, List<Object> params)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String validateAddress(String address) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String verifyMessage(String address, String signature, String message)
+			throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
