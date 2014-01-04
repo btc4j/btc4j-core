@@ -25,9 +25,13 @@
 package org.btc4j.btc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.json.JsonArray;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
+import javax.json.JsonString;
 
 import org.btc4j.btc.BitcoinConstant;
 
@@ -39,11 +43,12 @@ public class BitcoinBlock implements Serializable {
 	private int height;
 	private int version;
 	private String merkleRoot;
-	private String tx;
+	private List<String> tx;
 	private int time;
 	private int nonce;
 	private String bits;
 	private double difficulty;
+	private String previousBlockHash;
 	private String nextBlockHash;
 
 	public static BitcoinBlock fromJson(JsonObject value) {
@@ -56,7 +61,14 @@ public class BitcoinBlock implements Serializable {
 		block.setVersion(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_VERSION, 0));
 		block.setMerkleRoot(value.getString(
 				BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
-		block.setTx(value.getString(BitcoinConstant.BTCOBJ_BLOCK_TX, ""));
+		List<String> tx = new ArrayList<String>();
+		JsonArray txIds = value.getJsonArray(BitcoinConstant.BTCOBJ_BLOCK_TX);
+		if (txIds != null) {
+			for (JsonString txId : txIds.getValuesAs(JsonString.class)) {
+				tx.add(txId.getString());
+			}
+		}
+		block.setTx(tx);
 		block.setTime(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_TIME, 0));
 		block.setNonce(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_NONCE, 0));
 		block.setBits(value.getString(BitcoinConstant.BTCOBJ_BLOCK_BITS, ""));
@@ -65,6 +77,8 @@ public class BitcoinBlock implements Serializable {
 		if (difficulty != null) {
 			block.setDifficulty(difficulty.doubleValue());
 		}
+		block.setPreviousBlockHash(value.getString(
+				BitcoinConstant.BTCOBJ_BLOCK_PREV_HASH, ""));
 		block.setNextBlockHash(value.getString(
 				BitcoinConstant.BTCOBJ_BLOCK_NEXT_HASH, ""));
 		return block;
@@ -118,11 +132,11 @@ public class BitcoinBlock implements Serializable {
 		this.merkleRoot = merkleRoot;
 	}
 
-	public String getTx() {
+	public List<String> getTx() {
 		return tx;
 	}
 
-	public void setTx(String tx) {
+	public void setTx(List<String> tx) {
 		this.tx = tx;
 	}
 
@@ -156,6 +170,14 @@ public class BitcoinBlock implements Serializable {
 
 	public void setDifficulty(double difficulty) {
 		this.difficulty = difficulty;
+	}
+
+	public String getPreviousBlockHash() {
+		return previousBlockHash;
+	}
+
+	public void setPreviousBlockHash(String previousBlockHash) {
+		this.previousBlockHash = previousBlockHash;
 	}
 
 	public String getNextBlockHash() {

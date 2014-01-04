@@ -67,6 +67,7 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_BLOCK_NONCE = "nonce";
 	public static final String BTCOBJ_BLOCK_BITS = "bits";
 	public static final String BTCOBJ_BLOCK_DIFFICULTY = "difficulty";
+	public static final String BTCOBJ_BLOCK_PREV_HASH = "previousblockhash";
 	public static final String BTCOBJ_BLOCK_NEXT_HASH = "nextblockhash";
 
 	public static final String BTCOBJ_INFO_VERSION = "version";

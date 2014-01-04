@@ -432,7 +432,8 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 		if (txId == null) {
 			txId = "";
 		}
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_WALLET_TX);
+		JsonArray parameters = Json.createArrayBuilder().add(txId).build();
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_WALLET_TX, parameters);
 		return String.valueOf(results);
 	}
 }
