@@ -25,20 +25,6 @@
 package org.btc4j.btc.api;
 
 public interface BitcoinMiscService {
-	// createmultisig
-	// <nrequired> <'["key,"key"]'>
-	// Creates a multi-signature address and returns a json object.
-	//
-	// public void createMultiSignatureAddress() throws BitcoinException;
-
-	// addmultisigaddress
-	// <nrequired> <'["key","key"]'> [account]
-	// Add a nrequired-to-sign multisignature address to the wallet. Each key is
-	// a bitcoin address or hex-encoded public key. If [account] is specified,
-	// assign address to [account].
-	// N
-	// public void addMultiSignatureAddress() throws BitcoinException;
-
 	// createrawtransaction
 	// [{"txid":txid,"vout":n},...] {address:amount,...}
 	// version 0.7 Creates a raw transaction spending given inputs.

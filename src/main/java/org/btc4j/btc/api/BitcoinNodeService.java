@@ -25,6 +25,7 @@
 package org.btc4j.btc.api;
 
 import org.btc4j.btc.BitcoinException;
+import org.btc4j.btc.model.BitcoinNodeOperationEnum;
 
 public interface BitcoinNodeService {
 	// addnode
@@ -32,7 +33,8 @@ public interface BitcoinNodeService {
 	// version 0.8 Attempts add or remove <node> from the addnode list or try a
 	// connection to <node> once.
 	// N
-	// public void addNode() throws BitcoinException;
+	public void addNode(String node, BitcoinNodeOperationEnum operation)
+			throws BitcoinException;
 
 	// getaddednodeinfo
 	// <dns> [node]

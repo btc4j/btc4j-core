@@ -24,6 +24,7 @@
 
 package org.btc4j.btc.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
@@ -62,6 +63,7 @@ import org.btc4j.btc.model.BitcoinAccount;
 import org.btc4j.btc.model.BitcoinBlock;
 import org.btc4j.btc.model.BitcoinClientInfo;
 import org.btc4j.btc.model.BitcoinMiningInfo;
+import org.btc4j.btc.model.BitcoinNodeOperationEnum;
 import org.btc4j.btc.model.BitcoinPeer;
 import org.btc4j.btc.model.BitcoinTxOutputSet;
 
@@ -71,7 +73,6 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	private final static Logger LOGGER = Logger
 			.getLogger(BitcoinDaemonBridge.class.getName());
-	private final static String[] VERSIONS = { "0.8.6" };
 	private URL url;
 	private HttpState state;
 
@@ -87,7 +88,7 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	}
 
 	public String[] getSupportedVersions() {
-		return VERSIONS;
+		return BitcoinConstant.BTC4J_VERSIONS;
 	}
 
 	protected JsonValue invoke(String method) throws BitcoinException {
@@ -399,6 +400,14 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 
 	// BitcoinNodeService
 	@Override
+	public void addNode(String node, BitcoinNodeOperationEnum operation)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
 	public int getConnectionCount() throws BitcoinException {
 		JsonNumber results = (JsonNumber) invoke(BitcoinConstant.BTCAPI_NODE_CONNECTION_COUNT);
 		return results.intValue();
@@ -427,6 +436,34 @@ public class BitcoinDaemonBridge implements BitcoinAccountService,
 	}
 
 	// BitcoinWalletService
+	@Override
+	public void addMultiSignatureAddress(int required, List<String> keys,
+			String account) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	public void addMultiSignatureAddress(int required, List<String> keys)
+			throws BitcoinException {
+		addMultiSignatureAddress(required, keys, "");
+	}
+
+	@Override
+	public void backupWallet(File destination) throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
+	@Override
+	public String createMultiSignatureAddress(int required, List<String> keys)
+			throws BitcoinException {
+		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
+						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	}
+
 	@Override
 	public String getTransaction(String txId) throws BitcoinException {
 		if (txId == null) {

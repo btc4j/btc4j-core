@@ -1,6 +1,6 @@
 /*
  The MIT License (MIT)
-  
+ 
  Copyright (c) 2013, 2014 by Guillermo Gonzalez, btc4j.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,33 +22,20 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc.api;
-
-import java.util.List;
-import java.util.Map;
+package org.btc4j.btc.impl;
 
 import org.btc4j.btc.BitcoinException;
-import org.btc4j.btc.model.BitcoinAccount;
+import org.btc4j.btc.api.BitcoinStatusService;
 
-public interface BitcoinAccountService {
-	public String getAccount(String address) throws BitcoinException;
+public class BitcoinClient implements BitcoinStatusService {
 
-	public String getAccountAddress(String account) throws BitcoinException;
+	@Override
+	public String help(String command) throws BitcoinException {
+		return "Bitcoin Client not yet implemented";
+	}
 
-	public List<String> getAddressesByAccount(String account)
-			throws BitcoinException;
-
-	public double getBalance(String account, int minConf)
-			throws BitcoinException;
-
-	public String getNewAddress(String account) throws BitcoinException;
-
-	public double getReceivedByAccount(String account, int minConf)
-			throws BitcoinException;
-
-	public double getReceivedByAddress(String address, int minConf)
-			throws BitcoinException;
-
-	public Map<String, BitcoinAccount> listAccounts(int minConf)
-			throws BitcoinException;
+	@Override
+	public String stop() throws BitcoinException {
+		return "Stopping Bitcoin Client";
+	}
 }

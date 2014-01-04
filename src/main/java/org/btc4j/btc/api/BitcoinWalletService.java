@@ -24,21 +24,42 @@
 
 package org.btc4j.btc.api;
 
+import java.io.File;
+import java.util.List;
+
 import org.btc4j.btc.BitcoinException;
 
 public interface BitcoinWalletService {
-	//help: gettransaction <txid> Get detailed information about in-wallet transaction <txid>
-	public String getTransaction(String txId) throws BitcoinException;
-	
-	//help: getrawtransaction <txid> [verbose=0] If verbose=0, returns a string that is serialized, hex-encoded data for <txid>.
-	//If verbose is non-zero, returns an Object with information about <txid>.
-	
+	// addmultisigaddress
+	// <nrequired> <'["key","key"]'> [account]
+	// Add a nrequired-to-sign multisignature address to the wallet. Each key is
+	// a bitcoin address or hex-encoded public key. If [account] is specified,
+	// assign address to [account].
+	// N
+	public void addMultiSignatureAddress(int required, List<String> keys,
+			String account) throws BitcoinException;
+
 	// backupwallet
 	// <destination>
 	// Safely copies wallet.dat to destination, which can be a directory or a
 	// path with filename.
 	// N
-	// public void backupWallet() throws BitcoinException;
+	public void backupWallet(File destination) throws BitcoinException;
+
+	// createmultisig
+	// <nrequired> <'["key,"key"]'>
+	// Creates a multi-signature address and returns a json object.
+	//
+	public String createMultiSignatureAddress(int required, List<String> keys)
+			throws BitcoinException;
+
+	// help: gettransaction <txid> Get detailed information about in-wallet
+	// transaction <txid>
+	public String getTransaction(String txId) throws BitcoinException;
+
+	// help: getrawtransaction <txid> [verbose=0] If verbose=0, returns a string
+	// that is serialized, hex-encoded data for <txid>.
+	// If verbose is non-zero, returns an Object with information about <txid>.
 
 	// encryptwallet
 	// <passphrase>
@@ -50,7 +71,7 @@ public interface BitcoinWalletService {
 	// <bitcoinaddress>
 	// Reveals the private key corresponding to <bitcoinaddress>
 	// Y
-	// public void dumpPrivateKey() throws BitcoinException;
+	// public void dumpPivateKey() throws BitcoinException;
 
 	// walletlock Removes the wallet encryption key from memory, locking the
 	// wallet. After calling this method, you will need to call walletpassphrase

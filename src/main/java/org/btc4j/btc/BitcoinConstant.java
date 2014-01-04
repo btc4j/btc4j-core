@@ -52,7 +52,7 @@ public class BitcoinConstant {
 
 	public static final String BTCAPI_STATUS_HELP = "help";
 	public static final String BTCAPI_STATUS_STOP = "stop";
-	
+
 	public static final String BTCAPI_WALLET_TX = "gettransaction";
 
 	// BTCOBJ
@@ -133,5 +133,7 @@ public class BitcoinConstant {
 	public static final String BTC4J_ERROR_DATA_NULL_URL = "Server URL is null";
 	public static final String BTC4J_ERROR_DATA_NULL_RESPONSE = "Response is empty";
 	public static final String BTC4J_ERROR_DATA_INVALID_ID = "Response id does not match request id";
+	public static final String BTC4J_ERROR_DATA_NOT_IMPLEMENTED = "Bitcoin command not yet implemented";
+	public static final String[] BTC4J_VERSIONS = { "0.8.6" };
 	public static final int BTC4J_ERROR_CODE = -32077;
 }
