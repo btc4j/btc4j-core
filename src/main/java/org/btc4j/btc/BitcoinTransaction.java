@@ -28,6 +28,7 @@ import java.io.Serializable;
 
 public class BitcoinTransaction implements Serializable {
 	private static final long serialVersionUID = -5995582642392441320L;
+	private String transactionId;
 	// "amount" : total amount of the transaction
 	// "confirmations" : number of confirmations of the transaction
 	// "txid" : the transaction ID
@@ -38,4 +39,20 @@ public class BitcoinTransaction implements Serializable {
 	// "category"
 	// "amount"
 	// "fee"
+	
+	public BitcoinTransaction() {
+	}
+
+	public BitcoinTransaction(String transactionId) {
+		this();
+		this.transactionId = transactionId;
+	}
+	
+	public String getTransactionId() {
+		return transactionId;
+	}
+	
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
 }

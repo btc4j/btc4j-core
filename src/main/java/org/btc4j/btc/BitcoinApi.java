@@ -103,7 +103,7 @@ public interface BitcoinApi {
 	public String getTransactionOutput(String transactionId, int n,
 			boolean includeMemoryPool) throws BitcoinException;
 
-	public BitcoinTxOutputSet getTransactionOutputSetInformation()
+	public BitcoinTransactionOutputSet getTransactionOutputSetInformation()
 			throws BitcoinException;
 
 	public String getWork(String data) throws BitcoinException;
@@ -176,7 +176,7 @@ public interface BitcoinApi {
 	public void submitBlock(String data, List<Object> params)
 			throws BitcoinException;
 
-	public String validateAddress(String address) throws BitcoinException;
+	public BitcoinAddress validateAddress(String address) throws BitcoinException;
 
 	public String verifyMessage(String address, String signature, String message)
 			throws BitcoinException;

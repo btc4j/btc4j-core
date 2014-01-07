@@ -38,13 +38,13 @@ public class BitcoinClientInfo extends BitcoinInfo {
 	private String proxy;
 	private int keyPoolOldest;
 	private int keyPoolSize;
-	private double payTxFee;
+	private double transactionFee;
 
-	public static BitcoinClientInfo fromJson(JsonObject value) {
+	public static BitcoinClientInfo fromJson(JsonObject value) throws BitcoinException {
 		BitcoinClientInfo info = new BitcoinClientInfo();
 		info.setVersion(value.getInt(BitcoinConstant.BTCOBJ_INFO_VERSION, 0));
 		info.setProtocolVersion(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_PROTO_VERSION, 0));
+				BitcoinConstant.BTCOBJ_INFO_PROTOCOL_VERSION, 0));
 		info.setWalletVersion(value.getInt(
 				BitcoinConstant.BTCOBJ_INFO_WALLET_VERSION, 0));
 		JsonNumber balance = value
@@ -69,10 +69,10 @@ public class BitcoinClientInfo extends BitcoinInfo {
 				BitcoinConstant.BTCOBJ_INFO_KEYPOOL_OLDEST, 0));
 		info.setKeyPoolSize(value.getInt(
 				BitcoinConstant.BTCOBJ_INFO_KEYPOOL_SIZE, 0));
-		JsonNumber txFee = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_TX_FEE);
-		if (txFee != null) {
-			info.setPayTxFee(txFee.doubleValue());
+		JsonNumber transactionFee = value
+				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_TRANSACTION_FEE);
+		if (transactionFee != null) {
+			info.setTransactionFee(transactionFee.doubleValue());
 		}
 		info.setErrors(value.getString(BitcoinConstant.BTCOBJ_INFO_ERRORS, ""));
 		return info;
@@ -150,11 +150,11 @@ public class BitcoinClientInfo extends BitcoinInfo {
 		this.keyPoolSize = keyPoolSize;
 	}
 
-	public double getPayTxFee() {
-		return payTxFee;
+	public double getTransactionFee() {
+		return transactionFee;
 	}
 
-	public void setPayTxFee(double payTxFee) {
-		this.payTxFee = payTxFee;
+	public void setTransactionFee(double transactionFee) {
+		this.transactionFee = transactionFee;
 	}
 }

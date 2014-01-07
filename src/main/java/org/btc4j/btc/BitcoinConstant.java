@@ -87,21 +87,28 @@ public class BitcoinConstant {
 	public static final String BTCAPI_VERIFY_MESSAGE = "verifymessage";
 
 	// BTCOBJ
+	public static final String BTCOBJ_ADDRESS_VALID = "isvalid";
+	public static final String BTCOBJ_ADDRESS_ADDRESS = "address";
+	public static final String BTCOBJ_ADDRESS_MINE = "ismine";
+	public static final String BTCOBJ_ADDRESS_SCRIPT = "isscript";
+	public static final String BTCOBJ_ADDRESS_PUBLIC_KEY = "pubkey";
+	public static final String BTCOBJ_ADDRESS_COMPRESSED = "iscompressed";
+	public static final String BTCOBJ_ADDRESS_ACCOUNT = "account";
 	public static final String BTCOBJ_BLOCK_HASH = "hash";
 	public static final String BTCOBJ_BLOCK_CONFIRMATIONS = "confirmations";
 	public static final String BTCOBJ_BLOCK_SIZE = "size";
 	public static final String BTCOBJ_BLOCK_HEIGHT = "height";
 	public static final String BTCOBJ_BLOCK_VERSION = "version";
 	public static final String BTCOBJ_BLOCK_MERKLE_ROOT = "merkleroot";
-	public static final String BTCOBJ_BLOCK_TX = "tx";
+	public static final String BTCOBJ_BLOCK_TRANSACTIONS = "tx";
 	public static final String BTCOBJ_BLOCK_TIME = "time";
 	public static final String BTCOBJ_BLOCK_NONCE = "nonce";
 	public static final String BTCOBJ_BLOCK_BITS = "bits";
 	public static final String BTCOBJ_BLOCK_DIFFICULTY = "difficulty";
-	public static final String BTCOBJ_BLOCK_PREV_HASH = "previousblockhash";
-	public static final String BTCOBJ_BLOCK_NEXT_HASH = "nextblockhash";
+	public static final String BTCOBJ_BLOCK_PREVIOUS_BLOCK_HASH = "previousblockhash";
+	public static final String BTCOBJ_BLOCK_NEXT_BLOCK_HASH = "nextblockhash";
 	public static final String BTCOBJ_INFO_VERSION = "version";
-	public static final String BTCOBJ_INFO_PROTO_VERSION = "protocolversion";
+	public static final String BTCOBJ_INFO_PROTOCOL_VERSION = "protocolversion";
 	public static final String BTCOBJ_INFO_WALLET_VERSION = "walletversion";
 	public static final String BTCOBJ_INFO_BALANCE = "balance";
 	public static final String BTCOBJ_INFO_BLOCKS = "blocks";
@@ -112,14 +119,14 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_INFO_TESTNET = "testnet";
 	public static final String BTCOBJ_INFO_KEYPOOL_OLDEST = "keypoololdest";
 	public static final String BTCOBJ_INFO_KEYPOOL_SIZE = "keypoolsize";
-	public static final String BTCOBJ_INFO_TX_FEE = "paytxfee";
+	public static final String BTCOBJ_INFO_TRANSACTION_FEE = "paytxfee";
 	public static final String BTCOBJ_INFO_ERRORS = "errors";
 	public static final String BTCOBJ_INFO_CURRENT_BLOCK_SIZE = "currentblocksize";
-	public static final String BTCOBJ_INFO_CURRENT_BLOCK_TX = "currentblocktx";
+	public static final String BTCOBJ_INFO_CURRENT_BLOCK_TRANSACTIONS = "currentblocktx";
 	public static final String BTCOBJ_INFO_GENERATE = "generate";
-	public static final String BTCOBJ_INFO_PROC_LIMIT = "genproclimit";
-	public static final String BTCOBJ_INFO_HASHESPERSEC = "hashespersec";
-	public static final String BTCOBJ_INFO_POOLED_TX = "pooledtx";
+	public static final String BTCOBJ_INFO_PROCESSOR_LIMIT = "genproclimit";
+	public static final String BTCOBJ_INFO_HASHES_PER_SECOND = "hashespersec";
+	public static final String BTCOBJ_INFO_POOLED_TRANSACTIONS = "pooledtx";
 	public static final String BTCOBJ_PEER_ADDRESS = "addr";
 	public static final String BTCOBJ_PEER_SERVICES = "services";
 	public static final String BTCOBJ_PEER_LAST_SEND = "lastsend";
@@ -133,13 +140,13 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_PEER_START_HEIGHT = "startingheight";
 	public static final String BTCOBJ_PEER_BAN_SCORE = "banscore";
 	public static final String BTCOBJ_PEER_SYNC_NODE = "syncnode";
-	public static final String BTCOBJ_TXOUTSET_HEIGHT = "height";
-	public static final String BTCOBJ_TXOUTSET_BEST_BLOCK = "bestblock";
-	public static final String BTCOBJ_TXOUTSET_TRANSACTIONS = "transactions";
-	public static final String BTCOBJ_TXOUTSET_TX_OUTS = "txouts";
-	public static final String BTCOBJ_TXOUTSET_BYTES_SERIALIZED = "bytes_serialized";
-	public static final String BTCOBJ_TXOUTSET_HASH_SERIALIZED = "hash_serialized";
-	public static final String BTCOBJ_TXOUTSET_TOTAL_AMOUT = "total_amount";
+	public static final String BTCOBJ_TXOUTPUTSET_HEIGHT = "height";
+	public static final String BTCOBJ_TXOUTPUTSET_BEST_BLOCK = "bestblock";
+	public static final String BTCOBJ_TXOUTPUTSET_TRANSACTIONS = "transactions";
+	public static final String BTCOBJ_TXOUTPUTSET_OUTPUT_TRANSACTIONS = "txouts";
+	public static final String BTCOBJ_TXOUTPUTSET_BYTES_SERIALIZED = "bytes_serialized";
+	public static final String BTCOBJ_TXOUTPUTSET_HASH_SERIALIZED = "hash_serialized";
+	public static final String BTCOBJ_TXOUTPUTSET_TOTAL_AMOUT = "total_amount";
 
 	// JSONRPC
 	public static final String JSONRPC = "jsonrpc";

@@ -41,7 +41,7 @@ public class BitcoinBlock implements Serializable {
 	private int height;
 	private int version;
 	private String merkleRoot;
-	private List<String> tx;
+	private List<BitcoinTransaction> transactions;
 	private int time;
 	private int nonce;
 	private String bits;
@@ -49,7 +49,7 @@ public class BitcoinBlock implements Serializable {
 	private String previousBlockHash;
 	private String nextBlockHash;
 
-	public static BitcoinBlock fromJson(JsonObject value) {
+	public static BitcoinBlock fromJson(JsonObject value) throws BitcoinException {
 		BitcoinBlock block = new BitcoinBlock();
 		block.setHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_HASH, ""));
 		block.setConfirmations(value.getInt(
@@ -59,14 +59,14 @@ public class BitcoinBlock implements Serializable {
 		block.setVersion(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_VERSION, 0));
 		block.setMerkleRoot(value.getString(
 				BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
-		List<String> tx = new ArrayList<String>();
-		JsonArray txIds = value.getJsonArray(BitcoinConstant.BTCOBJ_BLOCK_TX);
-		if (txIds != null) {
-			for (JsonString txId : txIds.getValuesAs(JsonString.class)) {
-				tx.add(txId.getString());
+		List<BitcoinTransaction> transactions = new ArrayList<BitcoinTransaction>();
+		JsonArray transactionIds = value.getJsonArray(BitcoinConstant.BTCOBJ_BLOCK_TRANSACTIONS);
+		if (transactionIds != null) {
+			for (JsonString transactionId : transactionIds.getValuesAs(JsonString.class)) {
+				transactions.add(new BitcoinTransaction(transactionId.getString()));
 			}
 		}
-		block.setTx(tx);
+		block.setTransactions(transactions);
 		block.setTime(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_TIME, 0));
 		block.setNonce(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_NONCE, 0));
 		block.setBits(value.getString(BitcoinConstant.BTCOBJ_BLOCK_BITS, ""));
@@ -76,9 +76,9 @@ public class BitcoinBlock implements Serializable {
 			block.setDifficulty(difficulty.doubleValue());
 		}
 		block.setPreviousBlockHash(value.getString(
-				BitcoinConstant.BTCOBJ_BLOCK_PREV_HASH, ""));
+				BitcoinConstant.BTCOBJ_BLOCK_PREVIOUS_BLOCK_HASH, ""));
 		block.setNextBlockHash(value.getString(
-				BitcoinConstant.BTCOBJ_BLOCK_NEXT_HASH, ""));
+				BitcoinConstant.BTCOBJ_BLOCK_NEXT_BLOCK_HASH, ""));
 		return block;
 	}
 
@@ -130,12 +130,12 @@ public class BitcoinBlock implements Serializable {
 		this.merkleRoot = merkleRoot;
 	}
 
-	public List<String> getTx() {
-		return tx;
+	public List<BitcoinTransaction> getTransactions() {
+		return transactions;
 	}
 
-	public void setTx(List<String> tx) {
-		this.tx = tx;
+	public void setTransactions(List<BitcoinTransaction> transactions) {
+		this.transactions = transactions;
 	}
 
 	public int getTime() {

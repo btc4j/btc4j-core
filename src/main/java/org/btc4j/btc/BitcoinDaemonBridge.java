@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.json.Json;
@@ -57,6 +58,9 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 			.getLogger(BitcoinDaemonBridge.class.getName());
 	private HttpState state;
 	private URL url;
+	static {
+		LOGGER.setLevel(Level.WARNING);
+	}
 
 	public BitcoinDaemonBridge(URL url) {
 		this.url = url;
@@ -462,10 +466,10 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinTxOutputSet getTransactionOutputSetInformation()
+	public BitcoinTransactionOutputSet getTransactionOutputSetInformation()
 			throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_TRANSACTION_OUTPUT_SET_INFORMATION);
-		return BitcoinTxOutputSet.fromJson(results);
+		return BitcoinTransactionOutputSet.fromJson(results);
 	}
 
 	@Override
@@ -642,9 +646,15 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	@Override
 	public void setGenerate(boolean generate, int generateProcessorsLimit)
 			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (generateProcessorsLimit < 1) {
+			generateProcessorsLimit = -1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(generate).add(generateProcessorsLimit).build();
+		invoke(BitcoinConstant.BTCAPI_SET_GENERATE, parameters);
+	}
+	
+	public void setGenerate(boolean generate) throws BitcoinException {
+		setGenerate(generate, -1);
 	}
 
 	@Override
@@ -685,13 +695,14 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	@Override
-	public String validateAddress(String address) throws BitcoinException {
+	public BitcoinAddress validateAddress(String address) throws BitcoinException {
 		if (address == null) {
 			address = "";
 		}
 		JsonArray parameters = Json.createArrayBuilder().add(address).build();
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_VALIDATE_ADDRESS, parameters);
-		return String.valueOf(results);
+		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_VALIDATE_ADDRESS,
+				parameters);
+		return BitcoinAddress.fromJson(results);
 	}
 
 	@Override

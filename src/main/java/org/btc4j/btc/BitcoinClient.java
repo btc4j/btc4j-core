@@ -27,9 +27,17 @@ package org.btc4j.btc;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BitcoinClient implements BitcoinApi {
-
+	private final static Logger LOGGER = Logger
+			.getLogger(BitcoinClient.class.getName());
+	
+	static {
+		LOGGER.setLevel(Level.WARNING);
+	}
+	
 	@Override
 	public void addMultiSignatureAddress(int required, List<String> keys,
 			String account) throws BitcoinException {
@@ -261,7 +269,7 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinTxOutputSet getTransactionOutputSetInformation()
+	public BitcoinTransactionOutputSet getTransactionOutputSetInformation()
 			throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
@@ -462,7 +470,7 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public String validateAddress(String address) throws BitcoinException {
+	public BitcoinAddress validateAddress(String address) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);

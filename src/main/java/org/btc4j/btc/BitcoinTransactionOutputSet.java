@@ -29,32 +29,32 @@ import java.io.Serializable;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 
-public class BitcoinTxOutputSet implements Serializable {
+public class BitcoinTransactionOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;
 	private int height;
 	private String bestBlock;
 	private int transactions;
-	private int txOuts;
+	private int outputTransactions;
 	private int bytesSerialized;
 	private String hashSerialized;
 	private double totalAmount;
 
-	public static BitcoinTxOutputSet fromJson(JsonObject value) {
-		BitcoinTxOutputSet output = new BitcoinTxOutputSet();
+	public static BitcoinTransactionOutputSet fromJson(JsonObject value) throws BitcoinException {
+		BitcoinTransactionOutputSet output = new BitcoinTransactionOutputSet();
 		output.setHeight(value
-				.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_HEIGHT, 0));
+				.getInt(BitcoinConstant.BTCOBJ_TXOUTPUTSET_HEIGHT, 0));
 		output.setBestBlock(value.getString(
-				BitcoinConstant.BTCOBJ_TXOUTSET_BEST_BLOCK, ""));
+				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BEST_BLOCK, ""));
 		output.setTransactions(value.getInt(
-				BitcoinConstant.BTCOBJ_TXOUTSET_TRANSACTIONS, 0));
-		output.setTxOuts(value.getInt(BitcoinConstant.BTCOBJ_TXOUTSET_TX_OUTS,
+				BitcoinConstant.BTCOBJ_TXOUTPUTSET_TRANSACTIONS, 0));
+		output.setOutputTransactions(value.getInt(BitcoinConstant.BTCOBJ_TXOUTPUTSET_OUTPUT_TRANSACTIONS,
 				0));
 		output.setBytesSerialized(value.getInt(
-				BitcoinConstant.BTCOBJ_TXOUTSET_BYTES_SERIALIZED, 0));
+				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BYTES_SERIALIZED, 0));
 		output.setHashSerialized(value.getString(
-				BitcoinConstant.BTCOBJ_TXOUTSET_HASH_SERIALIZED, ""));
+				BitcoinConstant.BTCOBJ_TXOUTPUTSET_HASH_SERIALIZED, ""));
 		JsonNumber balance = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_TXOUTSET_TOTAL_AMOUT);
+				.getJsonNumber(BitcoinConstant.BTCOBJ_TXOUTPUTSET_TOTAL_AMOUT);
 		if (balance != null) {
 			output.setTotalAmount(balance.doubleValue());
 		}
@@ -85,12 +85,12 @@ public class BitcoinTxOutputSet implements Serializable {
 		this.transactions = transactions;
 	}
 
-	public int getTxOuts() {
-		return txOuts;
+	public int getOutputTransactions() {
+		return outputTransactions;
 	}
 
-	public void setTxOuts(int txOuts) {
-		this.txOuts = txOuts;
+	public void setOutputTransactions(int outputTransactions) {
+		this.outputTransactions = outputTransactions;
 	}
 
 	public int getBytesSerialized() {

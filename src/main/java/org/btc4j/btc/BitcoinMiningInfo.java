@@ -30,19 +30,19 @@ import javax.json.JsonObject;
 public class BitcoinMiningInfo extends BitcoinInfo {
 	private static final long serialVersionUID = -1675343423503889069L;
 	private int currentBlockSize;
-	private int currentBlockTx;
+	private int currentBlockTransactions;
 	private boolean generate;
-	private int genProcLimit;
-	private int hashesPerSec;
-	private int pooledTx;
+	private int generateProcessorLimit;
+	private int hashesPerSecond;
+	private int pooledTransactions;
 
-	public static BitcoinMiningInfo fromJson(JsonObject value) {
+	public static BitcoinMiningInfo fromJson(JsonObject value) throws BitcoinException {
 		BitcoinMiningInfo info = new BitcoinMiningInfo();
 		info.setBlocks(value.getInt(BitcoinConstant.BTCOBJ_INFO_BLOCKS, 0));
 		info.setCurrentBlockSize(value.getInt(
 				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_SIZE, 0));
-		info.setCurrentBlockTx(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_TX, 0));
+		info.setCurrentBlockTransactions(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_TRANSACTIONS, 0));
 		JsonNumber difficulty = value
 				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_DIFFICULTY);
 		if (difficulty != null) {
@@ -51,11 +51,11 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 		info.setErrors(value.getString(BitcoinConstant.BTCOBJ_INFO_ERRORS, ""));
 		info.setGenerate(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_GENERATE,
 				false));
-		info.setGenProcLimit(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_PROC_LIMIT, -1));
-		info.setHashesPerSec(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_HASHESPERSEC, 0));
-		info.setPooledTx(value.getInt(BitcoinConstant.BTCOBJ_INFO_POOLED_TX, 0));
+		info.setGenProcessorLimit(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_PROCESSOR_LIMIT, -1));
+		info.setHashesPerSecond(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_HASHES_PER_SECOND, 0));
+		info.setPooledTransactions(value.getInt(BitcoinConstant.BTCOBJ_INFO_POOLED_TRANSACTIONS, 0));
 		info.setTestnet(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_TESTNET,
 				false));
 		return info;
@@ -69,12 +69,12 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 		this.currentBlockSize = currentBlockSize;
 	}
 
-	public int getCurrentBlockTx() {
-		return currentBlockTx;
+	public int getCurrentBlockTransactions() {
+		return currentBlockTransactions;
 	}
 
-	public void setCurrentBlockTx(int currentBlockTx) {
-		this.currentBlockTx = currentBlockTx;
+	public void setCurrentBlockTransactions(int currentBlockTransactions) {
+		this.currentBlockTransactions = currentBlockTransactions;
 	}
 
 	public boolean isGenerate() {
@@ -85,27 +85,27 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 		this.generate = generate;
 	}
 
-	public int getGenProcLimit() {
-		return genProcLimit;
+	public int getGenProcessorLimit() {
+		return generateProcessorLimit;
 	}
 
-	public void setGenProcLimit(int genProcLimit) {
-		this.genProcLimit = genProcLimit;
+	public void setGenProcessorLimit(int generateProcessorLimit) {
+		this.generateProcessorLimit = generateProcessorLimit;
 	}
 
-	public int getHashesPerSec() {
-		return hashesPerSec;
+	public int getHashesPerSecond() {
+		return hashesPerSecond;
 	}
 
-	public void setHashesPerSec(int hashesPerSec) {
-		this.hashesPerSec = hashesPerSec;
+	public void setHashesPerSecond(int hashesPerSecond) {
+		this.hashesPerSecond = hashesPerSecond;
 	}
 
-	public int getPooledTx() {
-		return pooledTx;
+	public int getPooledTransactions() {
+		return pooledTransactions;
 	}
 
-	public void setPooledTx(int pooledTx) {
-		this.pooledTx = pooledTx;
+	public void setPooledTransactions(int pooledTransactions) {
+		this.pooledTransactions = pooledTransactions;
 	}
 }
