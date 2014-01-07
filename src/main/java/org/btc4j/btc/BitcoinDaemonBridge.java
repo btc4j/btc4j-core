@@ -170,9 +170,11 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 
 	@Override
 	public void backupWallet(File destination) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (destination == null) {
+			destination = new File(".");
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(destination.toString()).build();
+		invoke(BitcoinConstant.BTCAPI_BACKUP_WALLET, parameters);
 	}
 
 	@Override
@@ -684,9 +686,12 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 
 	@Override
 	public String validateAddress(String address) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (address == null) {
+			address = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(address).build();
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_VALIDATE_ADDRESS, parameters);
+		return String.valueOf(results);
 	}
 
 	@Override

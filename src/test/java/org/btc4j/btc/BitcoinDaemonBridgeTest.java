@@ -47,7 +47,7 @@ public class BitcoinDaemonBridgeTest {
 	// https://en.bitcoin.it/wiki/Testnet
 	// 54.243.211.176:18333
 	// YVmHAJ94qhsVMNvdjzw4Jt
-	private static long BITCOIND_DELAY_SECONDS = 5;
+	private static long BITCOIND_DELAY_SECONDS = 10;
 	private static final String BITCOIND_DIR = "E:/bitcoin/bitcoind-0.8.6";
 	private static final String BITCOIND_PASSWD = "password";
 	private static final String BITCOIND_PASSWD_ARG = "-rpcpassword="
@@ -56,6 +56,7 @@ public class BitcoinDaemonBridgeTest {
 	private static final String BITCOIND_URL = "http://127.0.0.1:18332";
 	private static final String BITCOIND_USER_ARG = "-rpcuser="
 			+ BITCOIND_ACCOUNT;
+	private static final String BITCOIND_WALLET = "wallet.dat";
 
 	@BeforeClass
 	public static void testSetup() throws Exception {
@@ -86,9 +87,14 @@ public class BitcoinDaemonBridgeTest {
 		BITCOIND.addNode("", BitcoinNodeOperationEnum.ADD);
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void backupWallet() throws BitcoinException {
-		BITCOIND.backupWallet(new File(""));
+		File wallet = new File(BITCOIND_DIR + "/" + BITCOIND_WALLET);
+		if (wallet.exists()) {
+			wallet.delete();
+		}
+		BITCOIND.backupWallet(new File(BITCOIND_DIR));
+		assertTrue(wallet.exists());
 	}
 
 	@Test(expected = BitcoinException.class)
@@ -310,10 +316,10 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("listaddressgroupings");
+		help = BITCOIND.help("validateaddress");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		System.out.println("help: " + help);
+		// System.out.println("help: " + help);
 	}
 	
 	@Test(expected = BitcoinException.class)
@@ -331,5 +337,112 @@ public class BitcoinDaemonBridgeTest {
 		Map<String, BitcoinAccount> accounts = BITCOIND.listAccounts();
 		assertNotNull(accounts);
 		assertTrue(accounts.containsKey(BITCOIND_ACCOUNT));
+	}
+
+	@Test(expected = BitcoinException.class)
+	public void listAddressGroupings() throws BitcoinException {
+		BITCOIND.listAddressGroupings();
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void listLockUnspent() throws BitcoinException {
+		BITCOIND.listLockUnspent();
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void listReceivedByAccount() throws BitcoinException {
+		BITCOIND.listReceivedByAccount(0, false);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void listReceivedByAddress() throws BitcoinException {
+		BITCOIND.listReceivedByAddress(0, false);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void listSinceBlock() throws BitcoinException {
+		BITCOIND.listSinceBlock("", 0);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void listTransactions() throws BitcoinException {
+		BITCOIND.listTransactions("", 0, 0);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void listUnspent() throws BitcoinException {
+		BITCOIND.listUnspent(0, 0);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void lockUnspent() throws BitcoinException {
+		BITCOIND.lockUnspent(false, new ArrayList<Object>());
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void move() throws BitcoinException {
+		BITCOIND.move("", "", 0, 0, "");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void sendFrom() throws BitcoinException {
+		BITCOIND.sendFrom("", "", 0, 0, "", "");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void sendMany() throws BitcoinException {
+		BITCOIND.sendMany("", new ArrayList<Object>(), 0, "", "");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void sendRawTransaction() throws BitcoinException {
+		BITCOIND.sendRawTransaction("");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void sendToAddress() throws BitcoinException {
+		BITCOIND.sendToAddress("", 0, "", "");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void setAccount() throws BitcoinException {
+		BITCOIND.setAccount("", "");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void setGenerate() throws BitcoinException {
+		BITCOIND.setGenerate(false, 0);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void setTransactionFee() throws BitcoinException {
+		BITCOIND.setTransactionFee(0);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void signMessage() throws BitcoinException {
+		BITCOIND.signMessage("", "");
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void signRawTransaction() throws BitcoinException {
+		BITCOIND.signRawTransaction("", new ArrayList<Object>(), new ArrayList<String>());
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void submitBlock() throws BitcoinException {
+		BITCOIND.submitBlock("", new ArrayList<Object>());
+	}
+	
+	@Test
+	public void validateAddress() throws BitcoinException {
+		String validate = BITCOIND.validateAddress("mteUu5qrZJAjybLJwVQpxxmpnyGFUhPYQD");
+		assertNotNull(validate);
+		System.out.println("validate: " + validate);
+	}
+	
+	@Test(expected = BitcoinException.class)
+	public void verifyMessage() throws BitcoinException {
+		BITCOIND.verifyMessage("", "", "");
 	}
 }
