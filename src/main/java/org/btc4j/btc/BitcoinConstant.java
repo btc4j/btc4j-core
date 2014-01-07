@@ -63,10 +63,10 @@ public class BitcoinConstant {
 	public static final String BTCAPI_IMPORT_PRIVATE_KEY = "importprivkey";
 	public static final String BTCAPI_KEY_POOL_REFILL = "keypoolrefill";
 	public static final String BTCAPI_LIST_ACCOUNTS = "listaccounts";
-	public static final String BTCAPI_ADDRESS_GROUPINGS = "listaddressgroupings";
+	public static final String BTCAPI_LIST_ADDRESS_GROUPINGS = "listaddressgroupings";
 	public static final String BTCAPI_LIST_LOCK_UNSPENT = "listlockunspent";
-	public static final String BTCAPI_RECEIVED_BY_ACCOUNT = "listreceivedbyaccount";
-	public static final String BTCAPI_RECEIVED_BY_ADDRESS = "listreceivedbyaddress";
+	public static final String BTCAPI_LIST_RECEIVED_BY_ACCOUNT = "listreceivedbyaccount";
+	public static final String BTCAPI_LIST_RECEIVED_BY_ADDRESS = "listreceivedbyaddress";
 	public static final String BTCAPI_LIST_SINCE_BLOCK = "listsinceblock";
 	public static final String BTCAPI_LIST_TRANSACTIONS = "listtransactions";
 	public static final String BTCAPI_LIST_UNSPENT = "listunspent";

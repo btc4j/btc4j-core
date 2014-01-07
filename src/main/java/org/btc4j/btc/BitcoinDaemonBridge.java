@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.json.Json;
@@ -58,9 +57,6 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 			.getLogger(BitcoinDaemonBridge.class.getName());
 	private HttpState state;
 	private URL url;
-	static {
-		LOGGER.setLevel(Level.WARNING);
-	}
 
 	public BitcoinDaemonBridge(URL url) {
 		this.url = url;
@@ -69,7 +65,7 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 
 	public BitcoinDaemonBridge(URL url, String username, String password) {
 		this(url);
-		state.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(
+		state.setCredentials(new AuthScope(url.getHost(), url.getPort()), new UsernamePasswordCredentials(
 				username, password));
 	}
 	
@@ -365,7 +361,7 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	public String getNewAddress() throws BitcoinException {
-		return getNewAddress(null);
+		return getNewAddress("");
 	}
 
 	@Override
@@ -533,9 +529,13 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	
 	@Override
 	public List<String> listAddressGroupings() throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		JsonArray results = (JsonArray) invoke(
+				BitcoinConstant.BTCAPI_LIST_ADDRESS_GROUPINGS);
+		List<String> groupings = new ArrayList<String>();
+		for (JsonObject grouping : results.getValuesAs(JsonObject.class)) {
+			groupings.add(String.valueOf(grouping));
+		}
+		return groupings;
 	}
 
 	@Override

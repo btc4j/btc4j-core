@@ -325,10 +325,12 @@ public class BitcoinDaemonBridgeTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("validateaddress");
+		help = BITCOIND.help("listaddressgroupings");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		// System.out.println("help: " + help);
+		help = BITCOIND.help("listtransactions");
+		assertNotNull(help);
+		assertTrue(help.length() >= 0);
 	}
 	
 	@Test(expected = BitcoinException.class)
@@ -348,9 +350,10 @@ public class BitcoinDaemonBridgeTest {
 		assertTrue(accounts.containsKey(BITCOIND_ACCOUNT));
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void listAddressGroupings() throws BitcoinException {
-		BITCOIND.listAddressGroupings();
+		List<String> groupings = BITCOIND.listAddressGroupings();
+		assertNotNull(groupings);
 	}
 	
 	@Test(expected = BitcoinException.class)

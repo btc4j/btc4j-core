@@ -27,16 +27,8 @@ package org.btc4j.btc;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class BitcoinClient implements BitcoinApi {
-	private final static Logger LOGGER = Logger
-			.getLogger(BitcoinClient.class.getName());
-	
-	static {
-		LOGGER.setLevel(Level.WARNING);
-	}
 	
 	@Override
 	public void addMultiSignatureAddress(int required, List<String> keys,
