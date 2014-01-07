@@ -36,7 +36,8 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 	private int hashesPerSecond;
 	private int pooledTransactions;
 
-	public static BitcoinMiningInfo fromJson(JsonObject value) throws BitcoinException {
+	public static BitcoinMiningInfo fromJson(JsonObject value)
+			throws BitcoinException {
 		BitcoinMiningInfo info = new BitcoinMiningInfo();
 		info.setBlocks(value.getInt(BitcoinConstant.BTCOBJ_INFO_BLOCKS, 0));
 		info.setCurrentBlockSize(value.getInt(
@@ -55,7 +56,8 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 				BitcoinConstant.BTCOBJ_INFO_PROCESSOR_LIMIT, -1));
 		info.setHashesPerSecond(value.getInt(
 				BitcoinConstant.BTCOBJ_INFO_HASHES_PER_SECOND, 0));
-		info.setPooledTransactions(value.getInt(BitcoinConstant.BTCOBJ_INFO_POOLED_TRANSACTIONS, 0));
+		info.setPooledTransactions(value.getInt(
+				BitcoinConstant.BTCOBJ_INFO_POOLED_TRANSACTIONS, 0));
 		info.setTestnet(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_TESTNET,
 				false));
 		return info;

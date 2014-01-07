@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BitcoinClient implements BitcoinApi {
-	
+
 	@Override
 	public void addMultiSignatureAddress(int required, List<String> keys,
 			String account) throws BitcoinException {
@@ -462,7 +462,8 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinAddress validateAddress(String address) throws BitcoinException {
+	public BitcoinAddress validateAddress(String address)
+			throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);

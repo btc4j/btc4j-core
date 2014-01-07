@@ -39,16 +39,17 @@ public class BitcoinTransactionOutputSet implements Serializable {
 	private String hashSerialized;
 	private double totalAmount;
 
-	public static BitcoinTransactionOutputSet fromJson(JsonObject value) throws BitcoinException {
+	public static BitcoinTransactionOutputSet fromJson(JsonObject value)
+			throws BitcoinException {
 		BitcoinTransactionOutputSet output = new BitcoinTransactionOutputSet();
-		output.setHeight(value
-				.getInt(BitcoinConstant.BTCOBJ_TXOUTPUTSET_HEIGHT, 0));
+		output.setHeight(value.getInt(
+				BitcoinConstant.BTCOBJ_TXOUTPUTSET_HEIGHT, 0));
 		output.setBestBlock(value.getString(
 				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BEST_BLOCK, ""));
 		output.setTransactions(value.getInt(
 				BitcoinConstant.BTCOBJ_TXOUTPUTSET_TRANSACTIONS, 0));
-		output.setOutputTransactions(value.getInt(BitcoinConstant.BTCOBJ_TXOUTPUTSET_OUTPUT_TRANSACTIONS,
-				0));
+		output.setOutputTransactions(value.getInt(
+				BitcoinConstant.BTCOBJ_TXOUTPUTSET_OUTPUT_TRANSACTIONS, 0));
 		output.setBytesSerialized(value.getInt(
 				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BYTES_SERIALIZED, 0));
 		output.setHashSerialized(value.getString(

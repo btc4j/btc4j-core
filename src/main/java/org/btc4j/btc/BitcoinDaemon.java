@@ -27,6 +27,7 @@ package org.btc4j.btc;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,29 +51,110 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.params.HttpClientParams;
 
-public class BitcoinDaemonBridge implements BitcoinApi {
+public class BitcoinDaemon implements BitcoinApi {
 
-	private final static Logger LOGGER = Logger
-			.getLogger(BitcoinDaemonBridge.class.getName());
-	private HttpState state;
-	private URL url;
+	private final static Logger LOGGER = Logger.getLogger(BitcoinDaemon.class
+			.getName());
+	private final HttpState state;
+	private final HttpClientParams params;
+	private final URL url;
 
-	public BitcoinDaemonBridge(URL url) {
+	private BitcoinDaemon(URL url, String account, String password,
+			int timeoutInMillis) {
 		this.url = url;
 		state = new HttpState();
+		state.setCredentials(new AuthScope(url.getHost(), url.getPort()),
+				new UsernamePasswordCredentials(account, password));
+		params = new HttpClientParams();
+		params.setConnectionManagerTimeout(timeoutInMillis);
 	}
 
-	public BitcoinDaemonBridge(URL url, String username, String password) {
-		this(url);
-		state.setCredentials(new AuthScope(url.getHost(), url.getPort()), new UsernamePasswordCredentials(
-				username, password));
+	private static BitcoinDaemon makeDaemon(String host, int port,
+			String account, String password, int timeoutInMillis,
+			Process bitcoind) throws BitcoinException {
+		URL url;
+		try {
+			url = new URL(BitcoinConstant.BTC4J_HTTP + "://" + host + ":"
+					+ port);
+		} catch (MalformedURLException e) {
+			LOGGER.severe(String.valueOf(e));
+			throw new BitcoinException(
+					BitcoinConstant.BTC4J_ERROR_CODE,
+					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + e.getMessage(),
+					e);
+		}
+		BitcoinDaemon daemon = new BitcoinDaemon(url, account, password,
+				timeoutInMillis);
+		int attempts = 0;
+		boolean ping = false;
+		String message = "";
+		do {
+			attempts++;
+			try {
+				LOGGER.info("attempt " + attempts + " of "
+						+ BitcoinConstant.BTC4J_DAEMON_CONNECT_ATTEMPTS
+						+ " to ping " + url);
+				Thread.sleep(attempts * timeoutInMillis);
+				BitcoinClientInfo info = daemon.getInformation();
+				if (info != null) {
+					ping = true;
+					message = "connected bitcoind " + info.getVersion()
+							+ " on " + url + " as " + account;
+				}
+			} catch (InterruptedException | BitcoinException e) {
+				message = e.getMessage();
+			}
+		} while (!ping
+				&& (attempts < BitcoinConstant.BTC4J_DAEMON_CONNECT_ATTEMPTS));
+		if (!ping) {
+			daemon = null;
+			if (bitcoind != null) {
+				bitcoind.destroy();
+			}
+			LOGGER.severe(message);
+			throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
+					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + message);
+		}
+		LOGGER.info(message);
+		return daemon;
 	}
-	
+
+	public static BitcoinDaemon connectDaemon(String host, int port,
+			final String account, final String password, int timeoutInMillis)
+			throws BitcoinException {
+		return makeDaemon(host, port, account, password, timeoutInMillis, null);
+	}
+
+	public static BitcoinDaemon runDaemon(File bitcoind, boolean testnet,
+			String account, String password, int timeoutInMillis)
+			throws BitcoinException {
+		try {
+			List<String> args = new ArrayList<String>();
+			args.add(bitcoind.getCanonicalPath());
+			if (testnet) {
+				args.add(BitcoinConstant.BTC4J_DAEMON_ARG_TESTNET);
+			}
+			args.add(BitcoinConstant.BTC4J_DAEMON_ARG_ACCOUNT + account);
+			args.add(BitcoinConstant.BTC4J_DAEMON_ARG_PASSWORD + password);
+			LOGGER.info("args: " + args);
+			return makeDaemon(BitcoinConstant.BTC4J_DAEMON_HOST,
+					BitcoinConstant.BTC4J_DAEMON_PORT, account, password,
+					timeoutInMillis, new ProcessBuilder(args).start());
+		} catch (IOException e) {
+			LOGGER.severe(String.valueOf(e));
+			throw new BitcoinException(
+					BitcoinConstant.BTC4J_ERROR_CODE,
+					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + e.getMessage(),
+					e);
+		}
+	}
+
 	public String[] getSupportedVersions() {
-		return BitcoinConstant.BTC4J_VERSIONS;
+		return BitcoinConstant.BTC4J_DAEMON_VERSIONS;
 	}
-	
+
 	protected JsonValue invoke(String method) throws BitcoinException {
 		return invoke(method, null);
 	}
@@ -80,6 +162,7 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	protected JsonValue invoke(String method, JsonValue parameters)
 			throws BitcoinException {
 		if (url == null) {
+			LOGGER.severe(BitcoinConstant.BTC4J_ERROR_DATA_NULL_URL);
 			throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 							+ BitcoinConstant.BTC4J_ERROR_DATA_NULL_URL);
@@ -105,8 +188,10 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 					BitcoinConstant.BTC4J_JSON_CONTENT_TYPE, null));
 			HttpClient client = new HttpClient();
 			client.setState(state);
+			client.setParams(params);
 			int status = client.executeMethod(post);
 			if (status != HttpStatus.SC_OK) {
+				LOGGER.severe(status + " " + HttpStatus.getStatusText(status));
 				throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 						BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + status
 								+ " " + HttpStatus.getStatusText(status));
@@ -114,6 +199,7 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 			JsonObject response = (JsonObject) Json.createReader(
 					new StringReader(post.getResponseBodyAsString())).read();
 			if (response == null) {
+				LOGGER.severe(BitcoinConstant.BTC4J_ERROR_DATA_NULL_RESPONSE);
 				throw new BitcoinException(
 						BitcoinConstant.BTC4J_ERROR_CODE,
 						BitcoinConstant.BTC4J_ERROR_MESSAGE
@@ -125,19 +211,32 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 			if (id == null) {
 				JsonObject error = response
 						.getJsonObject(BitcoinConstant.JSONRPC_ERROR);
-				throw new BitcoinException(
-						error.getInt(BitcoinConstant.JSONRPC_CODE),
-						error.get(BitcoinConstant.JSONRPC_MESSAGE)
-								+ ": "
-								+ error.getJsonObject(BitcoinConstant.JSONRPC_DATA));
+				if (error != null) {
+					JsonObject data = error
+							.getJsonObject(BitcoinConstant.JSONRPC_DATA);
+					LOGGER.severe(String.valueOf(data));
+					throw new BitcoinException(
+							error.getInt(BitcoinConstant.JSONRPC_CODE),
+							error.get(BitcoinConstant.JSONRPC_MESSAGE) + ": "
+									+ data);
+				} else {
+					LOGGER.severe(BitcoinConstant.BTC4J_ERROR_DATA_INVALID_ERROR);
+					throw new BitcoinException(
+							BitcoinConstant.BTC4J_ERROR_CODE,
+							BitcoinConstant.BTC4J_ERROR_MESSAGE
+									+ ": "
+									+ BitcoinConstant.BTC4J_ERROR_DATA_INVALID_ERROR);
+				}
 			}
 			if (!guid.equals(id.getString())) {
+				LOGGER.severe(BitcoinConstant.BTC4J_ERROR_DATA_INVALID_ID);
 				throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 						BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 								+ BitcoinConstant.BTC4J_ERROR_DATA_INVALID_ID);
 			}
 			return response.get(BitcoinConstant.JSONRPC_RESULT);
 		} catch (NullPointerException | ClassCastException | IOException e) {
+			LOGGER.severe(String.valueOf(e));
 			throw new BitcoinException(
 					BitcoinConstant.BTC4J_ERROR_CODE,
 					BitcoinConstant.BTC4J_ERROR_MESSAGE + ": " + e.getMessage(),
@@ -173,7 +272,8 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		if (destination == null) {
 			destination = new File(".");
 		}
-		JsonArray parameters = Json.createArrayBuilder().add(destination.toString()).build();
+		JsonArray parameters = Json.createArrayBuilder()
+				.add(destination.toString()).build();
 		invoke(BitcoinConstant.BTCAPI_BACKUP_WALLET, parameters);
 	}
 
@@ -194,7 +294,8 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	@Override
-	public String decodeRawTransaction(String transactionId) throws BitcoinException {
+	public String decodeRawTransaction(String transactionId)
+			throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -295,8 +396,8 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 			hash = "";
 		}
 		JsonArray parameters = Json.createArrayBuilder().add(hash).build();
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_BLOCK,
-				parameters);
+		JsonObject results = (JsonObject) invoke(
+				BitcoinConstant.BTCAPI_GET_BLOCK, parameters);
 		return BitcoinBlock.fromJson(results);
 	}
 
@@ -448,8 +549,10 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		if (transactionId == null) {
 			transactionId = "";
 		}
-		JsonArray parameters = Json.createArrayBuilder().add(transactionId).build();
-		JsonValue results = invoke(BitcoinConstant.BTCAPI_GET_TRANSACTION, parameters);
+		JsonArray parameters = Json.createArrayBuilder().add(transactionId)
+				.build();
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_GET_TRANSACTION,
+				parameters);
 		return String.valueOf(results);
 	}
 
@@ -485,8 +588,8 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		if ((command != null) && (command.length() > 0)) {
 			parameters = Json.createArrayBuilder().add(command).build();
 		}
-		JsonString results = (JsonString) invoke(
-				BitcoinConstant.BTCAPI_HELP, parameters);
+		JsonString results = (JsonString) invoke(BitcoinConstant.BTCAPI_HELP,
+				parameters);
 		return results.getString();
 	}
 
@@ -515,7 +618,8 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		if (minConfirms < 1) {
 			minConfirms = 1;
 		}
-		JsonArray parameters = Json.createArrayBuilder().add(minConfirms).build();
+		JsonArray parameters = Json.createArrayBuilder().add(minConfirms)
+				.build();
 		JsonObject results = (JsonObject) invoke(
 				BitcoinConstant.BTCAPI_LIST_ACCOUNTS, parameters);
 		Map<String, BitcoinAccount> accounts = new HashMap<String, BitcoinAccount>();
@@ -526,11 +630,10 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		}
 		return accounts;
 	}
-	
+
 	@Override
 	public List<String> listAddressGroupings() throws BitcoinException {
-		JsonArray results = (JsonArray) invoke(
-				BitcoinConstant.BTCAPI_LIST_ADDRESS_GROUPINGS);
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_LIST_ADDRESS_GROUPINGS);
 		List<String> groupings = new ArrayList<String>();
 		for (JsonObject grouping : results.getValuesAs(JsonObject.class)) {
 			groupings.add(String.valueOf(grouping));
@@ -544,18 +647,18 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
-	
+
 	@Override
-	public List<String> listReceivedByAccount(int minConfirms, boolean includeEmpty)
-			throws BitcoinException {
+	public List<String> listReceivedByAccount(int minConfirms,
+			boolean includeEmpty) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
 	@Override
-	public List<String> listReceivedByAddress(int minConfirms, boolean includeEmpty)
-			throws BitcoinException {
+	public List<String> listReceivedByAddress(int minConfirms,
+			boolean includeEmpty) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -649,10 +752,11 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 		if (generateProcessorsLimit < 1) {
 			generateProcessorsLimit = -1;
 		}
-		JsonArray parameters = Json.createArrayBuilder().add(generate).add(generateProcessorsLimit).build();
+		JsonArray parameters = Json.createArrayBuilder().add(generate)
+				.add(generateProcessorsLimit).build();
 		invoke(BitcoinConstant.BTCAPI_SET_GENERATE, parameters);
 	}
-	
+
 	public void setGenerate(boolean generate) throws BitcoinException {
 		setGenerate(generate, -1);
 	}
@@ -679,7 +783,7 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
-	
+
 	@Override
 	public String stop() throws BitcoinException {
 		JsonString results = (JsonString) invoke(BitcoinConstant.BTCAPI_STOP);
@@ -695,13 +799,14 @@ public class BitcoinDaemonBridge implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinAddress validateAddress(String address) throws BitcoinException {
+	public BitcoinAddress validateAddress(String address)
+			throws BitcoinException {
 		if (address == null) {
 			address = "";
 		}
 		JsonArray parameters = Json.createArrayBuilder().add(address).build();
-		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_VALIDATE_ADDRESS,
-				parameters);
+		JsonObject results = (JsonObject) invoke(
+				BitcoinConstant.BTCAPI_VALIDATE_ADDRESS, parameters);
 		return BitcoinAddress.fromJson(results);
 	}
 

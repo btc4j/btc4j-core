@@ -162,13 +162,22 @@ public class BitcoinConstant {
 
 	// BTC4J
 	public static final String BTC4J_HTTP_HEADER = "Content-Type";
+	public static final String BTC4J_HTTP_HEAD = "HEAD";
+	public static final String BTC4J_HTTP = "http";
 	public static final String BTC4J_JSONRPC_CONTENT_TYPE = "application/json-rpc";
 	public static final String BTC4J_JSON_CONTENT_TYPE = "application/json";
+	public static final int BTC4J_ERROR_CODE = -32077;
 	public static final String BTC4J_ERROR_MESSAGE = "Server error";
 	public static final String BTC4J_ERROR_DATA_NULL_URL = "Server URL is null";
 	public static final String BTC4J_ERROR_DATA_NULL_RESPONSE = "Response is empty";
 	public static final String BTC4J_ERROR_DATA_INVALID_ID = "Response id does not match request id";
+	public static final String BTC4J_ERROR_DATA_INVALID_ERROR = "Response error is empty";
 	public static final String BTC4J_ERROR_DATA_NOT_IMPLEMENTED = "Bitcoin command not yet implemented";
-	public static final String[] BTC4J_VERSIONS = { "0.8.6" };
-	public static final int BTC4J_ERROR_CODE = -32077;
+	public static final String[] BTC4J_DAEMON_VERSIONS = { "0.8.6" };
+	public static final String BTC4J_DAEMON_HOST = "127.0.0.1";
+	public static final int BTC4J_DAEMON_PORT = 18332;
+	public static final int BTC4J_DAEMON_CONNECT_ATTEMPTS = 3;
+	public static final String BTC4J_DAEMON_ARG_TESTNET = "-testnet=1";
+	public static final String BTC4J_DAEMON_ARG_ACCOUNT = "-rpcuser=";
+	public static final String BTC4J_DAEMON_ARG_PASSWORD = "-rpcpassword=";
 }

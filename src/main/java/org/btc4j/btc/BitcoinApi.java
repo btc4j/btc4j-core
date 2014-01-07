@@ -176,7 +176,8 @@ public interface BitcoinApi {
 	public void submitBlock(String data, List<Object> params)
 			throws BitcoinException;
 
-	public BitcoinAddress validateAddress(String address) throws BitcoinException;
+	public BitcoinAddress validateAddress(String address)
+			throws BitcoinException;
 
 	public String verifyMessage(String address, String signature, String message)
 			throws BitcoinException;

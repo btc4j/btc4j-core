@@ -49,7 +49,8 @@ public class BitcoinBlock implements Serializable {
 	private String previousBlockHash;
 	private String nextBlockHash;
 
-	public static BitcoinBlock fromJson(JsonObject value) throws BitcoinException {
+	public static BitcoinBlock fromJson(JsonObject value)
+			throws BitcoinException {
 		BitcoinBlock block = new BitcoinBlock();
 		block.setHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_HASH, ""));
 		block.setConfirmations(value.getInt(
@@ -60,10 +61,13 @@ public class BitcoinBlock implements Serializable {
 		block.setMerkleRoot(value.getString(
 				BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
 		List<BitcoinTransaction> transactions = new ArrayList<BitcoinTransaction>();
-		JsonArray transactionIds = value.getJsonArray(BitcoinConstant.BTCOBJ_BLOCK_TRANSACTIONS);
+		JsonArray transactionIds = value
+				.getJsonArray(BitcoinConstant.BTCOBJ_BLOCK_TRANSACTIONS);
 		if (transactionIds != null) {
-			for (JsonString transactionId : transactionIds.getValuesAs(JsonString.class)) {
-				transactions.add(new BitcoinTransaction(transactionId.getString()));
+			for (JsonString transactionId : transactionIds
+					.getValuesAs(JsonString.class)) {
+				transactions.add(new BitcoinTransaction(transactionId
+						.getString()));
 			}
 		}
 		block.setTransactions(transactions);

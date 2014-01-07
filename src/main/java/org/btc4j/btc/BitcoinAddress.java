@@ -40,16 +40,23 @@ public class BitcoinAddress implements Serializable {
 
 	public static BitcoinAddress fromJson(JsonObject value) {
 		BitcoinAddress address = new BitcoinAddress();
-		address.setValid(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_VALID, false));
-		address.setAddress(value.getString(BitcoinConstant.BTCOBJ_ADDRESS_ADDRESS, ""));
-		address.setMine(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_MINE, false));
-		address.setScript(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_SCRIPT, false));
-		address.setPublicKey(value.getString(BitcoinConstant.BTCOBJ_ADDRESS_PUBLIC_KEY, ""));
-		address.setCompressed(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_COMPRESSED, false));
-		address.setAccount(new BitcoinAccount(value.getString(BitcoinConstant.BTCOBJ_ADDRESS_ACCOUNT, ""), 0));
+		address.setValid(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_VALID,
+				false));
+		address.setAddress(value.getString(
+				BitcoinConstant.BTCOBJ_ADDRESS_ADDRESS, ""));
+		address.setMine(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_MINE,
+				false));
+		address.setScript(value.getBoolean(
+				BitcoinConstant.BTCOBJ_ADDRESS_SCRIPT, false));
+		address.setPublicKey(value.getString(
+				BitcoinConstant.BTCOBJ_ADDRESS_PUBLIC_KEY, ""));
+		address.setCompressed(value.getBoolean(
+				BitcoinConstant.BTCOBJ_ADDRESS_COMPRESSED, false));
+		address.setAccount(new BitcoinAccount(value.getString(
+				BitcoinConstant.BTCOBJ_ADDRESS_ACCOUNT, ""), 0));
 		return address;
 	}
-	
+
 	public boolean isValid() {
 		return valid;
 	}

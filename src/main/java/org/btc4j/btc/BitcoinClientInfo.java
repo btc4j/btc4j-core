@@ -40,7 +40,8 @@ public class BitcoinClientInfo extends BitcoinInfo {
 	private int keyPoolSize;
 	private double transactionFee;
 
-	public static BitcoinClientInfo fromJson(JsonObject value) throws BitcoinException {
+	public static BitcoinClientInfo fromJson(JsonObject value)
+			throws BitcoinException {
 		BitcoinClientInfo info = new BitcoinClientInfo();
 		info.setVersion(value.getInt(BitcoinConstant.BTCOBJ_INFO_VERSION, 0));
 		info.setProtocolVersion(value.getInt(
