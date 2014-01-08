@@ -29,7 +29,7 @@ import javax.json.JsonObject;
 
 public class BitcoinPeer implements Serializable {
 	private static final long serialVersionUID = -300084370265716627L;
-	private String address;
+	private String networkAddress;
 	private String services;
 	private int lastSend;
 	private int lastReceived;
@@ -46,7 +46,7 @@ public class BitcoinPeer implements Serializable {
 	public static BitcoinPeer fromJson(JsonObject value)
 			throws BitcoinException {
 		BitcoinPeer peer = new BitcoinPeer();
-		peer.setAddress(value
+		peer.setNetworkAddress(value
 				.getString(BitcoinConstant.BTCOBJ_PEER_ADDRESS, ""));
 		peer.setServices(value.getString(BitcoinConstant.BTCOBJ_PEER_SERVICES,
 				""));
@@ -72,12 +72,12 @@ public class BitcoinPeer implements Serializable {
 		return peer;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getNetworkAddress() {
+		return networkAddress;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setNetworkAddress(String networkAddress) {
+		this.networkAddress = networkAddress;
 	}
 
 	public String getServices() {

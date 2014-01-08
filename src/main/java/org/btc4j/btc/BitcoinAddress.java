@@ -26,6 +26,7 @@ package org.btc4j.btc;
 
 import java.io.Serializable;
 
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 
 public class BitcoinAddress implements Serializable {
@@ -37,6 +38,8 @@ public class BitcoinAddress implements Serializable {
 	private String publicKey;
 	private boolean compressed;
 	private BitcoinAccount account;
+	private double amount;
+	private int confirmations;
 
 	public static BitcoinAddress fromJson(JsonObject value) {
 		BitcoinAddress address = new BitcoinAddress();
@@ -53,7 +56,14 @@ public class BitcoinAddress implements Serializable {
 		address.setCompressed(value.getBoolean(
 				BitcoinConstant.BTCOBJ_ADDRESS_COMPRESSED, false));
 		address.setAccount(new BitcoinAccount(value.getString(
-				BitcoinConstant.BTCOBJ_ADDRESS_ACCOUNT, ""), 0));
+				BitcoinConstant.BTCOBJ_ADDRESS_ACCOUNT, ""), 0, 0));
+		JsonNumber amount = value
+				.getJsonNumber(BitcoinConstant.BTCOBJ_ADDRESS_AMOUNT);
+		if (amount != null) {
+			address.setAmount(amount.doubleValue());
+		}
+		address.setConfirmations(value.getInt(
+				BitcoinConstant.BTCOBJ_ADDRESS_CONFIRMATIONS, 0));
 		return address;
 	}
 
@@ -111,5 +121,21 @@ public class BitcoinAddress implements Serializable {
 
 	public void setAccount(BitcoinAccount account) {
 		this.account = account;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public int getConfirmations() {
+		return confirmations;
+	}
+
+	public void setConfirmations(int confirmations) {
+		this.confirmations = confirmations;
 	}
 }

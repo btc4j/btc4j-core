@@ -87,6 +87,9 @@ public class BitcoinConstant {
 	public static final String BTCAPI_VERIFY_MESSAGE = "verifymessage";
 
 	// BTCOBJ
+	public static final String BTCOBJ_ACCOUNT_ACCOUNT = "account";
+	public static final String BTCOBJ_ACCOUNT_AMOUNT = "amount";
+	public static final String BTCOBJ_ACCOUNT_CONFIRMATIONS = "confirmations";
 	public static final String BTCOBJ_ADDRESS_VALID = "isvalid";
 	public static final String BTCOBJ_ADDRESS_ADDRESS = "address";
 	public static final String BTCOBJ_ADDRESS_MINE = "ismine";
@@ -94,6 +97,8 @@ public class BitcoinConstant {
 	public static final String BTCOBJ_ADDRESS_PUBLIC_KEY = "pubkey";
 	public static final String BTCOBJ_ADDRESS_COMPRESSED = "iscompressed";
 	public static final String BTCOBJ_ADDRESS_ACCOUNT = "account";
+	public static final String BTCOBJ_ADDRESS_AMOUNT = "amount";
+	public static final String BTCOBJ_ADDRESS_CONFIRMATIONS = "confirmations";
 	public static final String BTCOBJ_BLOCK_HASH = "hash";
 	public static final String BTCOBJ_BLOCK_CONFIRMATIONS = "confirmations";
 	public static final String BTCOBJ_BLOCK_SIZE = "size";

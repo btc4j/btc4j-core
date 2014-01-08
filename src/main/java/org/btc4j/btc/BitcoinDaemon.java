@@ -97,7 +97,7 @@ public class BitcoinDaemon implements BitcoinApi {
 						+ BitcoinConstant.BTC4J_DAEMON_CONNECT_ATTEMPTS
 						+ " to ping " + url);
 				Thread.sleep(attempts * timeoutInMillis);
-				BitcoinStatusInfo info = daemon.getInformation();
+				BitcoinStatus info = daemon.getInformation();
 				if (info != null) {
 					ping = true;
 					message = "connected bitcoind " + info.getVersion()
@@ -452,9 +452,9 @@ public class BitcoinDaemon implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinStatusInfo getInformation() throws BitcoinException {
+	public BitcoinStatus getInformation() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_INFORMATION);
-		return BitcoinStatusInfo.fromJson(results);
+		return BitcoinStatus.fromJson(results);
 	}
 
 	@Override
@@ -628,9 +628,9 @@ public class BitcoinDaemon implements BitcoinApi {
 				BitcoinConstant.BTCAPI_LIST_ACCOUNTS, parameters);
 		Map<String, BitcoinAccount> accounts = new HashMap<String, BitcoinAccount>();
 		for (String account : results.keySet()) {
-			JsonNumber balance = results.getJsonNumber(account);
+			JsonNumber amount = results.getJsonNumber(account);
 			accounts.put(account,
-					new BitcoinAccount(account, balance.doubleValue()));
+					new BitcoinAccount(account, amount.doubleValue(), 0));
 		}
 		return accounts;
 	}
@@ -647,46 +647,101 @@ public class BitcoinDaemon implements BitcoinApi {
 
 	@Override
 	public List<String> listLockUnspent() throws BitcoinException {
-		// TODO
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_LIST_LOCK_UNSPENT);
+		List<String> unspents = new ArrayList<String>();
+		for (JsonObject unspent : results.getValuesAs(JsonObject.class)) {
+			unspents.add(String.valueOf(unspent));
+		}
+		return unspents;
 	}
 
+	public List<BitcoinAccount> listReceivedByAccount() throws BitcoinException {
+		return listReceivedByAccount(1, false);
+	}
+	
 	@Override
-	public List<String> listReceivedByAccount(int minConfirms,
+	public List<BitcoinAccount> listReceivedByAccount(int minConfirms,
 			boolean includeEmpty) throws BitcoinException {
-		// TODO
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (minConfirms < 0) {
+			minConfirms = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(minConfirms).add(includeEmpty)
+				.build();
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_LIST_RECEIVED_BY_ACCOUNT, parameters);
+		List<BitcoinAccount> accounts = new ArrayList<BitcoinAccount>();
+		for (JsonObject result : results.getValuesAs(JsonObject.class)) {
+			accounts.add(BitcoinAccount.fromJson(result));
+		}
+		return accounts;
 	}
 
+	public List<BitcoinAddress> listReceivedByAddress() throws BitcoinException {
+		return listReceivedByAddress(1, false);
+	}
+	
 	@Override
-	public List<String> listReceivedByAddress(int minConfirms,
+	public List<BitcoinAddress> listReceivedByAddress(int minConfirms,
 			boolean includeEmpty) throws BitcoinException {
-		// TODO
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (minConfirms < 0) {
+			minConfirms = 1;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(minConfirms).add(includeEmpty)
+				.build();
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_LIST_RECEIVED_BY_ADDRESS, parameters);
+		List<BitcoinAddress> addresses = new ArrayList<BitcoinAddress>();
+		for (JsonObject result : results.getValuesAs(JsonObject.class)) {
+			addresses.add(BitcoinAddress.fromJson(result));
+		}
+		return addresses;
 	}
 
+	public List<String> listSinceBlock() throws BitcoinException {
+		return listSinceBlock("", 1);
+	}
+	
 	@Override
 	public List<String> listSinceBlock(String blockHash, int targetConfirms)
 			throws BitcoinException {
 		// TODO
+		// listsinceblock [blockhash] [target-confirmations]
+		// Get all transactions in blocks since block [blockhash], or all transactions if omitted
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
+	public List<String> listTransactions() throws BitcoinException {
+		return listTransactions("", 10, 0);
+	}
+	
+	public List<String> listTransactions(String account) throws BitcoinException {
+		return listTransactions(account, 10, 0);
+	}
+	
+	public List<String> listTransactions(String account, int count) throws BitcoinException {
+		return listTransactions(account, count, 0);
+	}
+			
 	@Override
 	public List<String> listTransactions(String account, int count, int from)
 			throws BitcoinException {
-		// TODO
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (account == null) {
+			account = "";
+		}
+		if (count < 1) {
+			count = 10;
+		}
+		if (from < 0) {
+			from = 0;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(account).add(count).add(from)
+				.build();
+		JsonArray results = (JsonArray) invoke(BitcoinConstant.BTCAPI_LIST_TRANSACTIONS, parameters);
+		List<String> transactions = new ArrayList<String>();
+		for (JsonObject transaction : results.getValuesAs(JsonObject.class)) {
+			transactions.add(String.valueOf(transaction));
+		}
+		return transactions;
 	}
 
 	@Override

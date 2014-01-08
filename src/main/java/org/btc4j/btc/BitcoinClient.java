@@ -187,7 +187,7 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinStatusInfo getInformation() throws BitcoinException {
+	public BitcoinStatus getInformation() throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -321,7 +321,7 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public List<String> listReceivedByAccount(int minConfirms,
+	public List<BitcoinAccount> listReceivedByAccount(int minConfirms,
 			boolean includeEmpty) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
@@ -329,7 +329,7 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public List<String> listReceivedByAddress(int minConfirms,
+	public List<BitcoinAddress> listReceivedByAddress(int minConfirms,
 			boolean includeEmpty) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "

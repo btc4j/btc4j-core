@@ -79,7 +79,7 @@ public interface BitcoinApi {
 
 	public int getHashesPerSecond() throws BitcoinException;
 
-	public BitcoinStatusInfo getInformation() throws BitcoinException;
+	public BitcoinStatus getInformation() throws BitcoinException;
 
 	public BitcoinMining getMiningInformation() throws BitcoinException;
 
@@ -122,10 +122,10 @@ public interface BitcoinApi {
 
 	public List<String> listLockUnspent() throws BitcoinException;
 
-	public List<String> listReceivedByAccount(int minConfirms,
+	public List<BitcoinAccount> listReceivedByAccount(int minConfirms,
 			boolean includeEmpty) throws BitcoinException;
 
-	public List<String> listReceivedByAddress(int minConfirms,
+	public List<BitcoinAddress> listReceivedByAddress(int minConfirms,
 			boolean includeEmpty) throws BitcoinException;
 
 	public List<String> listSinceBlock(String blockHash, int targetConfirms)

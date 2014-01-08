@@ -40,7 +40,7 @@ public class BitcoinDaemonTest {
 	private static BitcoinDaemon BITCOIND;
 	private static final String BITCOIND_ACCOUNT = "user";
 	private static final String BITCOIND_CMD = "bitcoind.exe";
-	private static int BITCOIND_DELAY_MILLIS = 10000;
+	private static int BITCOIND_DELAY_MILLIS = 5000;
 	private static final String BITCOIND_DIR = "E:/bitcoin/bitcoind-0.8.6";
 	private static final String BITCOIND_PASSWD = "password";
 	private static final String BITCOIND_WALLET = "wallet.dat";
@@ -213,7 +213,7 @@ public class BitcoinDaemonTest {
 
 	@Test
 	public void getInformation() throws BitcoinException {
-		BitcoinStatusInfo info = BITCOIND.getInformation();
+		BitcoinStatus info = BITCOIND.getInformation();
 		assertNotNull(info);
 		assertTrue(info.isTestnet());
 		assertEquals(80600, info.getVersion());
@@ -272,9 +272,7 @@ public class BitcoinDaemonTest {
 
 	@Test
 	public void getReceivedByAddress() throws BitcoinException {
-		double balance = BITCOIND.getReceivedByAddress("");
-		assertTrue(balance >= 0);
-		balance = BITCOIND.getReceivedByAddress(BITCOIND_ADDRESS, 2);
+		double balance = BITCOIND.getReceivedByAddress(BITCOIND_ADDRESS);
 		assertTrue(balance >= 0);
 	}
 
@@ -316,9 +314,10 @@ public class BitcoinDaemonTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("listtransactions");
+		help = BITCOIND.help("listsinceblock");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
+		System.out.println(help);
 	}
 
 	@Test(expected = BitcoinException.class)
@@ -344,22 +343,38 @@ public class BitcoinDaemonTest {
 		assertNotNull(groupings);
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void listLockUnspent() throws BitcoinException {
-		// TODO
-		BITCOIND.listLockUnspent();
+		List<String> unspents = BITCOIND.listLockUnspent();
+		assertNotNull(unspents);
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void listReceivedByAccount() throws BitcoinException {
-		// TODO
-		BITCOIND.listReceivedByAccount(0, false);
+		List<BitcoinAccount> accounts = BITCOIND.listReceivedByAccount();
+		assertNotNull(accounts);
+		accounts = BITCOIND.listReceivedByAccount(0, true);
+		assertNotNull(accounts);
+		int size = accounts.size();
+		assertTrue(size >= 0);
+		if (size > 0) {
+			BitcoinAccount account = accounts.get(0);
+			assertTrue(account.getAmount() >= 0);
+		}
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void listReceivedByAddress() throws BitcoinException {
-		// TODO
-		BITCOIND.listReceivedByAddress(0, false);
+		List<BitcoinAddress> addresses = BITCOIND.listReceivedByAddress();
+		assertNotNull(addresses);
+		addresses = BITCOIND.listReceivedByAddress(0, true);
+		assertNotNull(addresses);
+		int size = addresses.size();
+		assertTrue(size >= 0);
+		if (size > 0) {
+			BitcoinAddress address = addresses.get(0);
+			assertTrue(address.getAmount() >= 0);
+		}
 	}
 
 	@Test(expected = BitcoinException.class)
@@ -368,10 +383,12 @@ public class BitcoinDaemonTest {
 		BITCOIND.listSinceBlock("00000000b873e79784647a6c82962c70d228557d24a747ea4d1b8bbe878e1206", 0);
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void listTransactions() throws BitcoinException {
-		// TODO
-		BITCOIND.listTransactions("", 0, 0);
+		List<String> transactions = BITCOIND.listTransactions(BITCOIND_ACCOUNT);
+		assertNotNull(transactions);
+		transactions = BITCOIND.listTransactions();
+		assertNotNull(transactions);
 	}
 
 	@Test(expected = BitcoinException.class)

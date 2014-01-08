@@ -54,10 +54,10 @@ public class BitcoinTransactionOutputSet implements Serializable {
 				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BYTES_SERIALIZED, 0));
 		output.setHashSerialized(value.getString(
 				BitcoinConstant.BTCOBJ_TXOUTPUTSET_HASH_SERIALIZED, ""));
-		JsonNumber balance = value
+		JsonNumber amount = value
 				.getJsonNumber(BitcoinConstant.BTCOBJ_TXOUTPUTSET_TOTAL_AMOUT);
-		if (balance != null) {
-			output.setTotalAmount(balance.doubleValue());
+		if (amount != null) {
+			output.setTotalAmount(amount.doubleValue());
 		}
 		return output;
 	}
