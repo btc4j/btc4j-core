@@ -79,9 +79,9 @@ public interface BitcoinApi {
 
 	public int getHashesPerSecond() throws BitcoinException;
 
-	public BitcoinClientInfo getInformation() throws BitcoinException;
+	public BitcoinStatusInfo getInformation() throws BitcoinException;
 
-	public BitcoinMiningInfo getMiningInformation() throws BitcoinException;
+	public BitcoinMining getMiningInformation() throws BitcoinException;
 
 	public String getNewAddress(String account) throws BitcoinException;
 
@@ -163,7 +163,7 @@ public interface BitcoinApi {
 	public void setGenerate(boolean generate, int generateProcessorsLimit)
 			throws BitcoinException;
 
-	public void setTransactionFee(double amount) throws BitcoinException;
+	public boolean setTransactionFee(double amount) throws BitcoinException;
 
 	public void signMessage(String address, String message)
 			throws BitcoinException;

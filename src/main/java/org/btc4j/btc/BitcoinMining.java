@@ -27,7 +27,7 @@ package org.btc4j.btc;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 
-public class BitcoinMiningInfo extends BitcoinInfo {
+public class BitcoinMining extends BitcoinInfo {
 	private static final long serialVersionUID = -1675343423503889069L;
 	private int currentBlockSize;
 	private int currentBlockTransactions;
@@ -36,9 +36,9 @@ public class BitcoinMiningInfo extends BitcoinInfo {
 	private int hashesPerSecond;
 	private int pooledTransactions;
 
-	public static BitcoinMiningInfo fromJson(JsonObject value)
+	public static BitcoinMining fromJson(JsonObject value)
 			throws BitcoinException {
-		BitcoinMiningInfo info = new BitcoinMiningInfo();
+		BitcoinMining info = new BitcoinMining();
 		info.setBlocks(value.getInt(BitcoinConstant.BTCOBJ_INFO_BLOCKS, 0));
 		info.setCurrentBlockSize(value.getInt(
 				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_SIZE, 0));

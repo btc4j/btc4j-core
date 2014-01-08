@@ -27,7 +27,7 @@ package org.btc4j.btc;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 
-public class BitcoinClientInfo extends BitcoinInfo {
+public class BitcoinStatusInfo extends BitcoinInfo {
 	private static final long serialVersionUID = -5800958166892028401L;
 	private int version;
 	private int protocolVersion;
@@ -40,9 +40,9 @@ public class BitcoinClientInfo extends BitcoinInfo {
 	private int keyPoolSize;
 	private double transactionFee;
 
-	public static BitcoinClientInfo fromJson(JsonObject value)
+	public static BitcoinStatusInfo fromJson(JsonObject value)
 			throws BitcoinException {
-		BitcoinClientInfo info = new BitcoinClientInfo();
+		BitcoinStatusInfo info = new BitcoinStatusInfo();
 		info.setVersion(value.getInt(BitcoinConstant.BTCOBJ_INFO_VERSION, 0));
 		info.setProtocolVersion(value.getInt(
 				BitcoinConstant.BTCOBJ_INFO_PROTOCOL_VERSION, 0));

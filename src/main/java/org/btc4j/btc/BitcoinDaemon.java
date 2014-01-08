@@ -97,7 +97,7 @@ public class BitcoinDaemon implements BitcoinApi {
 						+ BitcoinConstant.BTC4J_DAEMON_CONNECT_ATTEMPTS
 						+ " to ping " + url);
 				Thread.sleep(attempts * timeoutInMillis);
-				BitcoinClientInfo info = daemon.getInformation();
+				BitcoinStatusInfo info = daemon.getInformation();
 				if (info != null) {
 					ping = true;
 					message = "connected bitcoind " + info.getVersion()
@@ -303,6 +303,7 @@ public class BitcoinDaemon implements BitcoinApi {
 
 	@Override
 	public String dumpPrivateKey(String address) throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -310,6 +311,7 @@ public class BitcoinDaemon implements BitcoinApi {
 
 	@Override
 	public void encryptWallet(String passPhrase) throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -450,15 +452,15 @@ public class BitcoinDaemon implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinClientInfo getInformation() throws BitcoinException {
+	public BitcoinStatusInfo getInformation() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_INFORMATION);
-		return BitcoinClientInfo.fromJson(results);
+		return BitcoinStatusInfo.fromJson(results);
 	}
 
 	@Override
-	public BitcoinMiningInfo getMiningInformation() throws BitcoinException {
+	public BitcoinMining getMiningInformation() throws BitcoinException {
 		JsonObject results = (JsonObject) invoke(BitcoinConstant.BTCAPI_GET_MINING_INFORMATION);
-		return BitcoinMiningInfo.fromJson(results);
+		return BitcoinMining.fromJson(results);
 	}
 
 	public String getNewAddress() throws BitcoinException {
@@ -499,6 +501,7 @@ public class BitcoinDaemon implements BitcoinApi {
 	@Override
 	public String getRawTransaction(String transactionId, boolean verbose)
 			throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -546,6 +549,7 @@ public class BitcoinDaemon implements BitcoinApi {
 
 	@Override
 	public String getTransaction(String transactionId) throws BitcoinException {
+		// TODO
 		if (transactionId == null) {
 			transactionId = "";
 		}
@@ -643,6 +647,7 @@ public class BitcoinDaemon implements BitcoinApi {
 
 	@Override
 	public List<String> listLockUnspent() throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -651,6 +656,7 @@ public class BitcoinDaemon implements BitcoinApi {
 	@Override
 	public List<String> listReceivedByAccount(int minConfirms,
 			boolean includeEmpty) throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -659,6 +665,7 @@ public class BitcoinDaemon implements BitcoinApi {
 	@Override
 	public List<String> listReceivedByAddress(int minConfirms,
 			boolean includeEmpty) throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -667,6 +674,7 @@ public class BitcoinDaemon implements BitcoinApi {
 	@Override
 	public List<String> listSinceBlock(String blockHash, int targetConfirms)
 			throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -675,6 +683,7 @@ public class BitcoinDaemon implements BitcoinApi {
 	@Override
 	public List<String> listTransactions(String account, int count, int from)
 			throws BitcoinException {
+		// TODO
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -741,9 +750,15 @@ public class BitcoinDaemon implements BitcoinApi {
 	@Override
 	public void setAccount(String address, String account)
 			throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+		if (address == null) {
+			address = "";
+		}
+		if (account == null) {
+			account = "";
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(address)
+				.add(account).build();
+		invoke(BitcoinConstant.BTCAPI_SET_ACCOUNT, parameters);
 	}
 
 	@Override
@@ -762,10 +777,13 @@ public class BitcoinDaemon implements BitcoinApi {
 	}
 
 	@Override
-	public void setTransactionFee(double amount) throws BitcoinException {
-		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
-				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
-						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
+	public boolean setTransactionFee(double amount) throws BitcoinException {
+		if (amount < 0) {
+			amount = 0;
+		}
+		JsonArray parameters = Json.createArrayBuilder().add(amount).build();
+		JsonValue results = invoke(BitcoinConstant.BTCAPI_SET_TRANSACTION_FEE, parameters);
+		return Boolean.valueOf(String.valueOf(results));
 	}
 
 	@Override

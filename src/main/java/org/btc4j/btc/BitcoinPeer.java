@@ -29,17 +29,6 @@ import javax.json.JsonObject;
 
 public class BitcoinPeer implements Serializable {
 	private static final long serialVersionUID = -300084370265716627L;
-	// {"addr":"141.138.205.129:18333",
-	// "services":"00000000",
-	// "lastsend":1389106435,
-	// "lastrecv":0,
-	// "bytessent":124,
-	// "bytesrecv":0,
-	// "conntime":1389106435,
-	// "version":0,
-	// "subver":"",
-	// "inbound":false,
-	// "startingheight":-1,"banscore":0}],"error":null,"id":"272919ff-4133-4b7b-8b55-370df8858884"}
 	private String address;
 	private String services;
 	private int lastSend;

@@ -187,14 +187,14 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public BitcoinClientInfo getInformation() throws BitcoinException {
+	public BitcoinStatusInfo getInformation() throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
 	}
 
 	@Override
-	public BitcoinMiningInfo getMiningInformation() throws BitcoinException {
+	public BitcoinMining getMiningInformation() throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);
@@ -427,7 +427,7 @@ public class BitcoinClient implements BitcoinApi {
 	}
 
 	@Override
-	public void setTransactionFee(double amount) throws BitcoinException {
+	public boolean setTransactionFee(double amount) throws BitcoinException {
 		throw new BitcoinException(BitcoinConstant.BTC4J_ERROR_CODE,
 				BitcoinConstant.BTC4J_ERROR_MESSAGE + ": "
 						+ BitcoinConstant.BTC4J_ERROR_DATA_NOT_IMPLEMENTED);

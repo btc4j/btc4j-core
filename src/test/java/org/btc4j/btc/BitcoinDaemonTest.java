@@ -24,9 +24,7 @@
 
 package org.btc4j.btc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -100,11 +98,13 @@ public class BitcoinDaemonTest {
 
 	@Test(expected = BitcoinException.class)
 	public void dumpPrivateKey() throws BitcoinException {
+		// TODO
 		BITCOIND.dumpPrivateKey("");
 	}
 
 	@Test(expected = BitcoinException.class)
 	public void encryptWallet() throws BitcoinException {
+		// TODO
 		BITCOIND.encryptWallet("");
 	}
 
@@ -119,7 +119,6 @@ public class BitcoinDaemonTest {
 	public void getAccountAddress() throws BitcoinException {
 		String address = BITCOIND.getAccountAddress(BITCOIND_ACCOUNT);
 		assertNotNull(address);
-		assertEquals(BITCOIND_ADDRESS, address);
 	}
 
 	@Test(expected = BitcoinException.class)
@@ -214,7 +213,7 @@ public class BitcoinDaemonTest {
 
 	@Test
 	public void getInformation() throws BitcoinException {
-		BitcoinClientInfo info = BITCOIND.getInformation();
+		BitcoinStatusInfo info = BITCOIND.getInformation();
 		assertNotNull(info);
 		assertTrue(info.isTestnet());
 		assertEquals(80600, info.getVersion());
@@ -222,12 +221,13 @@ public class BitcoinDaemonTest {
 
 	@Test
 	public void getMiningInformation() throws BitcoinException {
-		BitcoinMiningInfo info = BITCOIND.getMiningInformation();
+		BitcoinMining info = BITCOIND.getMiningInformation();
 		assertNotNull(info);
 		assertTrue(info.isTestnet());
 		assertTrue(info.getDifficulty() >= 0);
 	}
 
+	@Ignore("Generates new address")
 	@Test
 	public void getNewAddress() throws BitcoinException {
 		String address = BITCOIND.getNewAddress(BITCOIND_ACCOUNT);
@@ -258,6 +258,7 @@ public class BitcoinDaemonTest {
 
 	@Test(expected = BitcoinException.class)
 	public void getRawTransaction() throws BitcoinException {
+		// TODO
 		BITCOIND.getRawTransaction("", false);
 	}
 
@@ -271,13 +272,16 @@ public class BitcoinDaemonTest {
 
 	@Test
 	public void getReceivedByAddress() throws BitcoinException {
-		double balance = BITCOIND.getReceivedByAccount(BITCOIND_ADDRESS);
+		double balance = BITCOIND.getReceivedByAddress("");
+		assertTrue(balance >= 0);
+		balance = BITCOIND.getReceivedByAddress(BITCOIND_ADDRESS, 2);
 		assertTrue(balance >= 0);
 	}
 
-	@Ignore("Need valid txid")
-	@Test(expected = BitcoinException.class)
+	@Ignore("Need valid transaction id")
+	@Test
 	public void getTransaction() throws BitcoinException {
+		// TODO
 		String tx = BITCOIND
 				.getTransaction("f0315ffc38709d70ad5647e22048358dd3745f3ce3874223c80a7c92fab0c8ba");
 		assertNotNull(tx);
@@ -312,9 +316,6 @@ public class BitcoinDaemonTest {
 		help = BITCOIND.help("fakecommand");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
-		help = BITCOIND.help("listaddressgroupings");
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
 		help = BITCOIND.help("listtransactions");
 		assertNotNull(help);
 		assertTrue(help.length() >= 0);
@@ -345,26 +346,31 @@ public class BitcoinDaemonTest {
 
 	@Test(expected = BitcoinException.class)
 	public void listLockUnspent() throws BitcoinException {
+		// TODO
 		BITCOIND.listLockUnspent();
 	}
 
 	@Test(expected = BitcoinException.class)
 	public void listReceivedByAccount() throws BitcoinException {
+		// TODO
 		BITCOIND.listReceivedByAccount(0, false);
 	}
 
 	@Test(expected = BitcoinException.class)
 	public void listReceivedByAddress() throws BitcoinException {
+		// TODO
 		BITCOIND.listReceivedByAddress(0, false);
 	}
 
 	@Test(expected = BitcoinException.class)
 	public void listSinceBlock() throws BitcoinException {
-		BITCOIND.listSinceBlock("", 0);
+		// TODO
+		BITCOIND.listSinceBlock("00000000b873e79784647a6c82962c70d228557d24a747ea4d1b8bbe878e1206", 0);
 	}
 
 	@Test(expected = BitcoinException.class)
 	public void listTransactions() throws BitcoinException {
+		// TODO
 		BITCOIND.listTransactions("", 0, 0);
 	}
 
@@ -403,24 +409,30 @@ public class BitcoinDaemonTest {
 		BITCOIND.sendToAddress("", 0, "", "");
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Ignore("Generates new address")
+	@Test
 	public void setAccount() throws BitcoinException {
-		BITCOIND.setAccount("", "");
+		BITCOIND.setAccount(BITCOIND_ADDRESS, BITCOIND_ACCOUNT);
+		List<String> addresses = BITCOIND
+				.getAddressesByAccount(BITCOIND_ACCOUNT);
+		assertNotNull(addresses);
+		assertTrue(addresses.size() >= 0);
 	}
 
 	@Test
 	public void setGenerate() throws BitcoinException {
 		boolean generate = false;
 		BITCOIND.setGenerate(generate);
-		assertTrue(!BITCOIND.getGenerate());
+		assertFalse(BITCOIND.getGenerate());
 		generate = true;
 		BITCOIND.setGenerate(generate, 1);
 		assertTrue(BITCOIND.getGenerate());
 	}
 
-	@Test(expected = BitcoinException.class)
+	@Test
 	public void setTransactionFee() throws BitcoinException {
-		BITCOIND.setTransactionFee(0);
+		assertTrue(BITCOIND.setTransactionFee(0.00000001));
+		assertTrue(BITCOIND.setTransactionFee(-1));
 	}
 
 	@Test(expected = BitcoinException.class)
@@ -449,7 +461,7 @@ public class BitcoinDaemonTest {
 		assertEquals(BITCOIND_ACCOUNT, account.getAccount());
 		address = BITCOIND.validateAddress("bad address");
 		assertNotNull(address);
-		assertTrue(!address.isValid());
+		assertFalse(address.isValid());
 	}
 
 	@Test(expected = BitcoinException.class)
