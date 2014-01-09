@@ -7,7 +7,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>btc4j-core</name>
-	<description>Bitcoin Java core components</description>
 	<url>http://btc4j.github.io/btc4j-core</url>
 	<inceptionYear>2013</inceptionYear>
 	<parent>
@@ -141,4 +140,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<description>Bitcoin Java core components</description>
 </project>
