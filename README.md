@@ -1,6 +1,6 @@
 Bitcoin Java Core Components (btc4j-core)
 =========================================
-Open source core components of btc4j.
+Open source Java core components of btc4j.
 
 Using btc4j-core
 ----------------
@@ -14,9 +14,7 @@ Maven pom.xml dependency:
 			<version>0.0.3-SNAPSHOT</version>
 		</dependency>
 
-Development build status:
-
-		[![Build Status](https://travis-ci.org/btc4j/btc4j-core.png?branch=master)](https://travis-ci.org/btc4j/btc4j-core)
+Development build status: [![Build Status](https://travis-ci.org/btc4j/btc4j-core.png?branch=master)](https://travis-ci.org/btc4j/btc4j-core)
 
 Issues
 ------
