@@ -24,9 +24,6 @@
 
 package org.btc4j.core;
 
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-
 public class BitcoinMining extends BitcoinInfo {
 	private static final long serialVersionUID = -1675343423503889069L;
 	private int currentBlockSize;
@@ -35,33 +32,6 @@ public class BitcoinMining extends BitcoinInfo {
 	private int generateProcessorLimit;
 	private int hashesPerSecond;
 	private int pooledTransactions;
-
-	public static BitcoinMining fromJson(JsonObject value)
-			throws BitcoinException {
-		BitcoinMining info = new BitcoinMining();
-		info.setBlocks(value.getInt(BitcoinConstant.BTCOBJ_INFO_BLOCKS, 0));
-		info.setCurrentBlockSize(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_SIZE, 0));
-		info.setCurrentBlockTransactions(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_CURRENT_BLOCK_TRANSACTIONS, 0));
-		JsonNumber difficulty = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_DIFFICULTY);
-		if (difficulty != null) {
-			info.setDifficulty(difficulty.doubleValue());
-		}
-		info.setErrors(value.getString(BitcoinConstant.BTCOBJ_INFO_ERRORS, ""));
-		info.setGenerate(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_GENERATE,
-				false));
-		info.setGenProcessorLimit(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_PROCESSOR_LIMIT, -1));
-		info.setHashesPerSecond(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_HASHES_PER_SECOND, 0));
-		info.setPooledTransactions(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_POOLED_TRANSACTIONS, 0));
-		info.setTestnet(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_TESTNET,
-				false));
-		return info;
-	}
 
 	public int getCurrentBlockSize() {
 		return currentBlockSize;

@@ -26,9 +26,6 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-
 public class BitcoinAddress implements Serializable {
 	private static final long serialVersionUID = -3639666223461020070L;
 	private boolean valid;
@@ -40,32 +37,6 @@ public class BitcoinAddress implements Serializable {
 	private BitcoinAccount account;
 	private double amount;
 	private int confirmations;
-
-	public static BitcoinAddress fromJson(JsonObject value) {
-		BitcoinAddress address = new BitcoinAddress();
-		address.setValid(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_VALID,
-				false));
-		address.setAddress(value.getString(
-				BitcoinConstant.BTCOBJ_ADDRESS_ADDRESS, ""));
-		address.setMine(value.getBoolean(BitcoinConstant.BTCOBJ_ADDRESS_MINE,
-				false));
-		address.setScript(value.getBoolean(
-				BitcoinConstant.BTCOBJ_ADDRESS_SCRIPT, false));
-		address.setPublicKey(value.getString(
-				BitcoinConstant.BTCOBJ_ADDRESS_PUBLIC_KEY, ""));
-		address.setCompressed(value.getBoolean(
-				BitcoinConstant.BTCOBJ_ADDRESS_COMPRESSED, false));
-		address.setAccount(new BitcoinAccount(value.getString(
-				BitcoinConstant.BTCOBJ_ADDRESS_ACCOUNT, ""), 0, 0));
-		JsonNumber amount = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_ADDRESS_AMOUNT);
-		if (amount != null) {
-			address.setAmount(amount.doubleValue());
-		}
-		address.setConfirmations(value.getInt(
-				BitcoinConstant.BTCOBJ_ADDRESS_CONFIRMATIONS, 0));
-		return address;
-	}
 
 	public boolean isValid() {
 		return valid;

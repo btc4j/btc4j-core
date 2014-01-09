@@ -24,9 +24,6 @@
 
 package org.btc4j.core;
 
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-
 public class BitcoinStatus extends BitcoinInfo {
 	private static final long serialVersionUID = -5800958166892028401L;
 	private int version;
@@ -39,45 +36,6 @@ public class BitcoinStatus extends BitcoinInfo {
 	private int keyPoolOldest;
 	private int keyPoolSize;
 	private double transactionFee;
-
-	public static BitcoinStatus fromJson(JsonObject value)
-			throws BitcoinException {
-		BitcoinStatus info = new BitcoinStatus();
-		info.setVersion(value.getInt(BitcoinConstant.BTCOBJ_INFO_VERSION, 0));
-		info.setProtocolVersion(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_PROTOCOL_VERSION, 0));
-		info.setWalletVersion(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_WALLET_VERSION, 0));
-		JsonNumber balance = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_BALANCE);
-		if (balance != null) {
-			info.setBalance(balance.doubleValue());
-		}
-		info.setBlocks(value.getInt(BitcoinConstant.BTCOBJ_INFO_BLOCKS, 0));
-		info.setTimeOffset(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_TIME_OFFSET, 0));
-		info.setConnections(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_CONNECTIONS, 0));
-		info.setProxy(value.getString(BitcoinConstant.BTCOBJ_INFO_PROXY, ""));
-		JsonNumber difficulty = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_DIFFICULTY);
-		if (difficulty != null) {
-			info.setDifficulty(difficulty.doubleValue());
-		}
-		info.setTestnet(value.getBoolean(BitcoinConstant.BTCOBJ_INFO_TESTNET,
-				false));
-		info.setKeyPoolOldest(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_KEYPOOL_OLDEST, 0));
-		info.setKeyPoolSize(value.getInt(
-				BitcoinConstant.BTCOBJ_INFO_KEYPOOL_SIZE, 0));
-		JsonNumber transactionFee = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_INFO_TRANSACTION_FEE);
-		if (transactionFee != null) {
-			info.setTransactionFee(transactionFee.doubleValue());
-		}
-		info.setErrors(value.getString(BitcoinConstant.BTCOBJ_INFO_ERRORS, ""));
-		return info;
-	}
 
 	public int getVersion() {
 		return version;

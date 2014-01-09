@@ -26,37 +26,11 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-
 public class BitcoinAccount implements Serializable {
 	private static final long serialVersionUID = -9141351425810937383L;
 	private String account;
 	private double amount;
 	private int confirmations;
-	
-	public BitcoinAccount() {
-	}
-
-	public BitcoinAccount(String account, double amount, int confirmations) {
-		this.account = account;
-		this.amount = amount;
-		this.confirmations = confirmations;
-	}
-	
-	public static BitcoinAccount fromJson(JsonObject value) {
-		BitcoinAccount account = new BitcoinAccount();
-		account.setAccount(value.getString(
-				BitcoinConstant.BTCOBJ_ACCOUNT_ACCOUNT, ""));
-		JsonNumber amount = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_ACCOUNT_AMOUNT);
-		if (amount != null) {
-			account.setAmount(amount.doubleValue());
-		}
-		account.setConfirmations(value.getInt(
-				BitcoinConstant.BTCOBJ_ACCOUNT_CONFIRMATIONS, 0));
-		return account;
-	}
 
 	public String getAccount() {
 		return account;

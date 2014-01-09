@@ -25,7 +25,6 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
-import javax.json.JsonObject;
 
 public class BitcoinPeer implements Serializable {
 	private static final long serialVersionUID = -300084370265716627L;
@@ -42,35 +41,6 @@ public class BitcoinPeer implements Serializable {
 	private int startingHeight;
 	private int banScore;
 	private boolean syncNode;
-
-	public static BitcoinPeer fromJson(JsonObject value)
-			throws BitcoinException {
-		BitcoinPeer peer = new BitcoinPeer();
-		peer.setNetworkAddress(value
-				.getString(BitcoinConstant.BTCOBJ_PEER_ADDRESS, ""));
-		peer.setServices(value.getString(BitcoinConstant.BTCOBJ_PEER_SERVICES,
-				""));
-		peer.setLastSend(value.getInt(BitcoinConstant.BTCOBJ_PEER_LAST_SEND, 0));
-		peer.setLastReceived(value.getInt(
-				BitcoinConstant.BTCOBJ_PEER_LAST_RECEIVED, 0));
-		peer.setBytesSent(value.getInt(BitcoinConstant.BTCOBJ_PEER_BYTES_SENT,
-				0));
-		peer.setBytesReceived(value.getInt(
-				BitcoinConstant.BTCOBJ_PEER_BYTES_RECEIVED, 0));
-		peer.setConnectionTime(value.getInt(
-				BitcoinConstant.BTCOBJ_PEER_CONNECTION_TIME, 0));
-		peer.setVersion(value.getInt(BitcoinConstant.BTCOBJ_PEER_VERSION, 0));
-		peer.setSubVersion(value.getString(
-				BitcoinConstant.BTCOBJ_PEER_SUBVERSION, ""));
-		peer.setInbound(value.getBoolean(BitcoinConstant.BTCOBJ_PEER_INBOUND,
-				false));
-		peer.setStartingHeight(value.getInt(
-				BitcoinConstant.BTCOBJ_PEER_START_HEIGHT, 0));
-		peer.setBanScore(value.getInt(BitcoinConstant.BTCOBJ_PEER_BAN_SCORE, 0));
-		peer.setSyncNode(value.getBoolean(
-				BitcoinConstant.BTCOBJ_PEER_SYNC_NODE, false));
-		return peer;
-	}
 
 	public String getNetworkAddress() {
 		return networkAddress;

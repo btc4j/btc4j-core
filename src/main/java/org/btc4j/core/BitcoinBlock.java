@@ -25,13 +25,7 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.json.JsonArray;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.json.JsonString;
 
 public class BitcoinBlock implements Serializable {
 	private static final long serialVersionUID = -5115242454053420689L;
@@ -48,43 +42,6 @@ public class BitcoinBlock implements Serializable {
 	private double difficulty;
 	private String previousBlockHash;
 	private String nextBlockHash;
-
-	public static BitcoinBlock fromJson(JsonObject value)
-			throws BitcoinException {
-		BitcoinBlock block = new BitcoinBlock();
-		block.setHash(value.getString(BitcoinConstant.BTCOBJ_BLOCK_HASH, ""));
-		block.setConfirmations(value.getInt(
-				BitcoinConstant.BTCOBJ_BLOCK_CONFIRMATIONS, 0));
-		block.setSize(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_SIZE, 0));
-		block.setHeight(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_HEIGHT, 0));
-		block.setVersion(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_VERSION, 0));
-		block.setMerkleRoot(value.getString(
-				BitcoinConstant.BTCOBJ_BLOCK_MERKLE_ROOT, ""));
-		List<BitcoinTransaction> transactions = new ArrayList<BitcoinTransaction>();
-		JsonArray transactionIds = value
-				.getJsonArray(BitcoinConstant.BTCOBJ_BLOCK_TRANSACTIONS);
-		if (transactionIds != null) {
-			for (JsonString transactionId : transactionIds
-					.getValuesAs(JsonString.class)) {
-				transactions.add(new BitcoinTransaction(transactionId
-						.getString()));
-			}
-		}
-		block.setTransactions(transactions);
-		block.setTime(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_TIME, 0));
-		block.setNonce(value.getInt(BitcoinConstant.BTCOBJ_BLOCK_NONCE, 0));
-		block.setBits(value.getString(BitcoinConstant.BTCOBJ_BLOCK_BITS, ""));
-		JsonNumber difficulty = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_BLOCK_DIFFICULTY);
-		if (difficulty != null) {
-			block.setDifficulty(difficulty.doubleValue());
-		}
-		block.setPreviousBlockHash(value.getString(
-				BitcoinConstant.BTCOBJ_BLOCK_PREVIOUS_BLOCK_HASH, ""));
-		block.setNextBlockHash(value.getString(
-				BitcoinConstant.BTCOBJ_BLOCK_NEXT_BLOCK_HASH, ""));
-		return block;
-	}
 
 	public String getHash() {
 		return hash;

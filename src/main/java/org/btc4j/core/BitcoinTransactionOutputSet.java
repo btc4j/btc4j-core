@@ -26,9 +26,6 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-
 public class BitcoinTransactionOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;
 	private int height;
@@ -38,29 +35,6 @@ public class BitcoinTransactionOutputSet implements Serializable {
 	private int bytesSerialized;
 	private String hashSerialized;
 	private double totalAmount;
-
-	public static BitcoinTransactionOutputSet fromJson(JsonObject value)
-			throws BitcoinException {
-		BitcoinTransactionOutputSet output = new BitcoinTransactionOutputSet();
-		output.setHeight(value.getInt(
-				BitcoinConstant.BTCOBJ_TXOUTPUTSET_HEIGHT, 0));
-		output.setBestBlock(value.getString(
-				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BEST_BLOCK, ""));
-		output.setTransactions(value.getInt(
-				BitcoinConstant.BTCOBJ_TXOUTPUTSET_TRANSACTIONS, 0));
-		output.setOutputTransactions(value.getInt(
-				BitcoinConstant.BTCOBJ_TXOUTPUTSET_OUTPUT_TRANSACTIONS, 0));
-		output.setBytesSerialized(value.getInt(
-				BitcoinConstant.BTCOBJ_TXOUTPUTSET_BYTES_SERIALIZED, 0));
-		output.setHashSerialized(value.getString(
-				BitcoinConstant.BTCOBJ_TXOUTPUTSET_HASH_SERIALIZED, ""));
-		JsonNumber amount = value
-				.getJsonNumber(BitcoinConstant.BTCOBJ_TXOUTPUTSET_TOTAL_AMOUT);
-		if (amount != null) {
-			output.setTotalAmount(amount.doubleValue());
-		}
-		return output;
-	}
 
 	public int getHeight() {
 		return height;

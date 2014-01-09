@@ -41,14 +41,6 @@ public class BitcoinTransaction implements Serializable {
 	// "amount"
 	// "fee"
 
-	public BitcoinTransaction() {
-	}
-
-	public BitcoinTransaction(String transactionId) {
-		this();
-		this.transactionId = transactionId;
-	}
-
 	public String getTransactionId() {
 		return transactionId;
 	}
