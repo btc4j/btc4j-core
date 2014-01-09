@@ -10,11 +10,6 @@
 	<url>http://btc4j.github.io/btc4j-core</url>
 	<description>Bitcoin Java core components</description>
 	<inceptionYear>2013</inceptionYear>
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 	<organization>
 		<name>btc4j</name>
 		<url>http://www.btc4j.org</url>
@@ -123,15 +118,9 @@
 	</profiles>
 	<distributionManagement>
 		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus snapshot repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<id>btc4j-repo-snapshots</id>
+			<url>https://github.com/btc4j/btc4j-repo/snapshots</url>
 		</snapshotRepository>
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Sonatype Nexus release repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
 	</distributionManagement>
 	<dependencies>
 		<dependency>
