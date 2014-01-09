@@ -1,61 +1,66 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>btc4j-core by btc4j</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="btc4j-core : Bitcoin Java Core Components" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>btc4j-core</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>btc4j-core</h1>
-          <h2>Bitcoin Java API</h2>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/btc4j/btc4j-core">View on GitHub</a>
+
+          <h1 id="project_title">btc4j-core</h1>
+          <h2 id="project_tagline">Bitcoin Java Core Components</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/btc4j/btc4j-core/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/btc4j/btc4j-core/tarball/master">Download this project as a tar.gz file</a>
+            </section>
         </header>
+    </div>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/btc4j/btc4j-core/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/btc4j/btc4j-core/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/btc4j/btc4j-core" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="bitcoin-java-core-components-btc4j-core" class="anchor" href="#bitcoin-java-core-components-btc4j-core"><span class="octicon octicon-link"></span></a>Bitcoin Java Core Components (btc4j-core)</h1>
 
-        <hr>
+<p>Open source core components of btc4j.</p>
 
-        <section id="main_content">
-          <h1>
-<a name="bitcoin-java-api-btc4j-core" class="anchor" href="#bitcoin-java-api-btc4j-core"><span class="octicon octicon-link"></span></a>Bitcoin Java API (btc4j-core)</h1>
-
-<p>Open source Java implementation of the Bitcoin client and Java - Satoshi Bitcoin daemon bridge.</p>
-
-<p>Bitcoin daemon bridge calls the bitcoind Json-Rpc service (Bitcoin-Qt v0.8.6) using:</p>
-
-<ul>
-<li>Apache Commons HttpClient API (org.apache.commons.httpclient)</li>
-<li>Java API for Json Processing and reference implementation (javax.json and org.glassfish.json)</li>
-</ul><h2>
+<h2>
 <a name="using-btc4j-core" class="anchor" href="#using-btc4j-core"><span class="octicon octicon-link"></span></a>Using btc4j-core</h2>
 
-<p>Release builds are available from Maven Central:</p>
+<p>Snapshot builds are available from GitHub btc4j-repo:</p>
 
 <pre><code>    &lt;dependency&gt;
         &lt;groupId&gt;org.btc4j&lt;/groupId&gt;
         &lt;artifactId&gt;btc4j-core&lt;/artifactId&gt;
-        &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
+</code></pre>
+
+<p>Add the following to your pom.xml:</p>
+
+<pre><code>    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;btc4j-repo-snapshots&lt;/id&gt;
+            &lt;url&gt;https://github.com/btc4j/btc4j-repo/snapshots&lt;/url&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
 </code></pre>
 
 <p>Development build status: <a href="https://travis-ci.org/btc4j/btc4j-core"><img src="https://travis-ci.org/btc4j/btc4j-core.png?branch=master" alt="Build Status"></a></p>
 
-<p>btc4j-core is free software under <a href="http://opensource.org/licenses/MIT/" title="The MIT License (MIT)">The MIT License (MIT)</a>. It is maintained by Guillermo Gonzalez (<a href="mailto:email@ggonzalez.info">email@ggonzalez.info</a>). You can support the project by reporting issues, contributing code, or by making donations.</p>
+<p>btc4j-core is free software under <a href="http://opensource.org/licenses/MIT/" title="The MIT License (MIT)">The MIT License (MIT)</a>. It is maintained by Guillermo Gonzalez (<a href="mailto:email@ggonzalez.info">email@ggonzalez.info</a>).</p>
 
 <h2>
 <a name="issues" class="anchor" href="#issues"><span class="octicon octicon-link"></span></a>Issues</h2>
@@ -75,43 +80,21 @@
 </ul><h2>
 <a name="donations" class="anchor" href="#donations"><span class="octicon octicon-link"></span></a>Donations</h2>
 
-<p>If you find the software useful and would like to make a donation, please send bitcoins to <a>1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j</a>.</p>
-
-<h2>
-<a name="api-services" class="anchor" href="#api-services"><span class="octicon octicon-link"></span></a>API Services</h2>
-
-<p><strong>Account Service</strong></p>
-
-<p><strong>Block Service</strong></p>
-
-<p><strong>Info Service</strong></p>
-
-<p><strong>Node Service</strong></p>
-
-<p><strong>Status Service</strong></p>
-
-<p><strong>Wallet Service</strong></p>
-
-<h2>
-<a name="model" class="anchor" href="#model"><span class="octicon octicon-link"></span></a>Model</h2>
-
-<p><strong>Account</strong></p>
-
-<p><strong>Block</strong></p>
-
-<p><strong>Info, Client Info, Mining Info</strong></p>
-
-<p><strong>Peer</strong></p>
+<p>If you find the software useful and would like to make a donation, please send bitcoins to <code>1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j</code>.</p>
 
 <p>Copyright © 2013, 2014 by Guillermo Gonzalez, btc4j.org.</p>
-        </section>
+      </section>
+    </div>
 
-        <footer>
-          btc4j-core is maintained by <a href="https://github.com/btc4j">btc4j</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">btc4j-core maintained by <a href="https://github.com/btc4j">btc4j</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
 
-                  <script type="text/javascript">
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -122,7 +105,6 @@
             } catch(err) {}
           </script>
 
-      </div>
-    </div>
+
   </body>
 </html>
