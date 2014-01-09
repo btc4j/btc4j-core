@@ -128,7 +128,7 @@ public interface BitcoinApi {
 	public List<BitcoinAddress> listReceivedByAddress(int minConfirms,
 			boolean includeEmpty) throws BitcoinException;
 
-	public List<String> listSinceBlock(String blockHash, int targetConfirms)
+	public BitcoinLastBlock listSinceBlock(String blockHash, int targetConfirms)
 			throws BitcoinException;
 
 	public List<String> listTransactions(String account, int count, int from)
