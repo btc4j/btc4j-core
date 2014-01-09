@@ -8,6 +8,7 @@
 	<packaging>jar</packaging>
 	<name>btc4j-core</name>
 	<url>http://btc4j.github.io/btc4j-core</url>
+	<description>Bitcoin Java core components</description>
 	<inceptionYear>2013</inceptionYear>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -140,5 +141,10 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<description>Bitcoin Java core components</description>
+	<repositories>
+		<repository>
+			<id>btc4j-repo-snapshots</id>
+			<url>https://github.com/btc4j/btc4j-repo/snapshots</url>
+		</repository>
+	</repositories>
 </project>

@@ -9,7 +9,7 @@ Snapshot builds are available from GitHub btc4j-repo:
 		<dependency>
 			<groupId>org.btc4j</groupId>
 			<artifactId>btc4j-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.3-SNAPSHOT</version>
 		</dependency>
 		
 Add the following to your pom.xml:
