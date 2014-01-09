@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc;
+package org.btc4j.core;
 
 public class BitcoinException extends Exception {
 	private static final long serialVersionUID = -3976168163536364789L;

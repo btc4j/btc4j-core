@@ -22,42 +22,46 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc;
+package org.btc4j.core;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.io.Serializable;
 
-import org.btc4j.btc.BitcoinClient;
-import org.btc4j.btc.BitcoinException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+public abstract class BitcoinInfo implements Serializable {
+	private static final long serialVersionUID = -1439258025227209294L;
+	private int blocks;
+	private double difficulty;
+	private boolean testnet;
+	private String errors;
 
-public class BitcoinClientTest {
-	private static BitcoinClient BITCOINC;
-
-	@BeforeClass
-	public static void testSetup() throws Exception {
-		BITCOINC = new BitcoinClient();
+	public int getBlocks() {
+		return blocks;
 	}
 
-	@AfterClass
-	public static void testCleanup() throws Exception {
-		String stop = BITCOINC.stop();
-		assertNotNull(stop);
-		assertTrue(stop.length() >= 0);
+	public void setBlocks(int blocks) {
+		this.blocks = blocks;
 	}
 
-	@Test
-	public void help() throws BitcoinException {
-		String help = BITCOINC.help();
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
-		help = BITCOINC.help("fakecommand");
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
-		help = BITCOINC.help("getrawtransaction");
-		assertNotNull(help);
-		assertTrue(help.length() >= 0);
+	public double getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public boolean isTestnet() {
+		return testnet;
+	}
+
+	public void setTestnet(boolean testnet) {
+		this.testnet = testnet;
+	}
+
+	public String getErrors() {
+		return errors;
+	}
+
+	public void setErrors(String errors) {
+		this.errors = errors;
 	}
 }

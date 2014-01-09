@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc;
+package org.btc4j.core;
 
 import javax.json.JsonNumber;
 import javax.json.JsonObject;

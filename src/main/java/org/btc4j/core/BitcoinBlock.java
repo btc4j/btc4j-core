@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc;
+package org.btc4j.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;

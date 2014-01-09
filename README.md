@@ -1,6 +1,6 @@
 Bitcoin Java API (btc4j-core)
 =============================
-Open source Java implementation of the Bitcoin client and Java - Satoshi Bitcoin daemon bridge.
+Open source Java implementation of the Bitcoin client and Java - bitcoind bridge.
 
 Bitcoin daemon bridge calls the bitcoind Json-Rpc service (Bitcoin-Qt v0.8.6) using:
 * Apache Commons HttpClient API (org.apache.commons.httpclient)

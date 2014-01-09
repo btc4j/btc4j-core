@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-package org.btc4j.btc;
+package org.btc4j.core;
 
 public class BitcoinConstant {
 	// BTCAPI
@@ -167,7 +167,6 @@ public class BitcoinConstant {
 
 	// BTC4J
 	public static final String BTC4J_HTTP_HEADER = "Content-Type";
-	public static final String BTC4J_HTTP_HEAD = "HEAD";
 	public static final String BTC4J_HTTP = "http";
 	public static final String BTC4J_JSONRPC_CONTENT_TYPE = "application/json-rpc";
 	public static final String BTC4J_JSON_CONTENT_TYPE = "application/json";
