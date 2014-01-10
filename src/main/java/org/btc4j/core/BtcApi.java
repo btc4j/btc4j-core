@@ -32,7 +32,7 @@ public interface BtcApi {
 	public void addMultiSignatureAddress(int required, List<String> keys,
 			String account) throws BtcException;
 
-	public void addNode(String node, BtcNodeOperationEnum operation)
+	public void addNode(String node, BtcNodeOperation operation)
 			throws BtcException;
 
 	public void backupWallet(File destination) throws BtcException;

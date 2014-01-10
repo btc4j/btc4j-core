@@ -24,6 +24,14 @@
 
 package org.btc4j.core;
 
-public enum BtcTransactionCategoryEnum {
-	RECEIVE, SEND
+public enum BtcTransactionCategory {
+	RECEIVE, SEND;
+	
+	public static BtcTransactionCategory getValue(String value) {
+		try {
+			return BtcTransactionCategory.valueOf(value.toUpperCase());
+		} catch (Throwable t) {
+			return null;
+		}
+	}
 }

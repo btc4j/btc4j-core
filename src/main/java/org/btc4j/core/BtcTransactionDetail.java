@@ -30,7 +30,7 @@ public class BtcTransactionDetail implements Serializable {
 	private static final long serialVersionUID = -3144377866580782063L;
 	private String account;
 	private String address;
-	private BtcTransactionCategoryEnum category;
+	private BtcTransactionCategory category;
 	private double amount;
 	private double fee;
 	
@@ -50,11 +50,11 @@ public class BtcTransactionDetail implements Serializable {
 		this.address = address;
 	}
 	
-	public BtcTransactionCategoryEnum getCategory() {
+	public BtcTransactionCategory getCategory() {
 		return category;
 	}
 	
-	public void setCategory(BtcTransactionCategoryEnum category) {
+	public void setCategory(BtcTransactionCategory category) {
 		this.category = category;
 	}
 	
