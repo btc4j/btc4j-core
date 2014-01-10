@@ -24,6 +24,27 @@
 
 package org.btc4j.core;
 
-public enum BitcoinNodeOperationEnum {
-	ADD, REMOVE, ONETRY
+import java.io.Serializable;
+import java.util.List;
+
+public class BtcLastBlock implements Serializable {
+	private static final long serialVersionUID = 2943476513005471404L;
+	private String lastBlock;
+	private List<BtcTransaction> transactions;
+
+	public String getLastBlock() {
+		return lastBlock;
+	}
+
+	public void setLastBlock(String lastBlock) {
+		this.lastBlock = lastBlock;
+	}
+
+	public List<BtcTransaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<BtcTransaction> transactions) {
+		this.transactions = transactions;
+	}
 }

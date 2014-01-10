@@ -24,30 +24,35 @@
 
 package org.btc4j.core;
 
-public class BitcoinException extends Exception {
-	private static final long serialVersionUID = -3976168163536364789L;
-	public static final int BTC4J_ERROR_CODE = -32077;
-	public static final String BTC4J_ERROR_MESSAGE = "btc4j error";
-	public static final String BTC4J_ERROR_DATA_NOT_IMPLEMENTED = "not yet implemented";
-	private final int code;
+import java.io.Serializable;
 
-	public BitcoinException(int code, String message) {
-		super(message);
-		this.code = code;
+public class BtcAccount implements Serializable {
+	private static final long serialVersionUID = -9141351425810937383L;
+	private String account;
+	private double amount;
+	private int confirmations;
+
+	public String getAccount() {
+		return account;
 	}
 
-	public BitcoinException(int code, String message, Throwable cause) {
-		super(message, cause);
-		this.code = code;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
-	public int getCode() {
-		return code;
+	public double getAmount() {
+		return amount;
 	}
 
-	@Override
-	public String toString() {
-		return getClass().getName() + ": " + code + ": "
-				+ getLocalizedMessage();
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public int getConfirmations() {
+		return confirmations;
+	}
+
+	public void setConfirmations(int confirmations) {
+		this.confirmations = confirmations;
 	}
 }

@@ -27,7 +27,7 @@ package org.btc4j.core;
 import java.io.Serializable;
 import java.util.List;
 
-public class BitcoinBlock implements Serializable {
+public class BtcBlock implements Serializable {
 	private static final long serialVersionUID = -5115242454053420689L;
 	private String hash;
 	private int confirmations;
@@ -35,7 +35,7 @@ public class BitcoinBlock implements Serializable {
 	private int height;
 	private int version;
 	private String merkleRoot;
-	private List<BitcoinTransaction> transactions;
+	private List<BtcTransaction> transactions;
 	private int time;
 	private int nonce;
 	private String bits;
@@ -91,11 +91,11 @@ public class BitcoinBlock implements Serializable {
 		this.merkleRoot = merkleRoot;
 	}
 
-	public List<BitcoinTransaction> getTransactions() {
+	public List<BtcTransaction> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(List<BitcoinTransaction> transactions) {
+	public void setTransactions(List<BtcTransaction> transactions) {
 		this.transactions = transactions;
 	}
 

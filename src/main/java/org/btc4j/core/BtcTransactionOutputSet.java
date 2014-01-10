@@ -26,7 +26,7 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-public class BitcoinTransactionOutputSet implements Serializable {
+public class BtcTransactionOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;
 	private int height;
 	private String bestBlock;

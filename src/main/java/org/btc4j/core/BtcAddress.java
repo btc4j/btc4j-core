@@ -26,7 +26,7 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-public class BitcoinAddress implements Serializable {
+public class BtcAddress implements Serializable {
 	private static final long serialVersionUID = -3639666223461020070L;
 	private boolean valid;
 	private String address;
@@ -34,7 +34,7 @@ public class BitcoinAddress implements Serializable {
 	private boolean script;
 	private String publicKey;
 	private boolean compressed;
-	private BitcoinAccount account;
+	private BtcAccount account;
 	private double amount;
 	private int confirmations;
 
@@ -86,11 +86,11 @@ public class BitcoinAddress implements Serializable {
 		this.compressed = compressed;
 	}
 
-	public BitcoinAccount getAccount() {
+	public BtcAccount getAccount() {
 		return account;
 	}
 
-	public void setAccount(BitcoinAccount account) {
+	public void setAccount(BtcAccount account) {
 		this.account = account;
 	}
 

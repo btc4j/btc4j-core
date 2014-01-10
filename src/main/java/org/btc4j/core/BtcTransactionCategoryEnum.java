@@ -24,28 +24,6 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
-
-public class BitcoinTransaction implements Serializable {
-	private static final long serialVersionUID = -5995582642392441320L;
-	private String transactionId;
-
-	// "amount" : total amount of the transaction
-	// "confirmations" : number of confirmations of the transaction
-	// "txid" : the transaction ID
-	// "time" : time associated with the transaction[1].
-	// "details" - An array of objects containing:
-	// "account"
-	// "address"
-	// "category"
-	// "amount"
-	// "fee"
-
-	public String getTransactionId() {
-		return transactionId;
-	}
-
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
+public enum BtcTransactionCategoryEnum {
+	RECEIVE, SEND
 }

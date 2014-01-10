@@ -25,19 +25,26 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class BitcoinAccount implements Serializable {
-	private static final long serialVersionUID = -9141351425810937383L;
-	private String account;
+public class BtcTransaction implements Serializable {
+	private static final long serialVersionUID = -5995582642392441320L;
+	private String transaction;
 	private double amount;
 	private int confirmations;
+	private List<BtcTransactionDetail> details;
+	private int time;
+	private int timeReceived;
+	private String blockHash;
+	private int blockIndex;
+	private int blockTime;
 
-	public String getAccount() {
-		return account;
+	public String getTransaction() {
+		return transaction;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setTransaction(String transaction) {
+		this.transaction = transaction;
 	}
 
 	public double getAmount() {
@@ -54,5 +61,53 @@ public class BitcoinAccount implements Serializable {
 
 	public void setConfirmations(int confirmations) {
 		this.confirmations = confirmations;
+	}
+
+	public List<BtcTransactionDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<BtcTransactionDetail> details) {
+		this.details = details;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	public int getTimeReceived() {
+		return timeReceived;
+	}
+
+	public void setTimeReceived(int timeReceived) {
+		this.timeReceived = timeReceived;
+	}
+
+	public String getBlockHash() {
+		return blockHash;
+	}
+
+	public void setBlockHash(String blockHash) {
+		this.blockHash = blockHash;
+	}
+
+	public int getBlockIndex() {
+		return blockIndex;
+	}
+
+	public void setBlockIndex(int blockIndex) {
+		this.blockIndex = blockIndex;
+	}
+
+	public int getBlockTime() {
+		return blockTime;
+	}
+
+	public void setBlockTime(int blockTime) {
+		this.blockTime = blockTime;
 	}
 }

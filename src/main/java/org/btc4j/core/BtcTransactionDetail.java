@@ -25,26 +25,52 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class BitcoinLastBlock implements Serializable {
-	private static final long serialVersionUID = 2943476513005471404L;
-	private String lastBlock;
-	private List<BitcoinTransaction> transactions;
-
-	public String getLastBlock() {
-		return lastBlock;
+public class BtcTransactionDetail implements Serializable {
+	private static final long serialVersionUID = -3144377866580782063L;
+	private String account;
+	private String address;
+	private BtcTransactionCategoryEnum category;
+	private double amount;
+	private double fee;
+	
+	public String getAccount() {
+		return account;
 	}
-
-	public void setLastBlock(String lastBlock) {
-		this.lastBlock = lastBlock;
+	
+	public void setAccount(String account) {
+		this.account = account;
 	}
-
-	public List<BitcoinTransaction> getTransactions() {
-		return transactions;
+	
+	public String getAddress() {
+		return address;
 	}
-
-	public void setTransactions(List<BitcoinTransaction> transactions) {
-		this.transactions = transactions;
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public BtcTransactionCategoryEnum getCategory() {
+		return category;
+	}
+	
+	public void setCategory(BtcTransactionCategoryEnum category) {
+		this.category = category;
+	}
+	
+	public double getAmount() {
+		return amount;
+	}
+	
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	
+	public double getFee() {
+		return fee;
+	}
+	
+	public void setFee(double fee) {
+		this.fee = fee;
 	}
 }

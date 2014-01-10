@@ -24,44 +24,30 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
+public class BtcException extends Exception {
+	private static final long serialVersionUID = -3976168163536364789L;
+	public static final int BTC4J_ERROR_CODE = -32077;
+	public static final String BTC4J_ERROR_MESSAGE = "btc4j error";
+	public static final String BTC4J_ERROR_DATA_NOT_IMPLEMENTED = "not yet implemented";
+	private final int code;
 
-public abstract class BitcoinInfo implements Serializable {
-	private static final long serialVersionUID = -1439258025227209294L;
-	private int blocks;
-	private double difficulty;
-	private boolean testnet;
-	private String errors;
-
-	public int getBlocks() {
-		return blocks;
+	public BtcException(int code, String message) {
+		super(message);
+		this.code = code;
 	}
 
-	public void setBlocks(int blocks) {
-		this.blocks = blocks;
+	public BtcException(int code, String message, Throwable cause) {
+		super(message, cause);
+		this.code = code;
 	}
 
-	public double getDifficulty() {
-		return difficulty;
+	public int getCode() {
+		return code;
 	}
 
-	public void setDifficulty(double difficulty) {
-		this.difficulty = difficulty;
-	}
-
-	public boolean isTestnet() {
-		return testnet;
-	}
-
-	public void setTestnet(boolean testnet) {
-		this.testnet = testnet;
-	}
-
-	public String getErrors() {
-		return errors;
-	}
-
-	public void setErrors(String errors) {
-		this.errors = errors;
+	@Override
+	public String toString() {
+		return getClass().getName() + ": " + code + ": "
+				+ getLocalizedMessage();
 	}
 }

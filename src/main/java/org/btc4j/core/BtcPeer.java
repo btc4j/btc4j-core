@@ -26,7 +26,7 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-public class BitcoinPeer implements Serializable {
+public class BtcPeer implements Serializable {
 	private static final long serialVersionUID = -300084370265716627L;
 	private String networkAddress;
 	private String services;
