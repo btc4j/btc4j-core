@@ -31,16 +31,19 @@ public class BitcoinLastBlock implements Serializable {
 	private static final long serialVersionUID = 2943476513005471404L;
 	private String lastBlock;
 	private List<BitcoinTransaction> transactions;
-	
+
 	public String getLastBlock() {
 		return lastBlock;
 	}
+
 	public void setLastBlock(String lastBlock) {
 		this.lastBlock = lastBlock;
 	}
+
 	public List<BitcoinTransaction> getTransactions() {
 		return transactions;
 	}
+
 	public void setTransactions(List<BitcoinTransaction> transactions) {
 		this.transactions = transactions;
 	}

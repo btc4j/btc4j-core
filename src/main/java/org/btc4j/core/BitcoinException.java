@@ -26,7 +26,9 @@ package org.btc4j.core;
 
 public class BitcoinException extends Exception {
 	private static final long serialVersionUID = -3976168163536364789L;
-
+	public static final int BTC4J_ERROR_CODE = -32077;
+	public static final String BTC4J_ERROR_MESSAGE = "btc4j error";
+	public static final String BTC4J_ERROR_DATA_NOT_IMPLEMENTED = "not yet implemented";
 	private final int code;
 
 	public BitcoinException(int code, String message) {

@@ -7,13 +7,13 @@ Using btc4j-core
 btc4j-core is free software under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). It is maintained by Guillermo Gonzalez (email@ggonzalez.info).
 
 Maven pom.xml dependency:
-
-		<dependency>
-			<groupId>org.btc4j</groupId>
-			<artifactId>btc4j-core</artifactId>
-			<version>0.0.3-SNAPSHOT</version>
-		</dependency>
-
+```xml
+	<dependency>
+		<groupId>org.btc4j</groupId>
+		<artifactId>btc4j-core</artifactId>
+		<version>0.0.3-SNAPSHOT</version>
+	</dependency>
+```
 Development build status: [![Build Status](https://travis-ci.org/btc4j/btc4j-core.png?branch=master)](https://travis-ci.org/btc4j/btc4j-core)
 
 Issues

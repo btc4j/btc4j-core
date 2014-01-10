@@ -25,5 +25,5 @@
 package org.btc4j.core;
 
 public enum BitcoinNodeOperationEnum {
-	ADD, REMOVE, ONE_TRY
+	ADD, REMOVE, ONETRY
 }
