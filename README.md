@@ -10,11 +10,11 @@ btc4j-core is free software under [The MIT License (MIT)](http://opensource.org/
 
 Maven pom.xml dependency:
 ```xml
-	<dependency>
-		<groupId>org.btc4j</groupId>
-		<artifactId>btc4j-core</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
-	</dependency>
+<dependency>
+	<groupId>org.btc4j</groupId>
+	<artifactId>btc4j-core</artifactId>
+	<version>0.0.3-SNAPSHOT</version>
+</dependency>
 ```
 
 Issues
