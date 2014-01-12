@@ -26,7 +26,6 @@ package org.btc4j.core;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 public interface BtcApi {
 	public void addMultiSignatureAddress(int required, List<String> keys,
@@ -98,7 +97,7 @@ public interface BtcApi {
 	public double getReceivedByAddress(String address, int minConfirms)
 			throws BtcException;
 
-	public String getTransaction(String transactionId) throws BtcException;
+	public BtcTransaction getTransaction(String transactionId) throws BtcException;
 
 	public String getTransactionOutput(String transactionId, int n,
 			boolean includeMemoryPool) throws BtcException;
@@ -115,10 +114,10 @@ public interface BtcApi {
 
 	public void keyPoolRefill() throws BtcException;
 
-	public Map<String, BtcAccount> listAccounts(int minConfirms)
+	public List<BtcAccount> listAccounts(int minConfirms)
 			throws BtcException;
 
-	public List<String> listAddressGroupings() throws BtcException;
+	public List<BtcAddress> listAddressGroupings() throws BtcException;
 
 	public List<String> listLockUnspent() throws BtcException;
 
