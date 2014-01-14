@@ -146,4 +146,37 @@ public class BtcBlock implements Serializable {
 	public void setNextBlockHash(String nextBlockHash) {
 		this.nextBlockHash = nextBlockHash;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcBlock [hash=");
+		builder.append(hash);
+		builder.append(", confirmations=");
+		builder.append(confirmations);
+		builder.append(", size=");
+		builder.append(size);
+		builder.append(", height=");
+		builder.append(height);
+		builder.append(", version=");
+		builder.append(version);
+		builder.append(", merkleRoot=");
+		builder.append(merkleRoot);
+		builder.append(", transactions=");
+		builder.append(transactions);
+		builder.append(", time=");
+		builder.append(time);
+		builder.append(", nonce=");
+		builder.append(nonce);
+		builder.append(", bits=");
+		builder.append(bits);
+		builder.append(", difficulty=");
+		builder.append(difficulty);
+		builder.append(", previousBlockHash=");
+		builder.append(previousBlockHash);
+		builder.append(", nextBlockHash=");
+		builder.append(nextBlockHash);
+		builder.append("]");
+		return builder.toString();
+	}
 }

@@ -110,4 +110,29 @@ public class BtcTransaction implements Serializable {
 	public void setBlockTime(int blockTime) {
 		this.blockTime = blockTime;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcTransaction [transaction=");
+		builder.append(transaction);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append(", confirmations=");
+		builder.append(confirmations);
+		builder.append(", details=");
+		builder.append(details);
+		builder.append(", time=");
+		builder.append(time);
+		builder.append(", timeReceived=");
+		builder.append(timeReceived);
+		builder.append(", blockHash=");
+		builder.append(blockHash);
+		builder.append(", blockIndex=");
+		builder.append(blockIndex);
+		builder.append(", blockTime=");
+		builder.append(blockTime);
+		builder.append("]");
+		return builder.toString();
+	}
 }

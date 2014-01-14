@@ -73,4 +73,21 @@ public class BtcTransactionDetail implements Serializable {
 	public void setFee(double fee) {
 		this.fee = fee;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcTransactionDetail [account=");
+		builder.append(account);
+		builder.append(", address=");
+		builder.append(address);
+		builder.append(", category=");
+		builder.append(category);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append(", fee=");
+		builder.append(fee);
+		builder.append("]");
+		return builder.toString();
+	}
 }
