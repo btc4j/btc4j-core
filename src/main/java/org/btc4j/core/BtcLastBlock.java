@@ -47,4 +47,15 @@ public class BtcLastBlock implements Serializable {
 	public void setTransactions(List<BtcTransaction> transactions) {
 		this.transactions = transactions;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcLastBlock [lastBlock=");
+		builder.append(lastBlock);
+		builder.append(", transactions=");
+		builder.append(transactions);
+		builder.append("]");
+		return builder.toString();
+	}
 }

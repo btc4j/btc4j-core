@@ -98,4 +98,29 @@ public class BtcAddress extends BtcAddressBase {
 	public void setConfirmations(int confirmations) {
 		this.confirmations = confirmations;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcAddress [valid=");
+		builder.append(valid);
+		builder.append(", mine=");
+		builder.append(mine);
+		builder.append(", script=");
+		builder.append(script);
+		builder.append(", publicKey=");
+		builder.append(publicKey);
+		builder.append(", compressed=");
+		builder.append(compressed);
+		builder.append(", account=");
+		builder.append(account);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append(", confirmations=");
+		builder.append(confirmations);
+		builder.append(", getAddress()=");
+		builder.append(getAddress());
+		builder.append("]");
+		return builder.toString();
+	}
 }

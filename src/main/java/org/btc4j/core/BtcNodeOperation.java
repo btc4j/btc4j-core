@@ -26,7 +26,7 @@ package org.btc4j.core;
 
 public enum BtcNodeOperation {
 	ADD, REMOVE, ONETRY;
-	
+
 	public static BtcNodeOperation getValue(String value) {
 		try {
 			return BtcNodeOperation.valueOf(value.toUpperCase());

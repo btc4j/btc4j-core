@@ -145,4 +145,56 @@ public class BtcPeer implements Serializable {
 	public void setSyncNode(boolean syncNode) {
 		this.syncNode = syncNode;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!(obj instanceof BtcPeer))
+			return false;
+		BtcPeer other = (BtcPeer) obj;
+		if (networkAddress == null) {
+			if (other.networkAddress != null)
+				return false;
+		} else if (!networkAddress.equals(other.networkAddress))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcPeer [networkAddress=");
+		builder.append(networkAddress);
+		builder.append(", services=");
+		builder.append(services);
+		builder.append(", lastSend=");
+		builder.append(lastSend);
+		builder.append(", lastReceived=");
+		builder.append(lastReceived);
+		builder.append(", bytesSent=");
+		builder.append(bytesSent);
+		builder.append(", bytesReceived=");
+		builder.append(bytesReceived);
+		builder.append(", connectionTime=");
+		builder.append(connectionTime);
+		builder.append(", version=");
+		builder.append(version);
+		builder.append(", subVersion=");
+		builder.append(subVersion);
+		builder.append(", inbound=");
+		builder.append(inbound);
+		builder.append(", startingHeight=");
+		builder.append(startingHeight);
+		builder.append(", banScore=");
+		builder.append(banScore);
+		builder.append(", syncNode=");
+		builder.append(syncNode);
+		builder.append("]");
+		return builder.toString();
+	}
 }

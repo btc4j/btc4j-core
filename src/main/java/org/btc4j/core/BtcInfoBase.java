@@ -64,4 +64,19 @@ public abstract class BtcInfoBase implements Serializable {
 	public void setErrors(String errors) {
 		this.errors = errors;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcInfoBase [blocks=");
+		builder.append(blocks);
+		builder.append(", difficulty=");
+		builder.append(difficulty);
+		builder.append(", testnet=");
+		builder.append(testnet);
+		builder.append(", errors=");
+		builder.append(errors);
+		builder.append("]");
+		return builder.toString();
+	}
 }

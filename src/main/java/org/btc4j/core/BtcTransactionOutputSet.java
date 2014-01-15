@@ -91,4 +91,25 @@ public class BtcTransactionOutputSet implements Serializable {
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcTransactionOutputSet [height=");
+		builder.append(height);
+		builder.append(", bestBlock=");
+		builder.append(bestBlock);
+		builder.append(", transactions=");
+		builder.append(transactions);
+		builder.append(", outputTransactions=");
+		builder.append(outputTransactions);
+		builder.append(", bytesSerialized=");
+		builder.append(bytesSerialized);
+		builder.append(", hashSerialized=");
+		builder.append(hashSerialized);
+		builder.append(", totalAmount=");
+		builder.append(totalAmount);
+		builder.append("]");
+		return builder.toString();
+	}
 }

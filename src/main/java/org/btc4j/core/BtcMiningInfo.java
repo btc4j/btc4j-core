@@ -80,4 +80,31 @@ public class BtcMiningInfo extends BtcInfoBase {
 	public void setPooledTransactions(int pooledTransactions) {
 		this.pooledTransactions = pooledTransactions;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcMiningInfo [currentBlockSize=");
+		builder.append(currentBlockSize);
+		builder.append(", currentBlockTransactions=");
+		builder.append(currentBlockTransactions);
+		builder.append(", generate=");
+		builder.append(generate);
+		builder.append(", generateProcessorLimit=");
+		builder.append(generateProcessorLimit);
+		builder.append(", hashesPerSecond=");
+		builder.append(hashesPerSecond);
+		builder.append(", pooledTransactions=");
+		builder.append(pooledTransactions);
+		builder.append(", getBlocks()=");
+		builder.append(getBlocks());
+		builder.append(", getDifficulty()=");
+		builder.append(getDifficulty());
+		builder.append(", isTestnet()=");
+		builder.append(isTestnet());
+		builder.append(", getErrors()=");
+		builder.append(getErrors());
+		builder.append("]");
+		return builder.toString();
+	}
 }

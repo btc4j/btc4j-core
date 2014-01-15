@@ -36,8 +36,8 @@ public interface BtcApi {
 
 	public void backupWallet(File destination) throws BtcException;
 
-	public BtcMultiSignatureAddress createMultiSignatureAddress(int required, List<String> keys)
-			throws BtcException;
+	public BtcMultiSignatureAddress createMultiSignatureAddress(int required,
+			List<String> keys) throws BtcException;
 
 	public String createRawTransaction(List<Object> transactionIds,
 			List<Object> addresses) throws BtcException;
@@ -97,7 +97,8 @@ public interface BtcApi {
 	public double getReceivedByAddress(String address, int minConfirms)
 			throws BtcException;
 
-	public BtcTransaction getTransaction(String transactionId) throws BtcException;
+	public BtcTransaction getTransaction(String transactionId)
+			throws BtcException;
 
 	public String getTransactionOutput(String transactionId, int n,
 			boolean includeMemoryPool) throws BtcException;
@@ -114,8 +115,7 @@ public interface BtcApi {
 
 	public void keyPoolRefill() throws BtcException;
 
-	public List<BtcAccount> listAccounts(int minConfirms)
-			throws BtcException;
+	public List<BtcAccount> listAccounts(int minConfirms) throws BtcException;
 
 	public List<BtcAddress> listAddressGroupings() throws BtcException;
 
@@ -130,8 +130,8 @@ public interface BtcApi {
 	public BtcLastBlock listSinceBlock(String blockHash, int targetConfirms)
 			throws BtcException;
 
-	public List<BtcTransaction> listTransactions(String account, int count, int from)
-			throws BtcException;
+	public List<BtcTransaction> listTransactions(String account, int count,
+			int from) throws BtcException;
 
 	public List<String> listUnspent(int minConfirms, int maxConfirms)
 			throws BtcException;
@@ -150,22 +150,19 @@ public interface BtcApi {
 			int minConfirms, String commentFrom, String commentTo)
 			throws BtcException;
 
-	public void sendRawTransaction(String transactionId)
-			throws BtcException;
+	public void sendRawTransaction(String transactionId) throws BtcException;
 
 	public String sendToAddress(String toAddress, double amount,
 			String commentFrom, String commentTo) throws BtcException;
 
-	public void setAccount(String address, String account)
-			throws BtcException;
+	public void setAccount(String address, String account) throws BtcException;
 
 	public void setGenerate(boolean generate, int generateProcessorsLimit)
 			throws BtcException;
 
 	public boolean setTransactionFee(double amount) throws BtcException;
 
-	public void signMessage(String address, String message)
-			throws BtcException;
+	public void signMessage(String address, String message) throws BtcException;
 
 	public void signRawTransaction(String transactionId,
 			List<Object> signatures, List<String> keys) throws BtcException;
@@ -175,8 +172,7 @@ public interface BtcApi {
 	public void submitBlock(String data, List<Object> params)
 			throws BtcException;
 
-	public BtcAddress validateAddress(String address)
-			throws BtcException;
+	public BtcAddress validateAddress(String address) throws BtcException;
 
 	public String verifyMessage(String address, String signature, String message)
 			throws BtcException;

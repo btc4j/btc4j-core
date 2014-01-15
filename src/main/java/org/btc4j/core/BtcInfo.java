@@ -116,4 +116,39 @@ public class BtcInfo extends BtcInfoBase {
 	public void setTransactionFee(double transactionFee) {
 		this.transactionFee = transactionFee;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcInfo [version=");
+		builder.append(version);
+		builder.append(", protocolVersion=");
+		builder.append(protocolVersion);
+		builder.append(", walletVersion=");
+		builder.append(walletVersion);
+		builder.append(", balance=");
+		builder.append(balance);
+		builder.append(", timeOffset=");
+		builder.append(timeOffset);
+		builder.append(", connections=");
+		builder.append(connections);
+		builder.append(", proxy=");
+		builder.append(proxy);
+		builder.append(", keyPoolOldest=");
+		builder.append(keyPoolOldest);
+		builder.append(", keyPoolSize=");
+		builder.append(keyPoolSize);
+		builder.append(", transactionFee=");
+		builder.append(transactionFee);
+		builder.append(", getBlocks()=");
+		builder.append(getBlocks());
+		builder.append(", getDifficulty()=");
+		builder.append(getDifficulty());
+		builder.append(", isTestnet()=");
+		builder.append(isTestnet());
+		builder.append(", getErrors()=");
+		builder.append(getErrors());
+		builder.append("]");
+		return builder.toString();
+	}
 }

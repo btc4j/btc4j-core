@@ -26,7 +26,7 @@ package org.btc4j.core;
 
 public enum BtcTransactionCategory {
 	RECEIVE, SEND;
-	
+
 	public static BtcTransactionCategory getValue(String value) {
 		try {
 			return BtcTransactionCategory.valueOf(value.toUpperCase());

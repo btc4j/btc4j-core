@@ -55,4 +55,17 @@ public class BtcAccount implements Serializable {
 	public void setConfirmations(int confirmations) {
 		this.confirmations = confirmations;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BtcAccount [account=");
+		builder.append(account);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append(", confirmations=");
+		builder.append(confirmations);
+		builder.append("]");
+		return builder.toString();
+	}
 }
