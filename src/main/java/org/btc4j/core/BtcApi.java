@@ -28,7 +28,7 @@ import java.io.File;
 import java.util.List;
 
 public interface BtcApi {
-	public void addMultiSignatureAddress(int required, List<String> keys,
+	public String addMultiSignatureAddress(int required, List<String> keys,
 			String account) throws BtcException;
 
 	public void addNode(String node, BtcNodeOperation operation)
@@ -36,7 +36,7 @@ public interface BtcApi {
 
 	public void backupWallet(File destination) throws BtcException;
 
-	public String createMultiSignatureAddress(int required, List<String> keys)
+	public BtcMultiSignatureAddress createMultiSignatureAddress(int required, List<String> keys)
 			throws BtcException;
 
 	public String createRawTransaction(List<Object> transactionIds,
@@ -78,9 +78,9 @@ public interface BtcApi {
 
 	public int getHashesPerSecond() throws BtcException;
 
-	public BtcStatus getInformation() throws BtcException;
+	public BtcStatusInfo getInformation() throws BtcException;
 
-	public BtcMining getMiningInformation() throws BtcException;
+	public BtcMiningInfo getMiningInformation() throws BtcException;
 
 	public String getNewAddress(String account) throws BtcException;
 

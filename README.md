@@ -6,7 +6,7 @@ Development build status: [![Build Status](https://travis-ci.org/btc4j/btc4j-cor
 
 Using btc4j-core
 ----------------
-btc4j-core is free software under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). It is maintained by Guillermo Gonzalez (email@ggonzalez.info).
+btc4j-core is free software under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). It is maintained by Guillermo Gonzalez (ggonzalez@btc4j.org).
 
 Maven pom.xml dependency:
 ```xml
@@ -31,4 +31,4 @@ Donations
 ---------
 If you find the software useful and would like to make a donation, please send bitcoins to `1ACz6GKw3B6vjoYwGA2hnXDnbR5koFhC4j`.
 
-Copyright &copy; 2013, 2014 by Guillermo Gonzalez, btc4j.org.
+Copyright &copy; 2013, 2014 by Guillermo Gonzalez, [btc4j.org](http://www.btc4j.org "btc4j.org").

@@ -24,7 +24,7 @@
 
 package org.btc4j.core;
 
-public class BtcStatus extends BtcInfo {
+public class BtcStatusInfo extends BtcInfo {
 	private static final long serialVersionUID = -5800958166892028401L;
 	private int version;
 	private int protocolVersion;

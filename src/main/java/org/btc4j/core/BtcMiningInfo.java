@@ -24,7 +24,7 @@
 
 package org.btc4j.core;
 
-public class BtcMining extends BtcInfo {
+public class BtcMiningInfo extends BtcInfo {
 	private static final long serialVersionUID = -1675343423503889069L;
 	private int currentBlockSize;
 	private int currentBlockTransactions;
