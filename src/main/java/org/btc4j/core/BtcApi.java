@@ -78,7 +78,7 @@ public interface BtcApi {
 
 	public int getHashesPerSecond() throws BtcException;
 
-	public BtcStatusInfo getInformation() throws BtcException;
+	public BtcInfo getInformation() throws BtcException;
 
 	public BtcMiningInfo getMiningInformation() throws BtcException;
 

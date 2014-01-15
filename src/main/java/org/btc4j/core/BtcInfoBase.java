@@ -24,26 +24,44 @@
 
 package org.btc4j.core;
 
-public class BtcMultiSignatureAddress extends BtcAddressBase {
-	private static final long serialVersionUID = 8931165498019724950L;
-	private String redeemScript;
-	
-	public String getRedeemScript() {
-		return redeemScript;
-	}
-	
-	public void setRedeemScript(String redeemScript) {
-		this.redeemScript = redeemScript;
+import java.io.Serializable;
+
+public abstract class BtcInfoBase implements Serializable {
+	private static final long serialVersionUID = -1439258025227209294L;
+	private int blocks;
+	private double difficulty;
+	private boolean testnet;
+	private String errors;
+
+	public int getBlocks() {
+		return blocks;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BtcMultiSignatureAddress [redeemScript=");
-		builder.append(redeemScript);
-		builder.append(", getAddress()=");
-		builder.append(getAddress());
-		builder.append("]");
-		return builder.toString();
+	public void setBlocks(int blocks) {
+		this.blocks = blocks;
+	}
+
+	public double getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public boolean isTestnet() {
+		return testnet;
+	}
+
+	public void setTestnet(boolean testnet) {
+		this.testnet = testnet;
+	}
+
+	public String getErrors() {
+		return errors;
+	}
+
+	public void setErrors(String errors) {
+		this.errors = errors;
 	}
 }

@@ -24,44 +24,96 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
+public class BtcInfo extends BtcInfoBase {
+	private static final long serialVersionUID = -5800958166892028401L;
+	private int version;
+	private int protocolVersion;
+	private int walletVersion;
+	private double balance;
+	private int timeOffset;
+	private int connections;
+	private String proxy;
+	private int keyPoolOldest;
+	private int keyPoolSize;
+	private double transactionFee;
 
-public abstract class BtcInfo implements Serializable {
-	private static final long serialVersionUID = -1439258025227209294L;
-	private int blocks;
-	private double difficulty;
-	private boolean testnet;
-	private String errors;
-
-	public int getBlocks() {
-		return blocks;
+	public int getVersion() {
+		return version;
 	}
 
-	public void setBlocks(int blocks) {
-		this.blocks = blocks;
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
-	public double getDifficulty() {
-		return difficulty;
+	public int getProtocolVersion() {
+		return protocolVersion;
 	}
 
-	public void setDifficulty(double difficulty) {
-		this.difficulty = difficulty;
+	public void setProtocolVersion(int protocolVersion) {
+		this.protocolVersion = protocolVersion;
 	}
 
-	public boolean isTestnet() {
-		return testnet;
+	public int getWalletVersion() {
+		return walletVersion;
 	}
 
-	public void setTestnet(boolean testnet) {
-		this.testnet = testnet;
+	public void setWalletVersion(int walletVersion) {
+		this.walletVersion = walletVersion;
 	}
 
-	public String getErrors() {
-		return errors;
+	public double getBalance() {
+		return balance;
 	}
 
-	public void setErrors(String errors) {
-		this.errors = errors;
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public int getTimeOffset() {
+		return timeOffset;
+	}
+
+	public void setTimeOffset(int timeOffset) {
+		this.timeOffset = timeOffset;
+	}
+
+	public int getConnections() {
+		return connections;
+	}
+
+	public void setConnections(int connections) {
+		this.connections = connections;
+	}
+
+	public String getProxy() {
+		return proxy;
+	}
+
+	public void setProxy(String proxy) {
+		this.proxy = proxy;
+	}
+
+	public int getKeyPoolOldest() {
+		return keyPoolOldest;
+	}
+
+	public void setKeyPoolOldest(int keyPoolOldest) {
+		this.keyPoolOldest = keyPoolOldest;
+	}
+
+	public int getKeyPoolSize() {
+		return keyPoolSize;
+	}
+
+	public void setKeyPoolSize(int keyPoolSize) {
+		this.keyPoolSize = keyPoolSize;
+	}
+
+	public double getTransactionFee() {
+		return transactionFee;
+	}
+
+	public void setTransactionFee(double transactionFee) {
+		this.transactionFee = transactionFee;
 	}
 }

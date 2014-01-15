@@ -24,26 +24,17 @@
 
 package org.btc4j.core;
 
-public class BtcMultiSignatureAddress extends BtcAddressBase {
-	private static final long serialVersionUID = 8931165498019724950L;
-	private String redeemScript;
+import java.io.Serializable;
+
+public abstract class BtcAddressBase implements Serializable {
+	private static final long serialVersionUID = 2411727703293153974L;
+	private String address;
 	
-	public String getRedeemScript() {
-		return redeemScript;
-	}
-	
-	public void setRedeemScript(String redeemScript) {
-		this.redeemScript = redeemScript;
+	public String getAddress() {
+		return address;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BtcMultiSignatureAddress [redeemScript=");
-		builder.append(redeemScript);
-		builder.append(", getAddress()=");
-		builder.append(getAddress());
-		builder.append("]");
-		return builder.toString();
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

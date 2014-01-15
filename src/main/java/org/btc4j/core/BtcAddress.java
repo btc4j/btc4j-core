@@ -24,12 +24,9 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
-
-public class BtcAddress implements Serializable {
+public class BtcAddress extends BtcAddressBase {
 	private static final long serialVersionUID = -3639666223461020070L;
 	private boolean valid;
-	private String address;
 	private boolean mine;
 	private boolean script;
 	private String publicKey;
@@ -44,14 +41,6 @@ public class BtcAddress implements Serializable {
 
 	public void setValid(boolean valid) {
 		this.valid = valid;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public boolean isMine() {
