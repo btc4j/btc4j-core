@@ -24,6 +24,8 @@
 
 package org.btc4j.core;
 
+import java.math.BigDecimal;
+
 public class BtcAddress extends BtcAddressBase {
 	private static final long serialVersionUID = -3639666223461020070L;
 	private boolean valid;
@@ -32,7 +34,7 @@ public class BtcAddress extends BtcAddressBase {
 	private String publicKey;
 	private boolean compressed;
 	private BtcAccount account;
-	private double amount;
+	private BigDecimal amount;
 	private int confirmations;
 
 	public boolean isValid() {
@@ -83,11 +85,11 @@ public class BtcAddress extends BtcAddressBase {
 		this.account = account;
 	}
 
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

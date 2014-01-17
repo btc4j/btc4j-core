@@ -25,6 +25,7 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class BtcBlock implements Serializable {
@@ -39,7 +40,7 @@ public class BtcBlock implements Serializable {
 	private int time;
 	private int nonce;
 	private String bits;
-	private double difficulty;
+	private BigDecimal difficulty;
 	private String previousBlockHash;
 	private String nextBlockHash;
 
@@ -123,11 +124,11 @@ public class BtcBlock implements Serializable {
 		this.bits = bits;
 	}
 
-	public double getDifficulty() {
+	public BigDecimal getDifficulty() {
 		return difficulty;
 	}
 
-	public void setDifficulty(double difficulty) {
+	public void setDifficulty(BigDecimal difficulty) {
 		this.difficulty = difficulty;
 	}
 

@@ -25,6 +25,7 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class BtcTransactionOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;
@@ -34,7 +35,7 @@ public class BtcTransactionOutputSet implements Serializable {
 	private int outputTransactions;
 	private int bytesSerialized;
 	private String hashSerialized;
-	private double totalAmount;
+	private BigDecimal totalAmount;
 
 	public int getHeight() {
 		return height;
@@ -84,11 +85,11 @@ public class BtcTransactionOutputSet implements Serializable {
 		this.hashSerialized = hashSerialized;
 	}
 
-	public double getTotalAmount() {
+	public BigDecimal getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(double totalAmount) {
+	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 

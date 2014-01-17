@@ -24,18 +24,20 @@
 
 package org.btc4j.core;
 
+import java.math.BigDecimal;
+
 public class BtcInfo extends BtcInfoBase {
 	private static final long serialVersionUID = -5800958166892028401L;
 	private int version;
 	private int protocolVersion;
 	private int walletVersion;
-	private double balance;
+	private BigDecimal balance;
 	private int timeOffset;
 	private int connections;
 	private String proxy;
 	private int keyPoolOldest;
 	private int keyPoolSize;
-	private double transactionFee;
+	private BigDecimal transactionFee;
 
 	public int getVersion() {
 		return version;
@@ -61,11 +63,11 @@ public class BtcInfo extends BtcInfoBase {
 		this.walletVersion = walletVersion;
 	}
 
-	public double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 
@@ -109,11 +111,11 @@ public class BtcInfo extends BtcInfoBase {
 		this.keyPoolSize = keyPoolSize;
 	}
 
-	public double getTransactionFee() {
+	public BigDecimal getTransactionFee() {
 		return transactionFee;
 	}
 
-	public void setTransactionFee(double transactionFee) {
+	public void setTransactionFee(BigDecimal transactionFee) {
 		this.transactionFee = transactionFee;
 	}
 

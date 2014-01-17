@@ -25,14 +25,15 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class BtcTransactionDetail implements Serializable {
 	private static final long serialVersionUID = -3144377866580782063L;
 	private String account;
 	private String address;
-	private BtcTransactionCategory category;
-	private double amount;
-	private double fee;
+	private BtcTransaction.Category category;
+	private BigDecimal amount;
+	private BigDecimal fee;
 
 	public String getAccount() {
 		return account;
@@ -50,27 +51,27 @@ public class BtcTransactionDetail implements Serializable {
 		this.address = address;
 	}
 
-	public BtcTransactionCategory getCategory() {
+	public BtcTransaction.Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(BtcTransactionCategory category) {
+	public void setCategory(BtcTransaction.Category category) {
 		this.category = category;
 	}
 
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
-	public double getFee() {
+	public BigDecimal getFee() {
 		return fee;
 	}
 
-	public void setFee(double fee) {
+	public void setFee(BigDecimal fee) {
 		this.fee = fee;
 	}
 

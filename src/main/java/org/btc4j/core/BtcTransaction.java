@@ -25,12 +25,13 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class BtcTransaction implements Serializable {
 	private static final long serialVersionUID = -5995582642392441320L;
 	private String transaction;
-	private double amount;
+	private BigDecimal amount;
 	private int confirmations;
 	private List<BtcTransactionDetail> details;
 	private int time;
@@ -38,6 +39,18 @@ public class BtcTransaction implements Serializable {
 	private String blockHash;
 	private int blockIndex;
 	private int blockTime;
+	
+	public enum Category {
+		RECEIVE, SEND;
+
+		public static Category getValue(String value) {
+			try {
+				return Category.valueOf(value.toUpperCase());
+			} catch (Throwable t) {
+				return null;
+			}
+		}
+	}
 
 	public String getTransaction() {
 		return transaction;
@@ -47,11 +60,11 @@ public class BtcTransaction implements Serializable {
 		this.transaction = transaction;
 	}
 
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

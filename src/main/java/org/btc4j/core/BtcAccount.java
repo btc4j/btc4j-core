@@ -25,11 +25,12 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class BtcAccount implements Serializable {
 	private static final long serialVersionUID = -9141351425810937383L;
 	private String account;
-	private double amount;
+	private BigDecimal amount;
 	private int confirmations;
 
 	public String getAccount() {
@@ -40,11 +41,11 @@ public class BtcAccount implements Serializable {
 		this.account = account;
 	}
 
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

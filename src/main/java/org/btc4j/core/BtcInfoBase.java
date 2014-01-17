@@ -25,11 +25,12 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public abstract class BtcInfoBase implements Serializable {
 	private static final long serialVersionUID = -1439258025227209294L;
 	private int blocks;
-	private double difficulty;
+	private BigDecimal difficulty;
 	private boolean testnet;
 	private String errors;
 
@@ -41,11 +42,11 @@ public abstract class BtcInfoBase implements Serializable {
 		this.blocks = blocks;
 	}
 
-	public double getDifficulty() {
+	public BigDecimal getDifficulty() {
 		return difficulty;
 	}
 
-	public void setDifficulty(double difficulty) {
+	public void setDifficulty(BigDecimal difficulty) {
 		this.difficulty = difficulty;
 	}
 

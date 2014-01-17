@@ -24,14 +24,36 @@
 
 package org.btc4j.core;
 
-public enum BtcTransactionCategory {
-	RECEIVE, SEND;
+import java.io.Serializable;
+import java.util.List;
 
-	public static BtcTransactionCategory getValue(String value) {
-		try {
-			return BtcTransactionCategory.valueOf(value.toUpperCase());
-		} catch (Throwable t) {
-			return null;
-		}
+public class BtcAddedNode implements Serializable {
+	private static final long serialVersionUID = 4376507327713059735L;
+	private String addedNode;
+	private boolean connected;
+	private List<BtcNode> addresses;
+	
+	public String getAddedNode() {
+		return addedNode;
+	}
+	
+	public void setAddedNode(String addedNode) {
+		this.addedNode = addedNode;
+	}
+	
+	public boolean isConnected() {
+		return connected;
+	}
+	
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+	}
+	
+	public List<BtcNode> getAddresses() {
+		return addresses;
+	}
+	
+	public void setAddresses(List<BtcNode> addresses) {
+		this.addresses = addresses;
 	}
 }

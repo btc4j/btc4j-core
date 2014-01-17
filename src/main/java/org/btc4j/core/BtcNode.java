@@ -24,14 +24,38 @@
 
 package org.btc4j.core;
 
-public enum BtcNodeOperation {
-	ADD, REMOVE, ONETRY;
+import java.io.Serializable;
 
-	public static BtcNodeOperation getValue(String value) {
-		try {
-			return BtcNodeOperation.valueOf(value.toUpperCase());
-		} catch (Throwable t) {
-			return null;
+public class BtcNode implements Serializable {
+	private static final long serialVersionUID = 4376507327713059735L;
+	private String address;
+	private String connected;
+	
+	public enum Operation {
+		ADD, REMOVE, ONETRY;
+
+		public static Operation getValue(String value) {
+			try {
+				return Operation.valueOf(value.toUpperCase());
+			} catch (Throwable t) {
+				return null;
+			}
 		}
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getConnected() {
+		return connected;
+	}
+
+	public void setConnected(String connected) {
+		this.connected = connected;
 	}
 }
