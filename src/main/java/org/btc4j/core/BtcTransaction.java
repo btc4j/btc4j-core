@@ -24,21 +24,15 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BtcTransaction implements Serializable {
+public class BtcTransaction extends BtcTransactionBase {
 	private static final long serialVersionUID = -5995582642392441320L;
-	private String transaction;
 	private BigDecimal amount;
-	private int confirmations;
 	private List<BtcTransactionDetail> details;
-	private int time;
 	private int timeReceived;
-	private String blockHash;
 	private int blockIndex;
-	private int blockTime;
 	
 	public enum Category {
 		RECEIVE, SEND;
@@ -52,28 +46,12 @@ public class BtcTransaction implements Serializable {
 		}
 	}
 
-	public String getTransaction() {
-		return transaction;
-	}
-
-	public void setTransaction(String transaction) {
-		this.transaction = transaction;
-	}
-
 	public BigDecimal getAmount() {
 		return amount;
 	}
 
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
-	}
-
-	public int getConfirmations() {
-		return confirmations;
-	}
-
-	public void setConfirmations(int confirmations) {
-		this.confirmations = confirmations;
 	}
 
 	public List<BtcTransactionDetail> getDetails() {
@@ -84,28 +62,12 @@ public class BtcTransaction implements Serializable {
 		this.details = details;
 	}
 
-	public int getTime() {
-		return time;
-	}
-
-	public void setTime(int time) {
-		this.time = time;
-	}
-
 	public int getTimeReceived() {
 		return timeReceived;
 	}
 
 	public void setTimeReceived(int timeReceived) {
 		this.timeReceived = timeReceived;
-	}
-
-	public String getBlockHash() {
-		return blockHash;
-	}
-
-	public void setBlockHash(String blockHash) {
-		this.blockHash = blockHash;
 	}
 
 	public int getBlockIndex() {
@@ -116,35 +78,29 @@ public class BtcTransaction implements Serializable {
 		this.blockIndex = blockIndex;
 	}
 
-	public int getBlockTime() {
-		return blockTime;
-	}
 
-	public void setBlockTime(int blockTime) {
-		this.blockTime = blockTime;
-	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("BtcTransaction [transaction=");
-		builder.append(transaction);
+		builder.append(getTransaction());
 		builder.append(", amount=");
 		builder.append(amount);
 		builder.append(", confirmations=");
-		builder.append(confirmations);
+		builder.append(getConfirmations());
 		builder.append(", details=");
 		builder.append(details);
 		builder.append(", time=");
-		builder.append(time);
+		builder.append(getTime());
 		builder.append(", timeReceived=");
 		builder.append(timeReceived);
 		builder.append(", blockHash=");
-		builder.append(blockHash);
+		builder.append(getBlockHash());
 		builder.append(", blockIndex=");
 		builder.append(blockIndex);
 		builder.append(", blockTime=");
-		builder.append(blockTime);
+		builder.append(getBlockTime());
 		builder.append("]");
 		return builder.toString();
 	}

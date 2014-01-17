@@ -48,8 +48,6 @@ public interface BtcApi {
 
 	public String dumpPrivateKey(String address) throws BtcException;
 
-	public void encryptWallet(String passPhrase) throws BtcException;
-
 	public String getAccount(String address) throws BtcException;
 
 	public String getAccountAddress(String account) throws BtcException;
