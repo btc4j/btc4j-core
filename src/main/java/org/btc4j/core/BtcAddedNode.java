@@ -25,35 +25,36 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BtcAddedNode implements Serializable {
 	private static final long serialVersionUID = 4376507327713059735L;
-	private String addedNode;
-	private boolean connected;
-	private List<BtcNode> addresses;
-	
+	private String addedNode = "";
+	private boolean connected = false;
+	private List<BtcNode> addresses = new ArrayList<BtcNode>();
+
 	public String getAddedNode() {
 		return addedNode;
 	}
-	
+
 	public void setAddedNode(String addedNode) {
-		this.addedNode = addedNode;
+		this.addedNode = BtcUtil.notNull(addedNode);
 	}
-	
+
 	public boolean isConnected() {
 		return connected;
 	}
-	
+
 	public void setConnected(boolean connected) {
 		this.connected = connected;
 	}
-	
+
 	public List<BtcNode> getAddresses() {
 		return addresses;
 	}
-	
+
 	public void setAddresses(List<BtcNode> addresses) {
-		this.addresses = addresses;
+		this.addresses = BtcUtil.notNull(addresses);
 	}
 }

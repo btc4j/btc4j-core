@@ -26,14 +26,14 @@ package org.btc4j.core;
 
 public class BtcMultiSignatureAddress extends BtcAddressBase {
 	private static final long serialVersionUID = 8931165498019724950L;
-	private String redeemScript;
+	private String redeemScript = "";
 
 	public String getRedeemScript() {
 		return redeemScript;
 	}
 
 	public void setRedeemScript(String redeemScript) {
-		this.redeemScript = redeemScript;
+		this.redeemScript = BtcUtil.notNull(redeemScript);
 	}
 
 	@Override

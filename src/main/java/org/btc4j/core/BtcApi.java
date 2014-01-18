@@ -43,7 +43,7 @@ public interface BtcApi {
 	public String createRawTransaction(List<Object> transactionIds,
 			List<Object> addresses) throws BtcException;
 
-	public String decodeRawTransaction(String transactionId)
+	public BtcRawTransaction decodeRawTransaction(String hex)
 			throws BtcException;
 
 	public String dumpPrivateKey(String address) throws BtcException;
@@ -87,8 +87,8 @@ public interface BtcApi {
 
 	public List<String> getRawMemoryPool() throws BtcException;
 
-	public String getRawTransaction(String transactionId, boolean verbose)
-			throws BtcException;
+	public BtcRawTransaction getRawTransaction(String transactionId,
+			boolean verbose) throws BtcException;
 
 	public BigDecimal getReceivedByAccount(String account, int minConfirms)
 			throws BtcException;
@@ -141,9 +141,9 @@ public interface BtcApi {
 	public void move(String fromAccount, String toAccount, BigDecimal amount,
 			int minConfirms, String comment) throws BtcException;
 
-	public String sendFrom(String fromAccount, String toAddress, BigDecimal amount,
-			int minConfirms, String commentFrom, String commentTo)
-			throws BtcException;
+	public String sendFrom(String fromAccount, String toAddress,
+			BigDecimal amount, int minConfirms, String commentFrom,
+			String commentTo) throws BtcException;
 
 	public String sendMany(String fromAccount, List<Object> addresses,
 			int minConfirms, String commentFrom, String commentTo)

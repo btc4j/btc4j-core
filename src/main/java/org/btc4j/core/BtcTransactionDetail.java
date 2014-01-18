@@ -29,18 +29,18 @@ import java.math.BigDecimal;
 
 public class BtcTransactionDetail implements Serializable {
 	private static final long serialVersionUID = -3144377866580782063L;
-	private String account;
-	private String address;
-	private BtcTransaction.Category category;
-	private BigDecimal amount;
-	private BigDecimal fee;
+	private String account = "";
+	private String address = "";
+	private BtcTransaction.Category category = BtcTransaction.Category.NULL;
+	private BigDecimal amount = BigDecimal.ZERO;
+	private BigDecimal fee = BigDecimal.ZERO;
 
 	public String getAccount() {
 		return account;
 	}
 
 	public void setAccount(String account) {
-		this.account = account;
+		this.account = BtcUtil.notNull(account);
 	}
 
 	public String getAddress() {
@@ -48,7 +48,7 @@ public class BtcTransactionDetail implements Serializable {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = BtcUtil.notNull(address);
 	}
 
 	public BtcTransaction.Category getCategory() {
@@ -56,7 +56,7 @@ public class BtcTransactionDetail implements Serializable {
 	}
 
 	public void setCategory(BtcTransaction.Category category) {
-		this.category = category;
+		this.category = BtcUtil.notNull(category);
 	}
 
 	public BigDecimal getAmount() {
@@ -64,7 +64,7 @@ public class BtcTransactionDetail implements Serializable {
 	}
 
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.amount = BtcUtil.notNull(amount);
 	}
 
 	public BigDecimal getFee() {
@@ -72,7 +72,7 @@ public class BtcTransactionDetail implements Serializable {
 	}
 
 	public void setFee(BigDecimal fee) {
-		this.fee = fee;
+		this.fee = BtcUtil.notNull(fee);
 	}
 
 	@Override

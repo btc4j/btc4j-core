@@ -25,68 +25,47 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-public abstract class BtcTransactionBase implements Serializable {
-	private static final long serialVersionUID = -3822604015302961558L;
-	private String transaction = "";
-	private long confirmations = 0;
-	private long time = 0;
-	private String blockHash = "";
-	private long blockTime = 0;
+public class BtcTransactionOutput implements Serializable {
+	private static final long serialVersionUID = 2201035711897764084L;
+	private BigDecimal amount = BigDecimal.ZERO;
+	private long index = 0;
+	private BtcScript scriptPublicKey = new BtcScript();
 
-	public String getTransaction() {
-		return transaction;
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
-	public void setTransaction(String transaction) {
-		this.transaction = BtcUtil.notNull(transaction);
+	public void setAmount(BigDecimal amount) {
+		this.amount = BtcUtil.notNull(amount);
 	}
 
-	public long getConfirmations() {
-		return confirmations;
+	public long getIndex() {
+		return index;
 	}
 
-	public void setConfirmations(long confirmations) {
-		this.confirmations = confirmations;
+	public void setIndex(long index) {
+		this.index = index;
 	}
 
-	public long getTime() {
-		return time;
+	public BtcScript getScriptPublicKey() {
+		return scriptPublicKey;
 	}
 
-	public void setTime(long time) {
-		this.time = time;
-	}
-
-	public String getBlockHash() {
-		return blockHash;
-	}
-
-	public void setBlockHash(String blockHash) {
-		this.blockHash = BtcUtil.notNull(blockHash);
-	}
-
-	public long getBlockTime() {
-		return blockTime;
-	}
-
-	public void setBlockTime(long blockTime) {
-		this.blockTime = blockTime;
+	public void setScriptPublicKey(BtcScript scriptPublicKey) {
+		this.scriptPublicKey = BtcUtil.notNull(scriptPublicKey);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionBase [transaction=");
-		builder.append(transaction);
-		builder.append(", confirmations=");
-		builder.append(confirmations);
-		builder.append(", time=");
-		builder.append(time);
-		builder.append(", blockHash=");
-		builder.append(blockHash);
-		builder.append(", blockTime=");
-		builder.append(blockTime);
+		builder.append("BtcTransactionOutput [amount=");
+		builder.append(amount);
+		builder.append(", index=");
+		builder.append(index);
+		builder.append(", scriptPublicKey=");
+		builder.append(scriptPublicKey);
 		builder.append("]");
 		return builder.toString();
 	}

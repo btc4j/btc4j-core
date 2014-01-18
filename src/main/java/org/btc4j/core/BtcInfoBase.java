@@ -29,16 +29,16 @@ import java.math.BigDecimal;
 
 public abstract class BtcInfoBase implements Serializable {
 	private static final long serialVersionUID = -1439258025227209294L;
-	private int blocks;
-	private BigDecimal difficulty;
-	private boolean testnet;
-	private String errors;
+	private long blocks = 0;
+	private BigDecimal difficulty = BigDecimal.ZERO;
+	private boolean testnet = false;
+	private String errors = "";
 
-	public int getBlocks() {
+	public long getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocks(int blocks) {
+	public void setBlocks(long blocks) {
 		this.blocks = blocks;
 	}
 
@@ -47,7 +47,7 @@ public abstract class BtcInfoBase implements Serializable {
 	}
 
 	public void setDifficulty(BigDecimal difficulty) {
-		this.difficulty = difficulty;
+		this.difficulty = BtcUtil.notNull(difficulty);
 	}
 
 	public boolean isTestnet() {
@@ -63,7 +63,7 @@ public abstract class BtcInfoBase implements Serializable {
 	}
 
 	public void setErrors(String errors) {
-		this.errors = errors;
+		this.errors = BtcUtil.notNull(errors);
 	}
 
 	@Override

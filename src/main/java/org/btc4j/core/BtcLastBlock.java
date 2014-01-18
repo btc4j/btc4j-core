@@ -25,19 +25,20 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BtcLastBlock implements Serializable {
 	private static final long serialVersionUID = 2943476513005471404L;
-	private String lastBlock;
-	private List<BtcTransaction> transactions;
+	private String lastBlock = "";
+	private List<BtcTransaction> transactions = new ArrayList<BtcTransaction>();
 
 	public String getLastBlock() {
 		return lastBlock;
 	}
 
 	public void setLastBlock(String lastBlock) {
-		this.lastBlock = lastBlock;
+		this.lastBlock = BtcUtil.notNull(lastBlock);
 	}
 
 	public List<BtcTransaction> getTransactions() {
@@ -45,7 +46,7 @@ public class BtcLastBlock implements Serializable {
 	}
 
 	public void setTransactions(List<BtcTransaction> transactions) {
-		this.transactions = transactions;
+		this.transactions = BtcUtil.notNull(transactions);
 	}
 
 	@Override

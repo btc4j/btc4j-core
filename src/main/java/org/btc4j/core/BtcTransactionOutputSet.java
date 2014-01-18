@@ -29,19 +29,19 @@ import java.math.BigDecimal;
 
 public class BtcTransactionOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;
-	private int height;
-	private String bestBlock;
-	private int transactions;
-	private int outputTransactions;
-	private int bytesSerialized;
-	private String hashSerialized;
-	private BigDecimal totalAmount;
+	private long height = 0;
+	private String bestBlock = "";
+	private long transactions = 0;
+	private long outputTransactions = 0;
+	private long bytesSerialized = 0;
+	private String hashSerialized = "";
+	private BigDecimal totalAmount = BigDecimal.ZERO;
 
-	public int getHeight() {
+	public long getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight(long height) {
 		this.height = height;
 	}
 
@@ -50,30 +50,30 @@ public class BtcTransactionOutputSet implements Serializable {
 	}
 
 	public void setBestBlock(String bestBlock) {
-		this.bestBlock = bestBlock;
+		this.bestBlock = BtcUtil.notNull(bestBlock);
 	}
 
-	public int getTransactions() {
+	public long getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(int transactions) {
+	public void setTransactions(long transactions) {
 		this.transactions = transactions;
 	}
 
-	public int getOutputTransactions() {
+	public long getOutputTransactions() {
 		return outputTransactions;
 	}
 
-	public void setOutputTransactions(int outputTransactions) {
+	public void setOutputTransactions(long outputTransactions) {
 		this.outputTransactions = outputTransactions;
 	}
 
-	public int getBytesSerialized() {
+	public long getBytesSerialized() {
 		return bytesSerialized;
 	}
 
-	public void setBytesSerialized(int bytesSerialized) {
+	public void setBytesSerialized(long bytesSerialized) {
 		this.bytesSerialized = bytesSerialized;
 	}
 
@@ -82,7 +82,7 @@ public class BtcTransactionOutputSet implements Serializable {
 	}
 
 	public void setHashSerialized(String hashSerialized) {
-		this.hashSerialized = hashSerialized;
+		this.hashSerialized = BtcUtil.notNull(hashSerialized);
 	}
 
 	public BigDecimal getTotalAmount() {
@@ -90,7 +90,7 @@ public class BtcTransactionOutputSet implements Serializable {
 	}
 
 	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = totalAmount;
+		this.totalAmount = BtcUtil.notNull(totalAmount);
 	}
 
 	@Override

@@ -25,23 +25,24 @@
 package org.btc4j.core;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BtcTransaction extends BtcTransactionBase {
 	private static final long serialVersionUID = -5995582642392441320L;
-	private BigDecimal amount;
-	private List<BtcTransactionDetail> details;
-	private int timeReceived;
-	private int blockIndex;
-	
+	private BigDecimal amount = BigDecimal.ZERO;
+	private List<BtcTransactionDetail> details = new ArrayList<BtcTransactionDetail>();
+	private long timeReceived = 0;
+	private long blockIndex = 0;
+
 	public enum Category {
-		RECEIVE, SEND;
+		RECEIVE, SEND, NULL;
 
 		public static Category getValue(String value) {
 			try {
 				return Category.valueOf(value.toUpperCase());
 			} catch (Throwable t) {
-				return null;
+				return NULL;
 			}
 		}
 	}
@@ -51,7 +52,7 @@ public class BtcTransaction extends BtcTransactionBase {
 	}
 
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.amount = BtcUtil.notNull(amount);
 	}
 
 	public List<BtcTransactionDetail> getDetails() {
@@ -59,26 +60,24 @@ public class BtcTransaction extends BtcTransactionBase {
 	}
 
 	public void setDetails(List<BtcTransactionDetail> details) {
-		this.details = details;
+		this.details = BtcUtil.notNull(details);
 	}
 
-	public int getTimeReceived() {
+	public long getTimeReceived() {
 		return timeReceived;
 	}
 
-	public void setTimeReceived(int timeReceived) {
+	public void setTimeReceived(long timeReceived) {
 		this.timeReceived = timeReceived;
 	}
 
-	public int getBlockIndex() {
+	public long getBlockIndex() {
 		return blockIndex;
 	}
 
-	public void setBlockIndex(int blockIndex) {
+	public void setBlockIndex(long blockIndex) {
 		this.blockIndex = blockIndex;
 	}
-
-
 
 	@Override
 	public String toString() {

@@ -28,14 +28,14 @@ import java.math.BigDecimal;
 
 public class BtcAddress extends BtcAddressBase {
 	private static final long serialVersionUID = -3639666223461020070L;
-	private boolean valid;
-	private boolean mine;
-	private boolean script;
-	private String publicKey;
-	private boolean compressed;
-	private BtcAccount account;
-	private BigDecimal amount;
-	private int confirmations;
+	private boolean valid = false;
+	private boolean mine = false;
+	private boolean script = false;
+	private String publicKey = "";
+	private boolean compressed = false;
+	private BtcAccount account = new BtcAccount();
+	private BigDecimal amount = BigDecimal.ZERO;
+	private long confirmations = 0;
 
 	public boolean isValid() {
 		return valid;
@@ -66,7 +66,7 @@ public class BtcAddress extends BtcAddressBase {
 	}
 
 	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
+		this.publicKey = BtcUtil.notNull(publicKey);
 	}
 
 	public boolean isCompressed() {
@@ -82,7 +82,7 @@ public class BtcAddress extends BtcAddressBase {
 	}
 
 	public void setAccount(BtcAccount account) {
-		this.account = account;
+		this.account = BtcUtil.notNull(account);
 	}
 
 	public BigDecimal getAmount() {
@@ -90,14 +90,14 @@ public class BtcAddress extends BtcAddressBase {
 	}
 
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.amount = BtcUtil.notNull(amount);
 	}
 
-	public int getConfirmations() {
+	public long getConfirmations() {
 		return confirmations;
 	}
 
-	public void setConfirmations(int confirmations) {
+	public void setConfirmations(long confirmations) {
 		this.confirmations = confirmations;
 	}
 

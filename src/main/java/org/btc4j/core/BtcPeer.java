@@ -28,26 +28,26 @@ import java.io.Serializable;
 
 public class BtcPeer implements Serializable {
 	private static final long serialVersionUID = -300084370265716627L;
-	private String networkAddress;
-	private String services;
-	private int lastSend;
-	private int lastReceived;
-	private int bytesSent;
-	private int bytesReceived;
-	private int connectionTime;
-	private int version;
-	private String subVersion;
-	private boolean inbound;
-	private int startingHeight;
-	private int banScore;
-	private boolean syncNode;
+	private String networkAddress = "";
+	private String services = "";
+	private long lastSend = 0;
+	private long lastReceived = 0;
+	private long bytesSent = 0;
+	private long bytesReceived = 0;
+	private long connectionTime = 0;
+	private long version = 0;
+	private String subVersion = "";
+	private boolean inbound = false;
+	private long startingHeight = 0;
+	private long banScore = 0;
+	private boolean syncNode = false;
 
 	public String getNetworkAddress() {
 		return networkAddress;
 	}
 
 	public void setNetworkAddress(String networkAddress) {
-		this.networkAddress = networkAddress;
+		this.networkAddress = BtcUtil.notNull(networkAddress);
 	}
 
 	public String getServices() {
@@ -55,54 +55,54 @@ public class BtcPeer implements Serializable {
 	}
 
 	public void setServices(String services) {
-		this.services = services;
+		this.services = BtcUtil.notNull(services);
 	}
 
-	public int getLastSend() {
+	public long getLastSend() {
 		return lastSend;
 	}
 
-	public void setLastSend(int lastSend) {
+	public void setLastSend(long lastSend) {
 		this.lastSend = lastSend;
 	}
 
-	public int getLastReceived() {
+	public long getLastReceived() {
 		return lastReceived;
 	}
 
-	public void setLastReceived(int lastReceived) {
+	public void setLastReceived(long lastReceived) {
 		this.lastReceived = lastReceived;
 	}
 
-	public int getBytesSent() {
+	public long getBytesSent() {
 		return bytesSent;
 	}
 
-	public void setBytesSent(int bytesSent) {
+	public void setBytesSent(long bytesSent) {
 		this.bytesSent = bytesSent;
 	}
 
-	public int getBytesReceived() {
+	public long getBytesReceived() {
 		return bytesReceived;
 	}
 
-	public void setBytesReceived(int bytesReceived) {
+	public void setBytesReceived(long bytesReceived) {
 		this.bytesReceived = bytesReceived;
 	}
 
-	public int getConnectionTime() {
+	public long getConnectionTime() {
 		return connectionTime;
 	}
 
-	public void setConnectionTime(int connectionTime) {
+	public void setConnectionTime(long connectionTime) {
 		this.connectionTime = connectionTime;
 	}
 
-	public int getVersion() {
+	public long getVersion() {
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(long version) {
 		this.version = version;
 	}
 
@@ -111,7 +111,7 @@ public class BtcPeer implements Serializable {
 	}
 
 	public void setSubVersion(String subVersion) {
-		this.subVersion = subVersion;
+		this.subVersion = BtcUtil.notNull(subVersion);
 	}
 
 	public boolean isInbound() {
@@ -122,19 +122,19 @@ public class BtcPeer implements Serializable {
 		this.inbound = inbound;
 	}
 
-	public int getStartingHeight() {
+	public long getStartingHeight() {
 		return startingHeight;
 	}
 
-	public void setStartingHeight(int startingHeight) {
+	public void setStartingHeight(long startingHeight) {
 		this.startingHeight = startingHeight;
 	}
 
-	public int getBanScore() {
+	public long getBanScore() {
 		return banScore;
 	}
 
-	public void setBanScore(int banScore) {
+	public void setBanScore(long banScore) {
 		this.banScore = banScore;
 	}
 
@@ -145,7 +145,7 @@ public class BtcPeer implements Serializable {
 	public void setSyncNode(boolean syncNode) {
 		this.syncNode = syncNode;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

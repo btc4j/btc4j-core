@@ -29,16 +29,16 @@ import java.math.BigDecimal;
 
 public class BtcAccount implements Serializable {
 	private static final long serialVersionUID = -9141351425810937383L;
-	private String account;
-	private BigDecimal amount;
-	private int confirmations;
+	private String account = "";
+	private BigDecimal amount = BigDecimal.ZERO;
+	private long confirmations = 0;
 
 	public String getAccount() {
 		return account;
 	}
 
 	public void setAccount(String account) {
-		this.account = account;
+		this.account = BtcUtil.notNull(account);
 	}
 
 	public BigDecimal getAmount() {
@@ -46,14 +46,14 @@ public class BtcAccount implements Serializable {
 	}
 
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.amount = BtcUtil.notNull(amount);
 	}
 
-	public int getConfirmations() {
+	public long getConfirmations() {
 		return confirmations;
 	}
 
-	public void setConfirmations(int confirmations) {
+	public void setConfirmations(long confirmations) {
 		this.confirmations = confirmations;
 	}
 

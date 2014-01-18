@@ -28,14 +28,14 @@ import java.io.Serializable;
 
 public abstract class BtcAddressBase implements Serializable {
 	private static final long serialVersionUID = 2411727703293153974L;
-	private String address;
+	private String address = "";
 
 	public String getAddress() {
 		return address;
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = BtcUtil.notNull(address);
 	}
 
 	@Override

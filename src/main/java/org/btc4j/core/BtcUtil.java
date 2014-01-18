@@ -24,17 +24,37 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-public class BtcVOut implements Serializable {
-	private static final long serialVersionUID = 2201035711897764084L;
-	// "value":0.25000000,
-	// "n":0,
-	// "scriptPubKey":{
-				// "asm":"OP_DUP OP_HASH160 ca8ac94e5f147ed553a0d8e6497e0bfa7e53a925 OP_EQUALVERIFY OP_CHECKSIG",
-				// "hex":"76a914ca8ac94e5f147ed553a0d8e6497e0bfa7e53a92588ac",
-				// "reqSigs":1,
-				// "type":"pubkeyhash",
-				// "addresses":["myyu3rApeR3JHsvXQxjT3vAyNyVx9gm9UY"]
-	// }
+public class BtcUtil {
+
+	public static String notNull(String value) {
+		return (value == null) ? "" : value;
+	}
+
+	public static BigDecimal notNull(BigDecimal value) {
+		return (value == null) ? BigDecimal.ZERO : value;
+	}
+
+	public static <T> List<T> notNull(List<T> value) {
+		return (value == null) ? new ArrayList<T>() : value;
+	}
+
+	public static BtcAccount notNull(BtcAccount value) {
+		return (value == null) ? new BtcAccount() : value;
+	}
+
+	public static BtcTransaction.Category notNull(BtcTransaction.Category value) {
+		return (value == null) ? BtcTransaction.Category.NULL : value;
+	}
+
+	public static BtcScript.Type notNull(BtcScript.Type value) {
+		return (value == null) ? BtcScript.Type.NULL : value;
+	}
+
+	public static BtcScript notNull(BtcScript value) {
+		return (value == null) ? new BtcScript() : value;
+	}
 }

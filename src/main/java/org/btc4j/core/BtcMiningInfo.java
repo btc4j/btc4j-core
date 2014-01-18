@@ -26,26 +26,26 @@ package org.btc4j.core;
 
 public class BtcMiningInfo extends BtcInfoBase {
 	private static final long serialVersionUID = -1675343423503889069L;
-	private int currentBlockSize;
-	private int currentBlockTransactions;
-	private boolean generate;
-	private int generateProcessorLimit;
-	private int hashesPerSecond;
-	private int pooledTransactions;
+	private long currentBlockSize = 0;
+	private long currentBlockTransactions = 0;
+	private boolean generate = false;
+	private long generateProcessorLimit = 0;
+	private long hashesPerSecond = 0;
+	private long pooledTransactions = 0;
 
-	public int getCurrentBlockSize() {
+	public long getCurrentBlockSize() {
 		return currentBlockSize;
 	}
 
-	public void setCurrentBlockSize(int currentBlockSize) {
+	public void setCurrentBlockSize(long currentBlockSize) {
 		this.currentBlockSize = currentBlockSize;
 	}
 
-	public int getCurrentBlockTransactions() {
+	public long getCurrentBlockTransactions() {
 		return currentBlockTransactions;
 	}
 
-	public void setCurrentBlockTransactions(int currentBlockTransactions) {
+	public void setCurrentBlockTransactions(long currentBlockTransactions) {
 		this.currentBlockTransactions = currentBlockTransactions;
 	}
 
@@ -57,27 +57,27 @@ public class BtcMiningInfo extends BtcInfoBase {
 		this.generate = generate;
 	}
 
-	public int getGenProcessorLimit() {
+	public long getGenProcessorLimit() {
 		return generateProcessorLimit;
 	}
 
-	public void setGenProcessorLimit(int generateProcessorLimit) {
+	public void setGenProcessorLimit(long generateProcessorLimit) {
 		this.generateProcessorLimit = generateProcessorLimit;
 	}
 
-	public int getHashesPerSecond() {
+	public long getHashesPerSecond() {
 		return hashesPerSecond;
 	}
 
-	public void setHashesPerSecond(int hashesPerSecond) {
+	public void setHashesPerSecond(long hashesPerSecond) {
 		this.hashesPerSecond = hashesPerSecond;
 	}
 
-	public int getPooledTransactions() {
+	public long getPooledTransactions() {
 		return pooledTransactions;
 	}
 
-	public void setPooledTransactions(int pooledTransactions) {
+	public void setPooledTransactions(long pooledTransactions) {
 		this.pooledTransactions = pooledTransactions;
 	}
 

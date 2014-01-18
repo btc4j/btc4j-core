@@ -28,27 +28,27 @@ import java.io.Serializable;
 
 public class BtcNode implements Serializable {
 	private static final long serialVersionUID = 4376507327713059735L;
-	private String address;
-	private String connected;
-	
+	private String address = "";
+	private String connected = "";
+
 	public enum Operation {
-		ADD, REMOVE, ONETRY;
+		ADD, REMOVE, ONETRY, NULL;
 
 		public static Operation getValue(String value) {
 			try {
 				return Operation.valueOf(value.toUpperCase());
 			} catch (Throwable t) {
-				return null;
+				return NULL;
 			}
 		}
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = BtcUtil.notNull(address);
 	}
 
 	public String getConnected() {
@@ -56,6 +56,6 @@ public class BtcNode implements Serializable {
 	}
 
 	public void setConnected(String connected) {
-		this.connected = connected;
+		this.connected = BtcUtil.notNull(connected);
 	}
 }

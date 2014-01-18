@@ -1,6 +1,6 @@
 Bitcoin Java Core Components (btc4j-core)
 =========================================
-Open source Java core components of btc4j.
+Type-safe, open source Java core components and interface definitions of btc4j.
 
 Development build status: [![Build Status](https://travis-ci.org/btc4j/btc4j-core.png?branch=master)](https://travis-ci.org/btc4j/btc4j-core)
 
