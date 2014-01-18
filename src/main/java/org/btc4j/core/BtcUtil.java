@@ -30,31 +30,31 @@ import java.util.List;
 
 public class BtcUtil {
 
-	public static String notNull(String value) {
-		return (value == null) ? "" : value;
-	}
-
 	public static BigDecimal notNull(BigDecimal value) {
 		return (value == null) ? BigDecimal.ZERO : value;
-	}
-
-	public static <T> List<T> notNull(List<T> value) {
-		return (value == null) ? new ArrayList<T>() : value;
 	}
 
 	public static BtcAccount notNull(BtcAccount value) {
 		return (value == null) ? new BtcAccount() : value;
 	}
 
-	public static BtcTransaction.Category notNull(BtcTransaction.Category value) {
-		return (value == null) ? BtcTransaction.Category.NULL : value;
+	public static BtcScript notNull(BtcScript value) {
+		return (value == null) ? new BtcScript() : value;
 	}
 
 	public static BtcScript.Type notNull(BtcScript.Type value) {
 		return (value == null) ? BtcScript.Type.NULL : value;
 	}
 
-	public static BtcScript notNull(BtcScript value) {
-		return (value == null) ? new BtcScript() : value;
+	public static BtcTransaction.Category notNull(BtcTransaction.Category value) {
+		return (value == null) ? BtcTransaction.Category.NULL : value;
+	}
+
+	public static <T> List<T> notNull(List<T> value) {
+		return (value == null) ? new ArrayList<T>() : value;
+	}
+
+	public static String notNull(String value) {
+		return (value == null) ? "" : value;
 	}
 }
