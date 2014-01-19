@@ -27,6 +27,7 @@ package org.btc4j.core;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface BtcApi {
 	public String addMultiSignatureAddress(long required, List<String> keys,
@@ -99,7 +100,7 @@ public interface BtcApi {
 	public BtcTransaction getTransaction(String transactionId)
 			throws BtcException;
 
-	public BtcTransactionOutput getTransactionOutput(String transactionId, long index,
+	public String getTransactionOutput(String transactionId, long index,
 			boolean includeMemoryPool) throws BtcException;
 
 	public BtcTransactionOutputSet getTransactionOutputSetInformation()
@@ -114,7 +115,7 @@ public interface BtcApi {
 
 	public void keyPoolRefill() throws BtcException;
 
-	public List<BtcAccount> listAccounts(long minConfirms) throws BtcException;
+	public Map<String, BtcAccount> listAccounts(long minConfirms) throws BtcException;
 
 	public List<BtcAddress> listAddressGroupings() throws BtcException;
 
@@ -161,7 +162,7 @@ public interface BtcApi {
 
 	public boolean setTransactionFee(BigDecimal amount) throws BtcException;
 
-	public void signMessage(String address, String message) throws BtcException;
+	public String signMessage(String address, String message) throws BtcException;
 
 	public void signRawTransaction(String transactionId,
 			List<Object> signatures, List<String> keys) throws BtcException;
@@ -173,6 +174,12 @@ public interface BtcApi {
 
 	public BtcAddress validateAddress(String address) throws BtcException;
 
-	public String verifyMessage(String address, String signature, String message)
+	public boolean verifyMessage(String address, String signature, String message)
 			throws BtcException;
+	
+	public void walletLock() throws BtcException;
+	
+	public void walletPassphrase(String passphrase, long timeout) throws BtcException;
+	
+	public void walletPassphraseChange(String passphrase, String newPassphrase) throws BtcException;
 }
