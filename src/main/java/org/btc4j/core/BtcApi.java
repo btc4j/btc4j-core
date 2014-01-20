@@ -139,21 +139,21 @@ public interface BtcApi {
 	public void lockUnspent(boolean unlock, List<Object> outputs)
 			throws BtcException;
 
-	public void move(String fromAccount, String toAccount, BigDecimal amount,
+	public boolean move(String fromAccount, String toAccount, BigDecimal amount,
 			long minConfirms, String comment) throws BtcException;
 
-	public String sendFrom(String fromAccount, String toAddress,
-			BigDecimal amount, long minConfirms, String commentFrom,
+	public String sendFrom(String account, String address,
+			BigDecimal amount, long minConfirms, String comment,
 			String commentTo) throws BtcException;
 
-	public String sendMany(String fromAccount, List<Object> addresses,
-			long minConfirms, String commentFrom, String commentTo)
+	public String sendMany(String account, Map<String, BigDecimal> amounts,
+			long minConfirms, String comment, String commentTo)
 			throws BtcException;
 
 	public void sendRawTransaction(String transactionId) throws BtcException;
 
-	public String sendToAddress(String toAddress, BigDecimal amount,
-			String commentFrom, String commentTo) throws BtcException;
+	public String sendToAddress(String address, BigDecimal amount,
+			String comment, String commentTo) throws BtcException;
 
 	public void setAccount(String address, String account) throws BtcException;
 
