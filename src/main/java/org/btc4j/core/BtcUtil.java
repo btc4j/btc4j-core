@@ -29,6 +29,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BtcUtil {
+	
+	public static long atLeast(long value, long least) {
+		return (value < least) ? least : value;
+	}
+
+	public static BigDecimal atLeast(BigDecimal value, double least) {
+		BigDecimal floor = BigDecimal.valueOf(least);
+		return (value == null) ? floor : ((value.compareTo(floor) < 0) ? floor : value);
+	}
+
+	public static long bool(boolean value) {
+		return value ? 1 : 0;
+	}
+	
+	public static String nil(String value) {
+		return (value == null) ? null : ((value.length() > 0) ? value : null);
+	}
 
 	public static BigDecimal notNull(BigDecimal value) {
 		return (value == null) ? BigDecimal.ZERO : value;

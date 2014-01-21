@@ -31,6 +31,7 @@ import java.util.List;
 public class BtcTransaction extends BtcTransactionBase {
 	private static final long serialVersionUID = -5995582642392441320L;
 	private BigDecimal amount = BigDecimal.ZERO;
+	private BigDecimal fee = BigDecimal.ZERO;
 	private List<BtcTransactionDetail> details = new ArrayList<BtcTransactionDetail>();
 	private long timeReceived = 0;
 	private long blockIndex = 0;
@@ -54,7 +55,15 @@ public class BtcTransaction extends BtcTransactionBase {
 	public void setAmount(BigDecimal amount) {
 		this.amount = BtcUtil.notNull(amount);
 	}
+	
+	public BigDecimal getFee() {
+		return fee;
+	}
 
+	public void setFee(BigDecimal fee) {
+		this.fee = BtcUtil.notNull(fee);
+	}
+	
 	public List<BtcTransactionDetail> getDetails() {
 		return details;
 	}
@@ -86,6 +95,8 @@ public class BtcTransaction extends BtcTransactionBase {
 		builder.append(getTransaction());
 		builder.append(", amount=");
 		builder.append(amount);
+		builder.append(", fee=");
+		builder.append(fee);
 		builder.append(", confirmations=");
 		builder.append(getConfirmations());
 		builder.append(", details=");
