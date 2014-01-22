@@ -4,9 +4,9 @@ Type-safe, open source Java core components and interface definitions of btc4j.
 
 Development build status: [![Build Status](https://travis-ci.org/btc4j/btc4j-core.png?branch=master)](https://travis-ci.org/btc4j/btc4j-core)
 
-btc4j-core does not use any third party or external library
+btc4j-core does not use any third party or external libraries.
 
-Development status: Mostly complete for current needs
+Development status: Mostly complete for current needs.
 
 Using btc4j-core
 ----------------
@@ -20,6 +20,7 @@ Maven pom.xml dependency:
 	<version>0.0.3-SNAPSHOT</version>
 </dependency>
 ```
+or, download artifacts directly from https://github.com/btc4j/btc4j-repo/tree/master/btc4j-core.
 
 Core components include API's, model, utils, exceptions, etc:
 * __BtcApi__: Interface definition of bitcoin internal API commands usually implemented in JSON-RPC
