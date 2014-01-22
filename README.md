@@ -17,12 +17,12 @@ Maven pom.xml dependency:
 </dependency>
 ```
 
-The main components include API's, model, utils, exceptions, etc:
-* BtcApi: Interface definition of bitcoin internal API commands usually implemented in JSON-RPC
-* BtcException: General exception class for all btc4j projects and wrapper for bitcoind json-rpc errors
-* BtcAccount: Concrete implementation of a bitcoin account
-* BtcAddressBase: Abstract bitcoin address
-* BtcInfoBase: Abstract bitcoin information
+Core components include API's, model, utils, exceptions, etc:
+* __BtcApi__: Interface definition of bitcoin internal API commands usually implemented in JSON-RPC
+* __BtcException__: General exception class for all btc4j projects and wrapper for bitcoind json-rpc errors
+* __BtcAccount__: Concrete implementation of a bitcoin account
+* __BtcAddressBase__: Abstract bitcoin address
+* __BtcInfoBase__: Abstract bitcoin information
 
 Issues
 ------
