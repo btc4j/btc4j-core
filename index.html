@@ -34,7 +34,7 @@
         <h1>
 <a name="bitcoin-java-core-components-btc4j-core" class="anchor" href="#bitcoin-java-core-components-btc4j-core"><span class="octicon octicon-link"></span></a>Bitcoin Java Core Components (btc4j-core)</h1>
 
-<p>Open source Java core components of btc4j.</p>
+<p>Type-safe, open source Java core components and interface definitions of btc4j.</p>
 
 <p>Development build status: <a href="https://travis-ci.org/btc4j/btc4j-core"><img src="https://travis-ci.org/btc4j/btc4j-core.png?branch=master" alt="Build Status"></a></p>
 
@@ -52,7 +52,20 @@
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
-<h2>
+<p>Core components include API's, model, utils, exceptions, etc:</p>
+
+<ul>
+<li>
+<strong>BtcApi</strong>: Interface definition of bitcoin internal API commands usually implemented in JSON-RPC</li>
+<li>
+<strong>BtcException</strong>: General exception class for all btc4j projects and wrapper for bitcoind json-rpc errors</li>
+<li>
+<strong>BtcAccount</strong>: Concrete implementation of a bitcoin account</li>
+<li>
+<strong>BtcAddressBase</strong>: Abstract bitcoin address</li>
+<li>
+<strong>BtcInfoBase</strong>: Abstract bitcoin information</li>
+</ul><h2>
 <a name="issues" class="anchor" href="#issues"><span class="octicon octicon-link"></span></a>Issues</h2>
 
 <p>Report bugs, issues, or suggestions: <a href="https://github.com/btc4j/btc4j-core/issues">https://github.com/btc4j/btc4j-core/issues</a>.</p>
