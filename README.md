@@ -4,6 +4,10 @@ Type-safe, open source Java core components and interface definitions of btc4j.
 
 Development build status: [![Build Status](https://travis-ci.org/btc4j/btc4j-core.png?branch=master)](https://travis-ci.org/btc4j/btc4j-core)
 
+btc4j-core does not use any third party or external library
+
+Development status: Mostly complete for current needs
+
 Using btc4j-core
 ----------------
 btc4j-core is free software under [The MIT License (MIT)](http://opensource.org/licenses/MIT/ "The MIT License (MIT)"). It is maintained by Guillermo Gonzalez (ggonzalez@btc4j.org).
