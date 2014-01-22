@@ -147,7 +147,7 @@ public interface BtcApi {
 			String commentTo) throws BtcException;
 
 	public String sendMany(String account, Map<String, BigDecimal> amounts,
-			long minConfirms, String comment, String commentTo)
+			long minConfirms, String comment)
 			throws BtcException;
 
 	public void sendRawTransaction(String transactionId) throws BtcException;
