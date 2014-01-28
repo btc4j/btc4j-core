@@ -34,6 +34,18 @@ public class BtcBlockTemplate extends BtcBlockBase {
 	private BtcCoinBase coinBase = new BtcCoinBase();
 	private String workId = "";
 
+	public enum Capability {
+		LONGPOLL, COINBASETXN, COINBASEVALUE, PROPOSAL, SERVERLIST, WORKID, NULL;
+
+		public static Capability getValue(String value) {
+			try {
+				return Capability.valueOf(value.toUpperCase());
+			} catch (Throwable t) {
+				return NULL;
+			}
+		}
+	}
+	
 	public enum Mode {
 		TEMPLATE, NULL;
 
