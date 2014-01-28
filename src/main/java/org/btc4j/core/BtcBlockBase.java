@@ -34,7 +34,7 @@ public abstract class BtcBlockBase implements Serializable {
 	private String previousBlockHash = "";
 	private long size = 0;
 	private long version = 0;
-	
+
 	public String getBits() {
 		return bits;
 	}

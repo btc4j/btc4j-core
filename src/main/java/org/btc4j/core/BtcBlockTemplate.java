@@ -29,11 +29,17 @@ import java.util.List;
 
 public class BtcBlockTemplate extends BtcBlockBase {
 	private static final long serialVersionUID = -9170963731584665470L;
+	public static final String PARAM_CAPABILITIES = "capabilities";
+	public static final String PARAM_MODE = "mode";
 	private long signatureOperations = 0;
 	private List<BtcTransactionTemplate> transactions = new ArrayList<BtcTransactionTemplate>();
 	private BtcCoinBase coinBase = new BtcCoinBase();
 	private String workId = "";
-
+	private String target = "";
+	private long minimumTime = 0;
+	private List<String> mutable = new ArrayList<String>();
+	private String nonceRange = "";
+	
 	public enum Capability {
 		LONGPOLL, COINBASETXN, COINBASEVALUE, PROPOSAL, SERVERLIST, WORKID, NULL;
 
@@ -47,7 +53,7 @@ public class BtcBlockTemplate extends BtcBlockBase {
 	}
 	
 	public enum Mode {
-		TEMPLATE, NULL;
+		TEMPLATE, PROPOSAL, NULL;
 
 		public static Mode getValue(String value) {
 			try {
@@ -90,6 +96,38 @@ public class BtcBlockTemplate extends BtcBlockBase {
 		this.workId = BtcUtil.notNull(workId);
 	}
 
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = BtcUtil.notNull(target);
+	}
+
+	public long getMinimumTime() {
+		return minimumTime;
+	}
+
+	public void setMinimumTime(long minimumTime) {
+		this.minimumTime = minimumTime;
+	}
+
+	public List<String> getMutable() {
+		return mutable;
+	}
+
+	public void setMutable(List<String> mutable) {
+		this.mutable = BtcUtil.notNull(mutable);
+	}
+
+	public String getNonceRange() {
+		return nonceRange;
+	}
+
+	public void setNonceRange(String nonceRange) {
+		this.nonceRange = BtcUtil.notNull(nonceRange);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -101,6 +139,14 @@ public class BtcBlockTemplate extends BtcBlockBase {
 		builder.append(coinBase);
 		builder.append(", workId=");
 		builder.append(workId);
+		builder.append(", target=");
+		builder.append(target);
+		builder.append(", minimumTime=");
+		builder.append(minimumTime);
+		builder.append(", mutable=");
+		builder.append(mutable);
+		builder.append(", nonceRange=");
+		builder.append(nonceRange);
 		builder.append(", getBits()=");
 		builder.append(getBits());
 		builder.append(", getTime()=");

@@ -26,18 +26,20 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BtcCoinBase implements Serializable {
 	private static final long serialVersionUID = 6111752815189496431L;
-	private String auxiliary = "";
+	private Map<String, String> auxiliary = new HashMap<String, String>();
 	private String transaction = "";
 	private BigDecimal value = BigDecimal.ZERO;
-	
-	public String getAuxiliary() {
+
+	public Map<String, String> getAuxiliary() {
 		return auxiliary;
 	}
 	
-	public void setAuxiliary(String auxiliary) {
+	public void setAuxiliary(Map<String, String> auxiliary) {
 		this.auxiliary = BtcUtil.notNull(auxiliary);
 	}
 	

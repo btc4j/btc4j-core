@@ -26,7 +26,9 @@ package org.btc4j.core;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BtcUtil {
 	
@@ -44,7 +46,7 @@ public class BtcUtil {
 	}
 	
 	public static String nil(String value) {
-		return (value == null) ? null : ((value.length() > 0) ? value : null);
+		return (value == null) ? null : (((value.length() == 0) || ("null".equalsIgnoreCase(value))) ? null : value);
 	}
 
 	public static BigDecimal notNull(BigDecimal value) {
@@ -80,12 +82,15 @@ public class BtcUtil {
 	}
 
 	public static <T> List<T> notNull(List<T> value) {
-		value.toArray(new String[]{});
 		return (value == null) ? new ArrayList<T>() : value;
+	}
+	
+	public static <T> Map<String, T> notNull(Map<String, T> value) {
+		return (value == null) ? new HashMap<String, T>() : value;
 	}
 
 	public static String notNull(String value) {
-		return (value == null) ? "" : value;
+		return ((value == null) || ("null".equalsIgnoreCase(value))) ? "" : value;
 	}
 
 	public static long[] notNull(long[] value) {
