@@ -55,6 +55,10 @@ public class BtcUtil {
 		return (value == null) ? new BtcAccount() : value;
 	}
 	
+	public static BtcBlockTemplate.Capability notNull(BtcBlockTemplate.Capability value) {
+		return (value == null) ? BtcBlockTemplate.Capability.NULL : value;
+	}
+	
 	public static BtcBlockTemplate.Mode notNull(BtcBlockTemplate.Mode value) {
 		return (value == null) ? BtcBlockTemplate.Mode.NULL : value;
 	}
