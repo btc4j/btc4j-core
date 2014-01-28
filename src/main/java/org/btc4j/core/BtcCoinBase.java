@@ -27,45 +27,45 @@ package org.btc4j.core;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class BtcTransactionOutput implements Serializable {
-	private static final long serialVersionUID = 2201035711897764084L;
-	private BigDecimal amount = BigDecimal.ZERO;
-	private long index = 0;
-	private BtcScript scriptPublicKey = new BtcScript();
+public class BtcCoinBase implements Serializable {
+	private static final long serialVersionUID = 6111752815189496431L;
+	private String auxiliary = "";
+	private String transaction = "";
+	private BigDecimal value = BigDecimal.ZERO;
 	
-	public BigDecimal getAmount() {
-		return amount;
+	public String getAuxiliary() {
+		return auxiliary;
 	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = BtcUtil.notNull(amount);
+	
+	public void setAuxiliary(String auxiliary) {
+		this.auxiliary = BtcUtil.notNull(auxiliary);
 	}
-
-	public long getIndex() {
-		return index;
+	
+	public String getTransaction() {
+		return transaction;
 	}
-
-	public void setIndex(long index) {
-		this.index = index;
+	
+	public void setTransaction(String transaction) {
+		this.transaction = BtcUtil.notNull(transaction);
 	}
-
-	public BtcScript getScriptPublicKey() {
-		return scriptPublicKey;
+	
+	public BigDecimal getValue() {
+		return value;
 	}
-
-	public void setScriptPublicKey(BtcScript scriptPublicKey) {
-		this.scriptPublicKey = BtcUtil.notNull(scriptPublicKey);
+	
+	public void setValue(BigDecimal value) {
+		this.value = BtcUtil.notNull(value);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionOutput [amount=");
-		builder.append(amount);
-		builder.append(", index=");
-		builder.append(index);
-		builder.append(", scriptPublicKey=");
-		builder.append(scriptPublicKey);
+		builder.append("BtcCoinBase [auxiliary=");
+		builder.append(auxiliary);
+		builder.append(", transaction=");
+		builder.append(transaction);
+		builder.append(", value=");
+		builder.append(value);
 		builder.append("]");
 		return builder.toString();
 	}

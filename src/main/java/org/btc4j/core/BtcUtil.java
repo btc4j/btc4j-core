@@ -54,6 +54,14 @@ public class BtcUtil {
 	public static BtcAccount notNull(BtcAccount value) {
 		return (value == null) ? new BtcAccount() : value;
 	}
+	
+	public static BtcBlockTemplate.Mode notNull(BtcBlockTemplate.Mode value) {
+		return (value == null) ? BtcBlockTemplate.Mode.NULL : value;
+	}
+	
+	public static BtcCoinBase notNull(BtcCoinBase value) {
+		return (value == null) ? new BtcCoinBase() : value;
+	}
 
 	public static BtcScript notNull(BtcScript value) {
 		return (value == null) ? new BtcScript() : value;
@@ -68,10 +76,15 @@ public class BtcUtil {
 	}
 
 	public static <T> List<T> notNull(List<T> value) {
+		value.toArray(new String[]{});
 		return (value == null) ? new ArrayList<T>() : value;
 	}
 
 	public static String notNull(String value) {
 		return (value == null) ? "" : value;
+	}
+
+	public static long[] notNull(long[] value) {
+		return (value == null) ? new long[]{} : value;
 	}
 }

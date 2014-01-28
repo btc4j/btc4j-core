@@ -68,7 +68,7 @@ public interface BtcApi {
 
 	public String getBlockHash(long index) throws BtcException;
 
-	public String getBlockTemplate(String params) throws BtcException;
+	public BtcBlockTemplate getBlockTemplate(List<String> capabilities, BtcBlockTemplate.Mode mode) throws BtcException;
 
 	public long getConnectionCount() throws BtcException;
 
@@ -106,7 +106,7 @@ public interface BtcApi {
 	public BtcTransactionOutputSet getTransactionOutputSetInformation()
 			throws BtcException;
 
-	public String getWork(String data) throws BtcException;
+	public BtcWork getWork(String data) throws BtcException;
 
 	public String help(String command) throws BtcException;
 

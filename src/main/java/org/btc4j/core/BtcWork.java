@@ -25,47 +25,68 @@
 package org.btc4j.core;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
-public class BtcTransactionOutput implements Serializable {
-	private static final long serialVersionUID = 2201035711897764084L;
-	private BigDecimal amount = BigDecimal.ZERO;
-	private long index = 0;
-	private BtcScript scriptPublicKey = new BtcScript();
+public class BtcWork implements Serializable{
+	private static final long serialVersionUID = 5010576309297492760L;
+	private String midState = "";
+	private String data = "";
+	private String hash = "";
+	private String target = "";
+	private boolean success = false;
 	
-	public BigDecimal getAmount() {
-		return amount;
+	public String getMidState() {
+		return midState;
+	}
+	
+	public void setMidState(String midState) {
+		this.midState = BtcUtil.notNull(midState);
+	}
+	
+	public String getData() {
+		return data;
+	}
+	
+	public void setData(String data) {
+		this.data = BtcUtil.notNull(data);
+	}
+	
+	public String getHash() {
+		return hash;
+	}
+	
+	public void setHash(String hash) {
+		this.hash = BtcUtil.notNull(hash);
+	}
+	
+	public String getTarget() {
+		return target;
+	}
+	
+	public void setTarget(String target) {
+		this.target = BtcUtil.notNull(target);
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = BtcUtil.notNull(amount);
+	public boolean isSuccess() {
+		return success;
 	}
 
-	public long getIndex() {
-		return index;
-	}
-
-	public void setIndex(long index) {
-		this.index = index;
-	}
-
-	public BtcScript getScriptPublicKey() {
-		return scriptPublicKey;
-	}
-
-	public void setScriptPublicKey(BtcScript scriptPublicKey) {
-		this.scriptPublicKey = BtcUtil.notNull(scriptPublicKey);
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionOutput [amount=");
-		builder.append(amount);
-		builder.append(", index=");
-		builder.append(index);
-		builder.append(", scriptPublicKey=");
-		builder.append(scriptPublicKey);
+		builder.append("BtcWork [midState=");
+		builder.append(midState);
+		builder.append(", data=");
+		builder.append(data);
+		builder.append(", hash=");
+		builder.append(hash);
+		builder.append(", target=");
+		builder.append(target);
+		builder.append(", success=");
+		builder.append(success);
 		builder.append("]");
 		return builder.toString();
 	}

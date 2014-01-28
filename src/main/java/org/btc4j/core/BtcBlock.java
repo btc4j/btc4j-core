@@ -24,25 +24,18 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BtcBlock implements Serializable {
+public class BtcBlock extends BtcBlockBase {
 	private static final long serialVersionUID = -5115242454053420689L;
 	private String hash = "";
 	private long confirmations = 0;
-	private long size = 0;
-	private long height = 0;
-	private long version = 0;
 	private String merkleRoot = "";
 	private List<BtcTransaction> transactions = new ArrayList<BtcTransaction>();
-	private long time = 0;
 	private long nonce = 0;
-	private String bits = "";
 	private BigDecimal difficulty = BigDecimal.ZERO;
-	private String previousBlockHash = "";
 	private String nextBlockHash = "";
 
 	public String getHash() {
@@ -61,30 +54,6 @@ public class BtcBlock implements Serializable {
 		this.confirmations = confirmations;
 	}
 
-	public long getSize() {
-		return size;
-	}
-
-	public void setSize(long size) {
-		this.size = size;
-	}
-
-	public long getHeight() {
-		return height;
-	}
-
-	public void setHeight(long height) {
-		this.height = height;
-	}
-
-	public long getVersion() {
-		return version;
-	}
-
-	public void setVersion(long version) {
-		this.version = version;
-	}
-
 	public String getMerkleRoot() {
 		return merkleRoot;
 	}
@@ -101,14 +70,6 @@ public class BtcBlock implements Serializable {
 		this.transactions = BtcUtil.notNull(transactions);
 	}
 
-	public long getTime() {
-		return time;
-	}
-
-	public void setTime(long time) {
-		this.time = time;
-	}
-
 	public long getNonce() {
 		return nonce;
 	}
@@ -117,28 +78,12 @@ public class BtcBlock implements Serializable {
 		this.nonce = nonce;
 	}
 
-	public String getBits() {
-		return bits;
-	}
-
-	public void setBits(String bits) {
-		this.bits = BtcUtil.notNull(bits);
-	}
-
 	public BigDecimal getDifficulty() {
 		return difficulty;
 	}
 
 	public void setDifficulty(BigDecimal difficulty) {
 		this.difficulty = BtcUtil.notNull(difficulty);
-	}
-
-	public String getPreviousBlockHash() {
-		return previousBlockHash;
-	}
-
-	public void setPreviousBlockHash(String previousBlockHash) {
-		this.previousBlockHash = BtcUtil.notNull(previousBlockHash);
 	}
 
 	public String getNextBlockHash() {
@@ -157,25 +102,25 @@ public class BtcBlock implements Serializable {
 		builder.append(", confirmations=");
 		builder.append(confirmations);
 		builder.append(", size=");
-		builder.append(size);
+		builder.append(getSize());
 		builder.append(", height=");
-		builder.append(height);
+		builder.append(getHeight());
 		builder.append(", version=");
-		builder.append(version);
+		builder.append(getVersion());
 		builder.append(", merkleRoot=");
 		builder.append(merkleRoot);
 		builder.append(", transactions=");
 		builder.append(transactions);
 		builder.append(", time=");
-		builder.append(time);
+		builder.append(getTime());
 		builder.append(", nonce=");
 		builder.append(nonce);
 		builder.append(", bits=");
-		builder.append(bits);
+		builder.append(getBits());
 		builder.append(", difficulty=");
 		builder.append(difficulty);
 		builder.append(", previousBlockHash=");
-		builder.append(previousBlockHash);
+		builder.append(getPreviousBlockHash());
 		builder.append(", nextBlockHash=");
 		builder.append(nextBlockHash);
 		builder.append("]");
