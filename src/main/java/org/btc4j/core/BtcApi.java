@@ -169,7 +169,7 @@ public interface BtcApi {
 
 	public String stop() throws BtcException;
 
-	public void submitBlock(String data, List<Object> params)
+	public BtcBlockSubmission submitBlock(String data, String workId, Map<String, String> params)
 			throws BtcException;
 
 	public BtcAddress validateAddress(String address) throws BtcException;
