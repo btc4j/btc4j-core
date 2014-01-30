@@ -29,13 +29,24 @@ import java.math.BigDecimal;
 
 public class BtcTransactionOutput implements Serializable {
 	private static final long serialVersionUID = 2201035711897764084L;
+	private String transaction = "";
 	private String bestBlock = "";
 	private long confirmations = 0;
-	private BigDecimal amount = BigDecimal.ZERO;
 	private long index = 0;
+	private long output = 0;
 	private BtcScript script = new BtcScript();
 	private long version = 0;
 	private boolean coinbase = false;
+	private BtcTransactionDetail detail = new BtcTransactionDetail();
+	private BigDecimal value = BigDecimal.ZERO;
+
+	public String getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(String transaction) {
+		this.transaction = BtcUtil.notNull(transaction);
+	}
 	
 	public String getBestBlock() {
 		return bestBlock;
@@ -53,20 +64,20 @@ public class BtcTransactionOutput implements Serializable {
 		this.confirmations = confirmations;
 	}	
 	
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = BtcUtil.notNull(amount);
-	}
-
 	public long getIndex() {
 		return index;
 	}
 
 	public void setIndex(long index) {
 		this.index = index;
+	}
+
+	public long getOutput() {
+		return output;
+	}
+
+	public void setOutput(long output) {
+		this.output = output;
 	}
 
 	public BtcScript getScript() {
@@ -93,23 +104,45 @@ public class BtcTransactionOutput implements Serializable {
 		this.coinbase = coinbase;
 	}
 
+	public BtcTransactionDetail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(BtcTransactionDetail detail) {
+		this.detail = BtcUtil.notNull(detail);
+	}
+
+	public BigDecimal getValue() {
+		return value;
+	}
+
+	public void setValue(BigDecimal value) {
+		this.value = BtcUtil.notNull(value);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionOutput [bestBlock=");
+		builder.append("BtcTransactionOutput [transaction=");
+		builder.append(transaction);
+		builder.append(", bestBlock=");
 		builder.append(bestBlock);
 		builder.append(", confirmations=");
 		builder.append(confirmations);
-		builder.append(", amount=");
-		builder.append(amount);
 		builder.append(", index=");
 		builder.append(index);
+		builder.append(", output=");
+		builder.append(output);
 		builder.append(", script=");
 		builder.append(script);
 		builder.append(", version=");
 		builder.append(version);
 		builder.append(", coinbase=");
 		builder.append(coinbase);
+		builder.append(", detail=");
+		builder.append(detail);
+		builder.append(", value=");
+		builder.append(value);
 		builder.append("]");
 		return builder.toString();
 	}

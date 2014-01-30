@@ -133,7 +133,7 @@ public interface BtcApi {
 	public List<BtcTransaction> listTransactions(String account, long count,
 			long from) throws BtcException;
 
-	public List<BtcTransactionInput> listUnspent(long minConfirms, long maxConfirms)
+	public List<BtcTransactionOutput> listUnspent(long minConfirms, long maxConfirms)
 			throws BtcException;
 
 	public void lockUnspent(boolean unlock, List<Object> outputs)

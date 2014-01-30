@@ -32,8 +32,6 @@ public class BtcTransactionInput implements Serializable {
 	private long output = 0;
 	private BtcScript script = new BtcScript();
 	private long sequence = 0;
-	private BtcTransactionDetail detail = new BtcTransactionDetail();
-	private long confirmations = 0;
 
 	public String getTransaction() {
 		return transaction;
@@ -67,22 +65,6 @@ public class BtcTransactionInput implements Serializable {
 		this.sequence = sequence;
 	}
 
-	public BtcTransactionDetail getDetail() {
-		return detail;
-	}
-
-	public void setDetail(BtcTransactionDetail detail) {
-		this.detail = BtcUtil.notNull(detail);
-	}
-
-	public long getConfirmations() {
-		return confirmations;
-	}
-
-	public void setConfirmations(long confirmations) {
-		this.confirmations = confirmations;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -94,10 +76,6 @@ public class BtcTransactionInput implements Serializable {
 		builder.append(script);
 		builder.append(", sequence=");
 		builder.append(sequence);
-		builder.append(", detail=");
-		builder.append(detail);
-		builder.append(", confirmations=");
-		builder.append(confirmations);
 		builder.append("]");
 		return builder.toString();
 	}
