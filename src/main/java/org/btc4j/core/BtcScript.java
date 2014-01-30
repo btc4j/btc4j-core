@@ -31,7 +31,7 @@ import java.util.List;
 public class BtcScript implements Serializable {
 	private static final long serialVersionUID = -6396033986415109507L;
 	private String asm = "";
-	private String hex = "";
+	private String publicKey = "";
 	private long requiredSignatures = 0;
 	private Type type = Type.NULL;
 	private List<String> addresses = new ArrayList<String>();
@@ -56,12 +56,12 @@ public class BtcScript implements Serializable {
 		this.asm = BtcUtil.notNull(asm);
 	}
 
-	public String getHex() {
-		return hex;
+	public String getPublicKey() {
+		return publicKey;
 	}
 
-	public void setHex(String hex) {
-		this.hex = BtcUtil.notNull(hex);
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
 	}
 
 	public long getRequiredSignatures() {
@@ -93,8 +93,8 @@ public class BtcScript implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("BtcScript [asm=");
 		builder.append(asm);
-		builder.append(", hex=");
-		builder.append(hex);
+		builder.append(", publicKey=");
+		builder.append(publicKey);
 		builder.append(", requiredSignatures=");
 		builder.append(requiredSignatures);
 		builder.append(", type=");

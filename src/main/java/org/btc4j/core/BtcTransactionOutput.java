@@ -33,7 +33,7 @@ public class BtcTransactionOutput implements Serializable {
 	private long confirmations = 0;
 	private BigDecimal amount = BigDecimal.ZERO;
 	private long index = 0;
-	private BtcScript scriptPublicKey = new BtcScript();
+	private BtcScript script = new BtcScript();
 	private long version = 0;
 	private boolean coinbase = false;
 	
@@ -69,12 +69,12 @@ public class BtcTransactionOutput implements Serializable {
 		this.index = index;
 	}
 
-	public BtcScript getScriptPublicKey() {
-		return scriptPublicKey;
+	public BtcScript getScript() {
+		return script;
 	}
 
-	public void setScriptPublicKey(BtcScript scriptPublicKey) {
-		this.scriptPublicKey = BtcUtil.notNull(scriptPublicKey);
+	public void setScript(BtcScript script) {
+		this.script = BtcUtil.notNull(script);
 	}
 
 	public long getVersion() {
@@ -104,8 +104,8 @@ public class BtcTransactionOutput implements Serializable {
 		builder.append(amount);
 		builder.append(", index=");
 		builder.append(index);
-		builder.append(", scriptPublicKey=");
-		builder.append(scriptPublicKey);
+		builder.append(", script=");
+		builder.append(script);
 		builder.append(", version=");
 		builder.append(version);
 		builder.append(", coinbase=");

@@ -76,6 +76,10 @@ public class BtcUtil {
 	public static BtcScript.Type notNull(BtcScript.Type value) {
 		return (value == null) ? BtcScript.Type.NULL : value;
 	}
+	
+	public static BtcTransactionDetail notNull(BtcTransactionDetail value) {
+		return (value == null) ? new BtcTransactionDetail() : value;
+	}
 
 	public static BtcTransaction.Category notNull(BtcTransaction.Category value) {
 		return (value == null) ? BtcTransaction.Category.NULL : value;
