@@ -29,18 +29,18 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BtcCoinBase implements Serializable {
+public class BtcCoinbase implements Serializable {
 	private static final long serialVersionUID = 6111752815189496431L;
-	private Map<String, String> auxiliary = new HashMap<String, String>();
+	private Map<String, String> aux = new HashMap<String, String>();
 	private String transaction = "";
 	private BigDecimal value = BigDecimal.ZERO;
 
-	public Map<String, String> getAuxiliary() {
-		return auxiliary;
+	public Map<String, String> getAux() {
+		return aux;
 	}
 	
-	public void setAuxiliary(Map<String, String> auxiliary) {
-		this.auxiliary = BtcUtil.notNull(auxiliary);
+	public void setAux(Map<String, String> aux) {
+		this.aux = BtcUtil.notNull(aux);
 	}
 	
 	public String getTransaction() {
@@ -62,8 +62,8 @@ public class BtcCoinBase implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcCoinBase [auxiliary=");
-		builder.append(auxiliary);
+		builder.append("BtcCoinBase [aux=");
+		builder.append(aux);
 		builder.append(", transaction=");
 		builder.append(transaction);
 		builder.append(", value=");

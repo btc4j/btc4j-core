@@ -29,9 +29,29 @@ import java.math.BigDecimal;
 
 public class BtcTransactionOutput implements Serializable {
 	private static final long serialVersionUID = 2201035711897764084L;
+	private String bestBlock = "";
+	private long confirmations = 0;
 	private BigDecimal amount = BigDecimal.ZERO;
 	private long index = 0;
 	private BtcScript scriptPublicKey = new BtcScript();
+	private long version = 0;
+	private boolean coinbase = false;
+	
+	public String getBestBlock() {
+		return bestBlock;
+	}
+
+	public void setBestBlock(String bestBlock) {
+		this.bestBlock = BtcUtil.notNull(bestBlock);
+	}
+
+	public long getConfirmations() {
+		return confirmations;
+	}
+
+	public void setConfirmations(long confirmations) {
+		this.confirmations = confirmations;
+	}	
 	
 	public BigDecimal getAmount() {
 		return amount;
@@ -57,15 +77,39 @@ public class BtcTransactionOutput implements Serializable {
 		this.scriptPublicKey = BtcUtil.notNull(scriptPublicKey);
 	}
 
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	public boolean isCoinbase() {
+		return coinbase;
+	}
+
+	public void setCoinbase(boolean coinbase) {
+		this.coinbase = coinbase;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionOutput [amount=");
+		builder.append("BtcTransactionOutput [bestBlock=");
+		builder.append(bestBlock);
+		builder.append(", confirmations=");
+		builder.append(confirmations);
+		builder.append(", amount=");
 		builder.append(amount);
 		builder.append(", index=");
 		builder.append(index);
 		builder.append(", scriptPublicKey=");
 		builder.append(scriptPublicKey);
+		builder.append(", version=");
+		builder.append(version);
+		builder.append(", coinbase=");
+		builder.append(coinbase);
 		builder.append("]");
 		return builder.toString();
 	}

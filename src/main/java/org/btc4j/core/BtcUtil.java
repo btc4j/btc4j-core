@@ -65,8 +65,8 @@ public class BtcUtil {
 		return (value == null) ? BtcBlockTemplate.Mode.NULL : value;
 	}
 	
-	public static BtcCoinBase notNull(BtcCoinBase value) {
-		return (value == null) ? new BtcCoinBase() : value;
+	public static BtcCoinbase notNull(BtcCoinbase value) {
+		return (value == null) ? new BtcCoinbase() : value;
 	}
 
 	public static BtcScript notNull(BtcScript value) {

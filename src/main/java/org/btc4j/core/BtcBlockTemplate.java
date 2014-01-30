@@ -33,7 +33,7 @@ public class BtcBlockTemplate extends BtcBlockBase {
 	public static final String PARAM_MODE = "mode";
 	private long signatureOperations = 0;
 	private List<BtcTransactionTemplate> transactions = new ArrayList<BtcTransactionTemplate>();
-	private BtcCoinBase coinBase = new BtcCoinBase();
+	private BtcCoinbase coinbase = new BtcCoinbase();
 	private String workId = "";
 	private String target = "";
 	private long minimumTime = 0;
@@ -80,12 +80,12 @@ public class BtcBlockTemplate extends BtcBlockBase {
 		this.transactions = BtcUtil.notNull(transactions);
 	}
 	
-	public BtcCoinBase getCoinBase() {
-		return coinBase;
+	public BtcCoinbase getCoinbase() {
+		return coinbase;
 	}
 	
-	public void setCoinBase(BtcCoinBase coinBase) {
-		this.coinBase = BtcUtil.notNull(coinBase);
+	public void setCoinbase(BtcCoinbase coinbase) {
+		this.coinbase = BtcUtil.notNull(coinbase);
 	}
 	
 	public String getWorkId() {
@@ -136,7 +136,7 @@ public class BtcBlockTemplate extends BtcBlockBase {
 		builder.append(", transactions=");
 		builder.append(transactions);
 		builder.append(", coinBase=");
-		builder.append(coinBase);
+		builder.append(coinbase);
 		builder.append(", workId=");
 		builder.append(workId);
 		builder.append(", target=");

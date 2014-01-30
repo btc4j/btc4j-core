@@ -100,7 +100,7 @@ public interface BtcApi {
 	public BtcTransaction getTransaction(String transactionId)
 			throws BtcException;
 
-	public String getTransactionOutput(String transactionId, long index,
+	public BtcTransactionOutput getTransactionOutput(String transactionId, long index,
 			boolean includeMemoryPool) throws BtcException;
 
 	public BtcTransactionOutputSet getTransactionOutputSetInformation()
