@@ -32,8 +32,8 @@ public class BtcRawTransaction extends BtcTransactionBase {
 	private String hex = "";
 	private long version = 0;
 	private long lockTime = 0;
-	private List<BtcTransactionInput> inputTransactions = new ArrayList<BtcTransactionInput>();
-	private List<BtcTransactionOutput> outputTransactions = new ArrayList<BtcTransactionOutput>();
+	private List<BtcInput> inputs = new ArrayList<BtcInput>();
+	private List<BtcOutput> outputs = new ArrayList<BtcOutput>();
 
 	public String getHex() {
 		return hex;
@@ -59,21 +59,21 @@ public class BtcRawTransaction extends BtcTransactionBase {
 		this.lockTime = lockTime;
 	}
 
-	public List<BtcTransactionInput> getInputTransactions() {
-		return inputTransactions;
+	public List<BtcInput> getInputs() {
+		return inputs;
 	}
 
-	public void setInputTransactions(List<BtcTransactionInput> inputTransactions) {
-		this.inputTransactions = BtcUtil.notNull(inputTransactions);
+	public void setInputs(List<BtcInput> inputs) {
+		this.inputs = BtcUtil.notNull(inputs);
 	}
 
-	public List<BtcTransactionOutput> getOutputTransactions() {
-		return outputTransactions;
+	public List<BtcOutput> getOutputs() {
+		return outputs;
 	}
 
-	public void setOutputTransactions(
-			List<BtcTransactionOutput> outputTransactions) {
-		this.outputTransactions = BtcUtil.notNull(outputTransactions);
+	public void setOutputs(
+			List<BtcOutput> outputs) {
+		this.outputs = BtcUtil.notNull(outputs);
 	}
 
 	@Override
@@ -85,10 +85,10 @@ public class BtcRawTransaction extends BtcTransactionBase {
 		builder.append(version);
 		builder.append(", lockTime=");
 		builder.append(lockTime);
-		builder.append(", inputTransactions=");
-		builder.append(inputTransactions);
-		builder.append(", outputTransactions=");
-		builder.append(outputTransactions);
+		builder.append(", inputs=");
+		builder.append(inputs);
+		builder.append(", outputs=");
+		builder.append(outputs);
 		builder.append(", getTransaction()=");
 		builder.append(getTransaction());
 		builder.append(", getConfirmations()=");

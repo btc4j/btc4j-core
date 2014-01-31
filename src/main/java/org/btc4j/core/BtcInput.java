@@ -24,30 +24,10 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
-
-public class BtcTransactionInput implements Serializable {
+public class BtcInput extends BtcOutputPart {
 	private static final long serialVersionUID = 8501404760721594831L;
-	private String transaction = "";
-	private long output = 0;
 	private BtcScript script = new BtcScript();
 	private long sequence = 0;
-
-	public String getTransaction() {
-		return transaction;
-	}
-
-	public void setTransaction(String transaction) {
-		this.transaction = BtcUtil.notNull(transaction);
-	}
-
-	public long getOutput() {
-		return output;
-	}
-
-	public void setOutput(long output) {
-		this.output = output;
-	}
 
 	public BtcScript getScript() {
 		return script;
@@ -68,10 +48,10 @@ public class BtcTransactionInput implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionInput [transaction=");
-		builder.append(transaction);
+		builder.append("BtcInput [transaction=");
+		builder.append(getTransaction());
 		builder.append(", output=");
-		builder.append(output);
+		builder.append(getOutput());
 		builder.append(", script=");
 		builder.append(script);
 		builder.append(", sequence=");

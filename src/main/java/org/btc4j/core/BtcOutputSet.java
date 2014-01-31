@@ -27,12 +27,12 @@ package org.btc4j.core;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class BtcTransactionOutputSet implements Serializable {
+public class BtcOutputSet implements Serializable {
 	private static final long serialVersionUID = -4608335658192669893L;
 	private long height = 0;
 	private String bestBlock = "";
 	private long transactions = 0;
-	private long outputTransactions = 0;
+	private long outputs = 0;
 	private long bytesSerialized = 0;
 	private String hashSerialized = "";
 	private BigDecimal totalAmount = BigDecimal.ZERO;
@@ -61,12 +61,12 @@ public class BtcTransactionOutputSet implements Serializable {
 		this.transactions = transactions;
 	}
 
-	public long getOutputTransactions() {
-		return outputTransactions;
+	public long getOutputs() {
+		return outputs;
 	}
 
-	public void setOutputTransactions(long outputTransactions) {
-		this.outputTransactions = outputTransactions;
+	public void setOutputs(long outputs) {
+		this.outputs = outputs;
 	}
 
 	public long getBytesSerialized() {
@@ -96,14 +96,14 @@ public class BtcTransactionOutputSet implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionOutputSet [height=");
+		builder.append("BtcOutputSet [height=");
 		builder.append(height);
 		builder.append(", bestBlock=");
 		builder.append(bestBlock);
 		builder.append(", transactions=");
 		builder.append(transactions);
-		builder.append(", outputTransactions=");
-		builder.append(outputTransactions);
+		builder.append(", outputs=");
+		builder.append(outputs);
 		builder.append(", bytesSerialized=");
 		builder.append(bytesSerialized);
 		builder.append(", hashSerialized=");

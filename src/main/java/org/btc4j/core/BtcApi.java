@@ -41,8 +41,8 @@ public interface BtcApi {
 	public BtcMultiSignatureAddress createMultiSignatureAddress(long required,
 			List<String> keys) throws BtcException;
 
-	public String createRawTransaction(List<Object> transactionIds,
-			List<Object> addresses) throws BtcException;
+	public String createRawTransaction(List<BtcOutputPart> outputs,
+			Map<String, BigDecimal> amounts) throws BtcException;
 
 	public BtcRawTransaction decodeRawTransaction(String hex)
 			throws BtcException;
@@ -100,10 +100,10 @@ public interface BtcApi {
 	public BtcTransaction getTransaction(String transactionId)
 			throws BtcException;
 
-	public BtcTransactionOutput getTransactionOutput(String transactionId, long index,
+	public BtcOutput getTransactionOutput(String transactionId, long index,
 			boolean includeMemoryPool) throws BtcException;
 
-	public BtcTransactionOutputSet getTransactionOutputSetInformation()
+	public BtcOutputSet getTransactionOutputSetInformation()
 			throws BtcException;
 
 	public BtcWork getWork(String data) throws BtcException;
@@ -119,7 +119,7 @@ public interface BtcApi {
 
 	public List<BtcAddress> listAddressGroupings() throws BtcException;
 
-	public List<String> listLockUnspent() throws BtcException;
+	public List<BtcOutput> listLockUnspent() throws BtcException;
 
 	public List<BtcAccount> listReceivedByAccount(long minConfirms,
 			boolean includeEmpty) throws BtcException;
@@ -127,16 +127,16 @@ public interface BtcApi {
 	public List<BtcAddress> listReceivedByAddress(long minConfirms,
 			boolean includeEmpty) throws BtcException;
 
-	public BtcLastBlock listSinceBlock(String blockHash, long targetConfirms)
+	public BtcLastBlock listSinceBlock(String hash, long targetConfirms)
 			throws BtcException;
 
 	public List<BtcTransaction> listTransactions(String account, long count,
 			long from) throws BtcException;
 
-	public List<BtcTransactionOutput> listUnspent(long minConfirms, long maxConfirms)
+	public List<BtcOutput> listUnspent(long minConfirms, long maxConfirms)
 			throws BtcException;
 
-	public void lockUnspent(boolean unlock, List<Object> outputs)
+	public void lockUnspent(boolean unlock, List<BtcOutputPart> outputs)
 			throws BtcException;
 
 	public boolean move(String fromAccount, String toAccount, BigDecimal amount,

@@ -24,30 +24,19 @@
 
 package org.btc4j.core;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class BtcTransactionOutput implements Serializable {
+public class BtcOutput extends BtcOutputPart {
 	private static final long serialVersionUID = 2201035711897764084L;
-	private String transaction = "";
 	private String bestBlock = "";
 	private long confirmations = 0;
 	private long index = 0;
-	private long output = 0;
 	private BtcScript script = new BtcScript();
 	private long version = 0;
 	private boolean coinbase = false;
 	private BtcTransactionDetail detail = new BtcTransactionDetail();
 	private BigDecimal value = BigDecimal.ZERO;
 
-	public String getTransaction() {
-		return transaction;
-	}
-
-	public void setTransaction(String transaction) {
-		this.transaction = BtcUtil.notNull(transaction);
-	}
-	
 	public String getBestBlock() {
 		return bestBlock;
 	}
@@ -70,14 +59,6 @@ public class BtcTransactionOutput implements Serializable {
 
 	public void setIndex(long index) {
 		this.index = index;
-	}
-
-	public long getOutput() {
-		return output;
-	}
-
-	public void setOutput(long output) {
-		this.output = output;
 	}
 
 	public BtcScript getScript() {
@@ -123,8 +104,8 @@ public class BtcTransactionOutput implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionOutput [transaction=");
-		builder.append(transaction);
+		builder.append("BtcOutput [transaction=");
+		builder.append(getTransaction());
 		builder.append(", bestBlock=");
 		builder.append(bestBlock);
 		builder.append(", confirmations=");
@@ -132,7 +113,7 @@ public class BtcTransactionOutput implements Serializable {
 		builder.append(", index=");
 		builder.append(index);
 		builder.append(", output=");
-		builder.append(output);
+		builder.append(getOutput());
 		builder.append(", script=");
 		builder.append(script);
 		builder.append(", version=");
