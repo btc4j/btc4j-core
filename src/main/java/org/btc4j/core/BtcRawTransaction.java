@@ -34,6 +34,19 @@ public class BtcRawTransaction extends BtcTransactionBase {
 	private long lockTime = 0;
 	private List<BtcInput> inputs = new ArrayList<BtcInput>();
 	private List<BtcOutput> outputs = new ArrayList<BtcOutput>();
+	private boolean complete = false;
+
+	public enum SignatureHash {
+		ALL, NONE, SINGLE, ALLANYONECANPAY, NONEANYONECANPAY, SINGLEANYONECANPAY, NULL;
+
+		public static SignatureHash getValue(String value) {
+			try {
+				return SignatureHash.valueOf(value.toUpperCase());
+			} catch (Throwable t) {
+				return NULL;
+			}
+		}
+	}
 
 	public String getHex() {
 		return hex;
@@ -71,9 +84,16 @@ public class BtcRawTransaction extends BtcTransactionBase {
 		return outputs;
 	}
 
-	public void setOutputs(
-			List<BtcOutput> outputs) {
+	public void setOutputs(List<BtcOutput> outputs) {
 		this.outputs = BtcUtil.notNull(outputs);
+	}
+
+	public boolean isComplete() {
+		return complete;
+	}
+
+	public void setComplete(boolean complete) {
+		this.complete = complete;
 	}
 
 	@Override
@@ -99,6 +119,8 @@ public class BtcRawTransaction extends BtcTransactionBase {
 		builder.append(getBlockHash());
 		builder.append(", getBlockTime()=");
 		builder.append(getBlockTime());
+		builder.append(", complete=");
+		builder.append(complete);
 		builder.append("]");
 		return builder.toString();
 	}

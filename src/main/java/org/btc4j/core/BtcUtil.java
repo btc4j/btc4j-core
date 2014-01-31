@@ -31,22 +31,24 @@ import java.util.List;
 import java.util.Map;
 
 public class BtcUtil {
-	
+
 	public static long atLeast(long value, long least) {
 		return (value < least) ? least : value;
 	}
 
 	public static BigDecimal atLeast(BigDecimal value, double least) {
 		BigDecimal floor = BigDecimal.valueOf(least);
-		return (value == null) ? floor : ((value.compareTo(floor) < 0) ? floor : value);
+		return (value == null) ? floor : ((value.compareTo(floor) < 0) ? floor
+				: value);
 	}
 
 	public static long bool(boolean value) {
 		return value ? 1 : 0;
 	}
-	
+
 	public static String nil(String value) {
-		return (value == null) ? null : (((value.length() == 0) || ("null".equalsIgnoreCase(value))) ? null : value);
+		return (value == null) ? null : (((value.length() == 0) || ("null"
+				.equalsIgnoreCase(value))) ? null : value);
 	}
 
 	public static BigDecimal notNull(BigDecimal value) {
@@ -56,15 +58,16 @@ public class BtcUtil {
 	public static BtcAccount notNull(BtcAccount value) {
 		return (value == null) ? new BtcAccount() : value;
 	}
-	
-	public static BtcBlockTemplate.Capability notNull(BtcBlockTemplate.Capability value) {
+
+	public static BtcBlockTemplate.Capability notNull(
+			BtcBlockTemplate.Capability value) {
 		return (value == null) ? BtcBlockTemplate.Capability.NULL : value;
 	}
-	
+
 	public static BtcBlockTemplate.Mode notNull(BtcBlockTemplate.Mode value) {
 		return (value == null) ? BtcBlockTemplate.Mode.NULL : value;
 	}
-	
+
 	public static BtcCoinbase notNull(BtcCoinbase value) {
 		return (value == null) ? new BtcCoinbase() : value;
 	}
@@ -76,7 +79,7 @@ public class BtcUtil {
 	public static BtcScript.Type notNull(BtcScript.Type value) {
 		return (value == null) ? BtcScript.Type.NULL : value;
 	}
-	
+
 	public static BtcTransactionDetail notNull(BtcTransactionDetail value) {
 		return (value == null) ? new BtcTransactionDetail() : value;
 	}
@@ -88,16 +91,17 @@ public class BtcUtil {
 	public static <T> List<T> notNull(List<T> value) {
 		return (value == null) ? new ArrayList<T>() : value;
 	}
-	
+
 	public static <T> Map<String, T> notNull(Map<String, T> value) {
 		return (value == null) ? new HashMap<String, T>() : value;
 	}
 
 	public static String notNull(String value) {
-		return ((value == null) || ("null".equalsIgnoreCase(value))) ? "" : value;
+		return ((value == null) || ("null".equalsIgnoreCase(value))) ? ""
+				: value;
 	}
 
 	public static long[] notNull(long[] value) {
-		return (value == null) ? new long[]{} : value;
+		return (value == null) ? new long[] {} : value;
 	}
 }

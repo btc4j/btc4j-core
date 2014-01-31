@@ -32,7 +32,8 @@ public class BtcOutputPart implements Serializable {
 	public static final String PARAM_OUTPUT = "vout";
 	private String transaction = "";
 	private long output = 0;
-	
+	private BtcScript script = new BtcScript();
+
 	public String getTransaction() {
 		return transaction;
 	}
@@ -40,7 +41,7 @@ public class BtcOutputPart implements Serializable {
 	public void setTransaction(String transaction) {
 		this.transaction = BtcUtil.notNull(transaction);
 	}
-	
+
 	public long getOutput() {
 		return output;
 	}
@@ -49,13 +50,23 @@ public class BtcOutputPart implements Serializable {
 		this.output = output;
 	}
 
+	public BtcScript getScript() {
+		return script;
+	}
+
+	public void setScript(BtcScript script) {
+		this.script = BtcUtil.notNull(script);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BtcTransactionPart [transaction=");
+		builder.append("BtcOutputPart [transaction=");
 		builder.append(transaction);
 		builder.append(", output=");
 		builder.append(output);
+		builder.append(", script=");
+		builder.append(getScript());
 		builder.append("]");
 		return builder.toString();
 	}

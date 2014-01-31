@@ -55,7 +55,7 @@ public class BtcTransaction extends BtcTransactionBase {
 	public void setAmount(BigDecimal amount) {
 		this.amount = BtcUtil.notNull(amount);
 	}
-	
+
 	public BigDecimal getFee() {
 		return fee;
 	}
@@ -63,7 +63,7 @@ public class BtcTransaction extends BtcTransactionBase {
 	public void setFee(BigDecimal fee) {
 		this.fee = BtcUtil.notNull(fee);
 	}
-	
+
 	public List<BtcTransactionDetail> getDetails() {
 		return details;
 	}

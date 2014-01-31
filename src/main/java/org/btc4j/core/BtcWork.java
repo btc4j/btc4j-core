@@ -26,42 +26,42 @@ package org.btc4j.core;
 
 import java.io.Serializable;
 
-public class BtcWork implements Serializable{
+public class BtcWork implements Serializable {
 	private static final long serialVersionUID = 5010576309297492760L;
 	private String midState = "";
 	private String data = "";
 	private String hash = "";
 	private String target = "";
 	private boolean success = false;
-	
+
 	public String getMidState() {
 		return midState;
 	}
-	
+
 	public void setMidState(String midState) {
 		this.midState = BtcUtil.notNull(midState);
 	}
-	
+
 	public String getData() {
 		return data;
 	}
-	
+
 	public void setData(String data) {
 		this.data = BtcUtil.notNull(data);
 	}
-	
+
 	public String getHash() {
 		return hash;
 	}
-	
+
 	public void setHash(String hash) {
 		this.hash = BtcUtil.notNull(hash);
 	}
-	
+
 	public String getTarget() {
 		return target;
 	}
-	
+
 	public void setTarget(String target) {
 		this.target = BtcUtil.notNull(target);
 	}

@@ -42,7 +42,7 @@ public abstract class BtcBlockBase implements Serializable {
 	public void setBits(String bits) {
 		this.bits = BtcUtil.notNull(bits);
 	}
-	
+
 	public long getTime() {
 		return time;
 	}
@@ -50,7 +50,7 @@ public abstract class BtcBlockBase implements Serializable {
 	public void setTime(long time) {
 		this.time = time;
 	}
-	
+
 	public long getHeight() {
 		return height;
 	}
@@ -58,7 +58,7 @@ public abstract class BtcBlockBase implements Serializable {
 	public void setHeight(long height) {
 		this.height = height;
 	}
-	
+
 	public String getPreviousBlockHash() {
 		return previousBlockHash;
 	}

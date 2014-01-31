@@ -38,23 +38,23 @@ public class BtcCoinbase implements Serializable {
 	public Map<String, String> getAux() {
 		return aux;
 	}
-	
+
 	public void setAux(Map<String, String> aux) {
 		this.aux = BtcUtil.notNull(aux);
 	}
-	
+
 	public String getTransaction() {
 		return transaction;
 	}
-	
+
 	public void setTransaction(String transaction) {
 		this.transaction = BtcUtil.notNull(transaction);
 	}
-	
+
 	public BigDecimal getValue() {
 		return value;
 	}
-	
+
 	public void setValue(BigDecimal value) {
 		this.value = BtcUtil.notNull(value);
 	}

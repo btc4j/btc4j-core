@@ -31,7 +31,6 @@ public class BtcOutput extends BtcOutputPart {
 	private String bestBlock = "";
 	private long confirmations = 0;
 	private long index = 0;
-	private BtcScript script = new BtcScript();
 	private long version = 0;
 	private boolean coinbase = false;
 	private BtcTransactionDetail detail = new BtcTransactionDetail();
@@ -51,22 +50,14 @@ public class BtcOutput extends BtcOutputPart {
 
 	public void setConfirmations(long confirmations) {
 		this.confirmations = confirmations;
-	}	
-	
+	}
+
 	public long getIndex() {
 		return index;
 	}
 
 	public void setIndex(long index) {
 		this.index = index;
-	}
-
-	public BtcScript getScript() {
-		return script;
-	}
-
-	public void setScript(BtcScript script) {
-		this.script = BtcUtil.notNull(script);
 	}
 
 	public long getVersion() {
@@ -115,7 +106,7 @@ public class BtcOutput extends BtcOutputPart {
 		builder.append(", output=");
 		builder.append(getOutput());
 		builder.append(", script=");
-		builder.append(script);
+		builder.append(getScript());
 		builder.append(", version=");
 		builder.append(version);
 		builder.append(", coinbase=");

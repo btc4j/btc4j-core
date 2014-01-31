@@ -31,7 +31,7 @@ import java.util.Arrays;
 public class BtcTransactionTemplate implements Serializable {
 	private static final long serialVersionUID = 691792420399697789L;
 	private String data = "";
-	private long[] depends = new long[]{}; 
+	private long[] depends = new long[] {};
 	private BigDecimal fee = BigDecimal.ZERO;
 	private String hash = "";
 	private boolean required = false;
@@ -40,47 +40,47 @@ public class BtcTransactionTemplate implements Serializable {
 	public String getData() {
 		return data;
 	}
-	
+
 	public void setData(String data) {
 		this.data = BtcUtil.notNull(data);
 	}
-	
+
 	public long[] getDepends() {
 		return depends;
 	}
-	
+
 	public void setDepends(long[] depends) {
 		this.depends = BtcUtil.notNull(depends);
 	}
-	
+
 	public BigDecimal getFee() {
 		return fee;
 	}
-	
+
 	public void setFee(BigDecimal fee) {
 		this.fee = BtcUtil.notNull(fee);
 	}
-	
+
 	public String getHash() {
 		return hash;
 	}
-	
+
 	public void setHash(String hash) {
 		this.hash = BtcUtil.notNull(hash);
 	}
-	
+
 	public boolean isRequired() {
 		return required;
 	}
-	
+
 	public void setRequired(boolean required) {
 		this.required = required;
 	}
-	
+
 	public long getSignatureOperations() {
 		return signatureOperations;
 	}
-	
+
 	public void setSignatureOperations(long signatureOperations) {
 		this.signatureOperations = signatureOperations;
 	}

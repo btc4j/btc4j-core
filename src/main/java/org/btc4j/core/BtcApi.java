@@ -68,7 +68,9 @@ public interface BtcApi {
 
 	public String getBlockHash(long index) throws BtcException;
 
-	public BtcBlockTemplate getBlockTemplate(List<BtcBlockTemplate.Capability> capabilities, BtcBlockTemplate.Mode mode) throws BtcException;
+	public BtcBlockTemplate getBlockTemplate(
+			List<BtcBlockTemplate.Capability> capabilities,
+			BtcBlockTemplate.Mode mode) throws BtcException;
 
 	public long getConnectionCount() throws BtcException;
 
@@ -115,7 +117,8 @@ public interface BtcApi {
 
 	public void keyPoolRefill() throws BtcException;
 
-	public Map<String, BtcAccount> listAccounts(long minConfirms) throws BtcException;
+	public Map<String, BtcAccount> listAccounts(long minConfirms)
+			throws BtcException;
 
 	public List<BtcAddress> listAddressGroupings() throws BtcException;
 
@@ -139,18 +142,18 @@ public interface BtcApi {
 	public boolean lockUnspent(boolean unlock, List<BtcOutputPart> outputs)
 			throws BtcException;
 
-	public boolean move(String fromAccount, String toAccount, BigDecimal amount,
-			long minConfirms, String comment) throws BtcException;
-
-	public String sendFrom(String account, String address,
-			BigDecimal amount, long minConfirms, String comment,
-			String commentTo) throws BtcException;
-
-	public String sendMany(String account, Map<String, BigDecimal> amounts,
-			long minConfirms, String comment)
+	public boolean move(String fromAccount, String toAccount,
+			BigDecimal amount, long minConfirms, String comment)
 			throws BtcException;
 
-	public void sendRawTransaction(String transactionId) throws BtcException;
+	public String sendFrom(String account, String address, BigDecimal amount,
+			long minConfirms, String comment, String commentTo)
+			throws BtcException;
+
+	public String sendMany(String account, Map<String, BigDecimal> amounts,
+			long minConfirms, String comment) throws BtcException;
+
+	public String sendRawTransaction(String hex) throws BtcException;
 
 	public String sendToAddress(String address, BigDecimal amount,
 			String comment, String commentTo) throws BtcException;
@@ -162,24 +165,28 @@ public interface BtcApi {
 
 	public boolean setTransactionFee(BigDecimal amount) throws BtcException;
 
-	public String signMessage(String address, String message) throws BtcException;
+	public String signMessage(String address, String message)
+			throws BtcException;
 
-	public void signRawTransaction(String transactionId,
-			List<Object> signatures, List<String> keys) throws BtcException;
+	public void signRawTransaction(String hex, List<BtcOutputPart> outputs,
+			List<String> keys, BtcRawTransaction.SignatureHash signatureHash)
+			throws BtcException;
 
 	public String stop() throws BtcException;
 
-	public BtcBlockSubmission submitBlock(String data, String workId, Map<String, String> params)
-			throws BtcException;
+	public BtcBlockSubmission submitBlock(String data, String workId,
+			Map<String, String> params) throws BtcException;
 
 	public BtcAddress validateAddress(String address) throws BtcException;
 
-	public boolean verifyMessage(String address, String signature, String message)
-			throws BtcException;
-	
+	public boolean verifyMessage(String address, String signature,
+			String message) throws BtcException;
+
 	public void walletLock() throws BtcException;
-	
-	public void walletPassphrase(String passphrase, long timeout) throws BtcException;
-	
-	public void walletPassphraseChange(String passphrase, String newPassphrase) throws BtcException;
+
+	public void walletPassphrase(String passphrase, long timeout)
+			throws BtcException;
+
+	public void walletPassphraseChange(String passphrase, String newPassphrase)
+			throws BtcException;
 }

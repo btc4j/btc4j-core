@@ -33,19 +33,19 @@ public class BtcBlockSubmission implements Serializable {
 	public static final String PARAM_WORK_ID = "workid";
 	private boolean accepted = false;
 	private List<String> reasons = new ArrayList<String>();
-	
+
 	public boolean isAccepted() {
 		return accepted;
 	}
-	
+
 	public void setAccepted(boolean accepted) {
 		this.accepted = accepted;
 	}
-	
+
 	public List<String> getReasons() {
 		return reasons;
 	}
-	
+
 	public void setReasons(List<String> reasons) {
 		this.reasons = BtcUtil.notNull(reasons);
 	}

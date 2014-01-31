@@ -26,16 +26,7 @@ package org.btc4j.core;
 
 public class BtcInput extends BtcOutputPart {
 	private static final long serialVersionUID = 8501404760721594831L;
-	private BtcScript script = new BtcScript();
 	private long sequence = 0;
-
-	public BtcScript getScript() {
-		return script;
-	}
-
-	public void setScript(BtcScript script) {
-		this.script = BtcUtil.notNull(script);
-	}
 
 	public long getSequence() {
 		return sequence;
@@ -53,7 +44,7 @@ public class BtcInput extends BtcOutputPart {
 		builder.append(", output=");
 		builder.append(getOutput());
 		builder.append(", script=");
-		builder.append(script);
+		builder.append(getScript());
 		builder.append(", sequence=");
 		builder.append(sequence);
 		builder.append("]");

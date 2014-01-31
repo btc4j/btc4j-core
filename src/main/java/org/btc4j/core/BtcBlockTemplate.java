@@ -39,7 +39,7 @@ public class BtcBlockTemplate extends BtcBlockBase {
 	private long minimumTime = 0;
 	private List<String> mutable = new ArrayList<String>();
 	private String nonceRange = "";
-	
+
 	public enum Capability {
 		LONGPOLL, COINBASETXN, COINBASEVALUE, PROPOSAL, SERVERLIST, WORKID, NULL;
 
@@ -51,7 +51,7 @@ public class BtcBlockTemplate extends BtcBlockBase {
 			}
 		}
 	}
-	
+
 	public enum Mode {
 		TEMPLATE, PROPOSAL, NULL;
 
@@ -63,35 +63,35 @@ public class BtcBlockTemplate extends BtcBlockBase {
 			}
 		}
 	}
-	
+
 	public long getSignatureOperations() {
 		return signatureOperations;
 	}
-	
+
 	public void setSignatureOperations(long signatureOperations) {
 		this.signatureOperations = signatureOperations;
 	}
-	
+
 	public List<BtcTransactionTemplate> getTransactions() {
 		return transactions;
 	}
-	
+
 	public void setTransactions(List<BtcTransactionTemplate> transactions) {
 		this.transactions = BtcUtil.notNull(transactions);
 	}
-	
+
 	public BtcCoinbase getCoinbase() {
 		return coinbase;
 	}
-	
+
 	public void setCoinbase(BtcCoinbase coinbase) {
 		this.coinbase = BtcUtil.notNull(coinbase);
 	}
-	
+
 	public String getWorkId() {
 		return workId;
 	}
-	
+
 	public void setWorkId(String workId) {
 		this.workId = BtcUtil.notNull(workId);
 	}
