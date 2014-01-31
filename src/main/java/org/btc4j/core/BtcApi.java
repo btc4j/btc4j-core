@@ -119,7 +119,7 @@ public interface BtcApi {
 
 	public List<BtcAddress> listAddressGroupings() throws BtcException;
 
-	public List<BtcOutput> listLockUnspent() throws BtcException;
+	public List<BtcOutputPart> listLockUnspent() throws BtcException;
 
 	public List<BtcAccount> listReceivedByAccount(long minConfirms,
 			boolean includeEmpty) throws BtcException;
@@ -136,7 +136,7 @@ public interface BtcApi {
 	public List<BtcOutput> listUnspent(long minConfirms, long maxConfirms)
 			throws BtcException;
 
-	public void lockUnspent(boolean unlock, List<BtcOutputPart> outputs)
+	public boolean lockUnspent(boolean unlock, List<BtcOutputPart> outputs)
 			throws BtcException;
 
 	public boolean move(String fromAccount, String toAccount, BigDecimal amount,
