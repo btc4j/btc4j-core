@@ -30,6 +30,7 @@ public class BtcOutputPart implements Serializable {
 	private static final long serialVersionUID = -7810901910420735788L;
 	public static final String PARAM_TRANSACTION = "txid";
 	public static final String PARAM_OUTPUT = "vout";
+	public static final String PARAM_SCRIPT = "scriptPubKey";
 	private String transaction = "";
 	private long output = 0;
 	private BtcScript script = new BtcScript();

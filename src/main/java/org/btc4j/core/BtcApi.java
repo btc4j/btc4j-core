@@ -44,7 +44,7 @@ public interface BtcApi {
 	public String createRawTransaction(List<BtcOutputPart> outputs,
 			Map<String, BigDecimal> amounts) throws BtcException;
 
-	public BtcRawTransaction decodeRawTransaction(String hex)
+	public BtcRawTransaction decodeRawTransaction(String encoded)
 			throws BtcException;
 
 	public String dumpPrivateKey(String address) throws BtcException;
@@ -112,7 +112,7 @@ public interface BtcApi {
 
 	public String help(String command) throws BtcException;
 
-	public String importPrivateKey(String privateKey, String label,
+	public void importPrivateKey(String privateKey, String label,
 			boolean rescan) throws BtcException;
 
 	public void keyPoolRefill() throws BtcException;
@@ -153,7 +153,7 @@ public interface BtcApi {
 	public String sendMany(String account, Map<String, BigDecimal> amounts,
 			long minConfirms, String comment) throws BtcException;
 
-	public String sendRawTransaction(String hex) throws BtcException;
+	public BtcTransaction sendRawTransaction(String encoded) throws BtcException;
 
 	public String sendToAddress(String address, BigDecimal amount,
 			String comment, String commentTo) throws BtcException;
@@ -168,7 +168,7 @@ public interface BtcApi {
 	public String signMessage(String address, String message)
 			throws BtcException;
 
-	public void signRawTransaction(String hex, List<BtcOutputPart> outputs,
+	public BtcRawTransaction signRawTransaction(String encoded, List<BtcOutputPart> outputs,
 			List<String> keys, BtcRawTransaction.SignatureHash signatureHash)
 			throws BtcException;
 
