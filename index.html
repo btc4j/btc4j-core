@@ -34,13 +34,13 @@
         <h1>
 <a name="bitcoin-java-core-components" class="anchor" href="#bitcoin-java-core-components"><span class="octicon octicon-link"></span></a>Bitcoin Java Core Components</h1>
 
-<p>Type-safe, open source Java core components and interface definitions of btc4j.</p>
+<p>Open source Java core components and interface definitions of btc4j.</p>
 
 <p>Development build status: <a href="https://travis-ci.org/btc4j/btc4j-core"><img src="https://travis-ci.org/btc4j/btc4j-core.png?branch=master" alt="Build Status"></a></p>
 
 <p>btc4j-core does not use any third party or external libraries.</p>
 
-<p>Development status: Mostly complete for current needs.</p>
+<p>Development status: Currently working on v0.0.4.</p>
 
 <h2>
 <a name="using-btc4j-core" class="anchor" href="#using-btc4j-core"><span class="octicon octicon-link"></span></a>Using btc4j-core</h2>
@@ -52,11 +52,11 @@
 <div class="highlight highlight-xml"><pre><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.btc4j<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>btc4j-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.0.3-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.0.3<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </pre></div>
 
-<p>or, download artifacts directly from <a href="https://github.com/btc4j/btc4j-repo/tree/master/btc4j-core">https://github.com/btc4j/btc4j-repo/tree/master/btc4j-core</a>.</p>
+<p>or, download artifacts directly from <a href="https://github.com/btc4j/btc4j-core/releases">https://github.com/btc4j/btc4j-core/releases</a>.</p>
 
 <p>Core components include API's, model, utils, exceptions, etc:</p>
 
@@ -71,6 +71,71 @@
 <strong>BtcAddressBase</strong>: Abstract bitcoin address</li>
 <li>
 <strong>BtcInfoBase</strong>: Abstract bitcoin information</li>
+</ul><h2>
+<a name="btcapi" class="anchor" href="#btcapi"><span class="octicon octicon-link"></span></a>BtcApi</h2>
+
+<ul>
+<li>addmultisigaddress  &lt;'["key","key"]'&gt; [account]</li>
+<li>addnode </li>
+<li>backupwallet </li>
+<li>createmultisig  &lt;'["key","key"]'&gt;</li>
+<li>createrawtransaction [{"txid":txid,"vout":n},...] {address:amount,...}</li>
+<li>decoderawtransaction </li>
+<li>dumpprivkey </li>
+<li>getaccount </li>
+<li>getaccountaddress </li>
+<li>getaddednodeinfo  [node]</li>
+<li>getaddressesbyaccount </li>
+<li>getbalance [account] [minconf=1]</li>
+<li>getblock </li>
+<li>getblockcount</li>
+<li>getblockhash </li>
+<li>getblocktemplate [params]</li>
+<li>getconnectioncount</li>
+<li>getdifficulty</li>
+<li>getgenerate</li>
+<li>gethashespersec</li>
+<li>getinfo</li>
+<li>getmininginfo</li>
+<li>getnewaddress [account]</li>
+<li>getpeerinfo</li>
+<li>getrawmempool</li>
+<li>getrawtransaction  [verbose=0]</li>
+<li>getreceivedbyaccount  [minconf=1]</li>
+<li>getreceivedbyaddress  [minconf=1]</li>
+<li>gettransaction </li>
+<li>gettxout  [includemempool=true]</li>
+<li>gettxoutsetinfo</li>
+<li>getwork [data]</li>
+<li>help [command]</li>
+<li>importprivkey  [label] [rescan=true]</li>
+<li>keypoolrefill</li>
+<li>listaccounts [minconf=1]</li>
+<li>listaddressgroupings</li>
+<li>listlockunspent</li>
+<li>listreceivedbyaccount [minconf=1] [includeempty=false]</li>
+<li>listreceivedbyaddress [minconf=1] [includeempty=false]</li>
+<li>listsinceblock [blockhash] [target-confirmations]</li>
+<li>listtransactions [account] [count=10] [from=0]</li>
+<li>listunspent [minconf=1] [maxconf=9999999]  ["address",...]</li>
+<li>lockunspent unlock? [array-of-Objects]</li>
+<li>move  [minconf=1] [comment]</li>
+<li>sendfrom  [minconf=1] [comment] [comment-to]</li>
+<li>sendmany  {address:amount,...} [minconf=1] [comment]</li>
+<li>sendrawtransaction </li>
+<li>sendtoaddress  [comment] [comment-to]</li>
+<li>setaccount </li>
+<li>setgenerate  [genproclimit]</li>
+<li>settxfee </li>
+<li>signmessage </li>
+<li>signrawtransaction  [{"txid":txid,"vout":n,"scriptPubKey":hex,"redeemScript":hex},...] [,...] [sighashtype="ALL"]</li>
+<li>stop</li>
+<li>submitblock  [optional-params-obj]</li>
+<li>validateaddress </li>
+<li>verifymessage </li>
+<li>walletlock</li>
+<li>walletpassphrase </li>
+<li>walletpassphrasechange </li>
 </ul><h2>
 <a name="issues" class="anchor" href="#issues"><span class="octicon octicon-link"></span></a>Issues</h2>
 
