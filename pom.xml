@@ -33,9 +33,10 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:git@github.com:btc4j/btc4j-core.git/</connection>
-		<developerConnection>scm:git:git@github.com:btc4j/btc4j-core.git</developerConnection>
+		<connection>scm:git:ssh://git@github.com/btc4j/btc4j-core.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/btc4j/btc4j-core.git</developerConnection>
 		<url>https://github.com/btc4j/btc4j-core</url>
+		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>GitHub</system>
